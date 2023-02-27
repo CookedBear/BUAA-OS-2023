@@ -6,12 +6,12 @@ int main() {
 	int pp = 0;
 	scanf("%d", &n);
 	nn = n;
-	while (n > 0) {
+	while (n != 0) {
 		p = n % 10;
 		n /= 10;
 		pp = (pp * 10) + p;
 	}
-	if (pp = nn) {
+	if (pp == nn) {
 		printf("Y\n");
 	} else {
 		printf("N\n");
