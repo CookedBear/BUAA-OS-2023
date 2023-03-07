@@ -37,25 +37,26 @@ void vprintfmt(fmt_callback_t out, void *data, const char *fmt, va_list ap) {
 		padc = ' ';
 		/* check format flag */
 		/* Exercise 1.4: Your code here. (5/8) */
-		c = *(unsigned char *)fmt++;
+		c = *(char *)fmt;
 		if(c == '-') {
 			ladjust = 1;
-			c = *(char *)fmt++;
+			c = *(char *)++fmt;
 		}
 		if (c == '0') {
 			padc = '0';
-			c = *(char *)fmt++;
+			c = *(char *)++fmt;
 		}
 		/* get width */
 		/* Exercise 1.4: Your code here. (6/8) */
 		while ((c >= '0' && c <= '9')) {
 			width = 10 * width + c - '0';
-			c = *(char *)fmt++;
+			c = *(char *)++fmt;
 		}
 		/* check for long */
 		/* Exercise 1.4: Your code here. (7/8) */
 		if (c == 'l') {
 			long_flag = 1;
+			c = *(char *)++fmt;
 		}
 		neg_flag = 0;
 		switch (*fmt) {
@@ -70,12 +71,6 @@ void vprintfmt(fmt_callback_t out, void *data, const char *fmt, va_list ap) {
 
 		case 'd':
 		case 'D':
-			if (long_flag) {
-				num = va_arg(ap, long int);
-			} else {
-				num = va_arg(ap, int);
-			}
-
 			/*
 			 * Refer to other parts (case 'b', case 'o', etc.) and func 'print_num' to
 			 * complete this part. Think the differences between case 'd' and the
@@ -91,7 +86,7 @@ void vprintfmt(fmt_callback_t out, void *data, const char *fmt, va_list ap) {
 				neg_flag = 1;
 				num = -num;
 			}
-			print_num(out, data, num, 10, 0, width, ladjust, padc, 0);
+			print_num(out, data, num, 10, neg_flag, width, ladjust, padc, 0);
 			break;
 
 		case 'o':
