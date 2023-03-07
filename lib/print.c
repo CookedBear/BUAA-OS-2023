@@ -37,7 +37,7 @@ void vprintfmt(fmt_callback_t out, void *data, const char *fmt, va_list ap) {
 		padc = ' ';
 		/* check format flag */
 		/* Exercise 1.4: Your code here. (5/8) */
-		c = *(char *)fmt++;
+		c = *(unsigned char *)fmt++;
 		if(c == '-') {
 			ladjust = 1;
 			c = *(char *)fmt++;
