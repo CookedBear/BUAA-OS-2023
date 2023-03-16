@@ -95,14 +95,13 @@ void page_init(void) {
   freemem = ROUND(freemem, BY2PG);
   /* Step 3: Mark all memory below `freemem` as used (set `pp_ref` to 1) */
   /* Exercise 2.3: Your code here. (3/4) */
-  struct Page *p = pages;
+  // struct Page *p = pages;
   int i;
   for (i = 0; i < PPN(PADDR(freemem)); i++) {
     pages[i].pp_ref = 1;
   }
   /* Step 4: Mark the other memory as free. */
   /* Exercise 2.3: Your code here. (4/4) */
-  printk("/n%d/n", PPN(p));
   for (; i < npage; i++) {
     pages[i].pp_ref = 0;
     LIST_INSERT_HEAD(&page_free_list, (pages + i), pp_link);
@@ -178,17 +177,35 @@ static int pgdir_walk(Pde *pgdir, u_long va, int create, Pte **ppte) {
 
   /* Step 1: Get the corresponding page directory entry. */
   /* Exercise 2.6: Your code here. (1/3) */
-
+  pgdir_entryp = pgdir + PDX(va);
   /* Step 2: If the corresponding page table is not existent (valid) and
    * parameter `create` is set, create one. Set the permission bits 'PTE_D |
-   * PTE_V' for this new page in the page directory. If failed to allocate a new
-   * page (out of memory), return the error. */
+   * PTE_V' for this new page in the page directory. If failed to allocate a
+   * new page (out of memory), return the error. */
   /* Exercise 2.6: Your code here. (2/3) */
-
+  if ((*pgdir_entryp & PTE_V) == 0) { // not existent
+    if (create) {
+      if (-E_NO_MEM == page_alloc(&pp)) {
+        return -E_NO_MEM;
+      }
+      pp->pp_ref++;
+      *pgdir_entryp = page2pa(pp) | PTE_V | PTE_D;
+      // printk("nohere");
+      //  return 0;
+    } else {
+      // printk("here?");
+      *ppte = NULL;
+      return 0;
+    }
+  }
   /* Step 3: Assign the kernel virtual address of the page table entry to
    * '*ppte'. */
   /* Exercise 2.6: Your code here. (3/3) */
-
+  // Pte *pte_location = (Pte *)(*pgdir_entryp >> 12 << 12) + PTX(va); //
+  // physical
+  Pte *pte_location = (Pte *)(KADDR(PTE_ADDR(*pgdir_entryp))) +
+                      PTX(va); // get pte physical address
+  *ppte = (pte_location);
   return 0;
 }
 
@@ -220,18 +237,24 @@ int page_insert(Pde *pgdir, u_int asid, struct Page *pp, u_long va,
       return 0;
     }
   }
-
   /* Step 2: Flush TLB with 'tlb_invalidate'. */
   /* Exercise 2.7: Your code here. (1/3) */
-
+  tlb_invalidate(asid, va);
   /* Step 3: Re-get or create the page table entry. */
   /* If failed to create, return the error. */
   /* Exercise 2.7: Your code here. (2/3) */
-
+  int temp = pgdir_walk(pgdir, va, 1, &pte);
+  if (-E_NO_MEM == temp) {
+    return -E_NO_MEM;
+  }
   /* Step 4: Insert the page to the page table entry with 'perm | PTE_V' and
    * increase its 'pp_ref'. */
   /* Exercise 2.7: Your code here. (3/3) */
 
+  *pte = page2pa(pp) | perm | PTE_V;
+  // printk("%d", page2pa(pp) | perm | PTE_V);
+  // printk("wuwu");
+  pp->pp_ref++;
   return 0;
 }
 
