@@ -83,8 +83,9 @@ void vprintfmt(fmt_callback_t out, void *data, const char *fmt, va_list ap) {
       /* Exercise 1.4: Your code here. (8/8) */
       if (long_flag) {
         num = va_arg(ap, long int);
-        if ((num >> 63) == 1) {
+        if ((int)(num >> 63) & 1) {
           neg_flag = 1;
+          num = -num;
         } else {
           neg_flag = 0;
         }
@@ -92,6 +93,7 @@ void vprintfmt(fmt_callback_t out, void *data, const char *fmt, va_list ap) {
         num = va_arg(ap, int);
         if (num < 0) {
           neg_flag = 1;
+          num = -num;
         } else {
           neg_flag = 0;
         }

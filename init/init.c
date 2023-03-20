@@ -14,7 +14,7 @@
 void mips_init() {
   int i1 = 1;
   int i2 = -1;
-  long l1 = 2147493648;
+  long l1 = -1;
   long l2 = 1222222222;
   printk("init.c:\tmips_init() is called\n");
   printk("you have %05R\n", i1, i2);
@@ -22,7 +22,7 @@ void mips_init() {
   printk("you have %05lR\n", l1, l2);
   printk("you have %-5lR\n", l1, l2);
   printk("you have %lR\n", l1, l2);
-  printk("%d", l1);
+  printk("%ld", l1);
 
   // lab2:
   // mips_detect_memory();
