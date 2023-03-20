@@ -12,7 +12,7 @@ int sprintf(char *buf, const char *fmt, ...) {
   vprintfmt(outputbuf, &buf, fmt, ap);
   va_end(ap);
 
-  return (int)(buf - place);
+  return (int)(buf - place - 1);
 }
 void outputbuf(void **data, const char *buf, size_t len) {
   for (int i = 0; i < len; i++) {
