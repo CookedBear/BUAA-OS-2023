@@ -90,7 +90,7 @@ void vprintfmt(fmt_callback_t out, void *data, const char *fmt, va_list ap) {
         }
       } else {
         num = va_arg(ap, int);
-        if ((num >> 31) && 1 == 1) {
+        if ((num >> 31) & 1 == 1) {
           neg_flag = 1;
         } else {
           neg_flag = 0;
@@ -130,14 +130,14 @@ void vprintfmt(fmt_callback_t out, void *data, const char *fmt, va_list ap) {
       } else {
         l1 = va_arg(ap, int);
         l2 = va_arg(ap, int);
-        if ((l1 >> 31) && 1 == 1) {
+        if ((l1 >> 31) & 1 == 1) {
           neg_flag1 = 1;
           l1 = -l1;
         } else {
           neg_flag1 = 0;
         }
 
-        if ((l2 >> 31) && 1 == 1) {
+        if ((l2 >> 31) & 1 == 1) {
           neg_flag2 = 1;
           l2 = -l2;
         } else {
