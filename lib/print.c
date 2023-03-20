@@ -83,13 +83,20 @@ void vprintfmt(fmt_callback_t out, void *data, const char *fmt, va_list ap) {
       /* Exercise 1.4: Your code here. (8/8) */
       if (long_flag) {
         num = va_arg(ap, long int);
+        if ((num >> 63) == 1) {
+          neg_flag = 1;
+        } else {
+          neg_flag = 0;
+        }
       } else {
         num = va_arg(ap, int);
+        if ((num >> 31) && 1 == 1) {
+          neg_flag = 1;
+        } else {
+          neg_flag = 0;
+        }
       }
-      if (num < 0) {
-        neg_flag = 1;
-        num = -num;
-      }
+
       print_num(out, data, num, 10, neg_flag, width, ladjust, padc, 0);
       break;
     case 'R':
@@ -99,16 +106,17 @@ void vprintfmt(fmt_callback_t out, void *data, const char *fmt, va_list ap) {
       c3 = ')';
       int neg_flag1, neg_flag2;
       if (long_flag) {
+
         l1 = va_arg(ap, long int);
         l2 = va_arg(ap, long int);
-        if (l1 < 0) {
+        if ((l1 >> 63) == 1) {
           neg_flag1 = 1;
           l1 = -l1;
         } else {
           neg_flag1 = 0;
         }
 
-        if (l2 < 0) {
+        if ((l2 >> 63) == 1) {
           neg_flag2 = 1;
           l2 = -l2;
         } else {
@@ -120,25 +128,25 @@ void vprintfmt(fmt_callback_t out, void *data, const char *fmt, va_list ap) {
         print_num(out, data, l2, 10, neg_flag2, width, ladjust, padc, 0);
         print_char(out, data, c3, 1, ladjust);
       } else {
-        i1 = va_arg(ap, int);
-        i2 = va_arg(ap, int);
-        if (i1 < 0) {
+        l1 = va_arg(ap, int);
+        l2 = va_arg(ap, int);
+        if ((l1 >> 31) && 1 == 1) {
           neg_flag1 = 1;
-          i1 = -i1;
+          l1 = -l1;
         } else {
           neg_flag1 = 0;
         }
 
-        if (i2 < 0) {
+        if ((l2 >> 31) && 1 == 1) {
           neg_flag2 = 1;
-          i2 = -l2;
+          l2 = -l2;
         } else {
           neg_flag2 = 0;
         }
         print_char(out, data, c1, 1, ladjust);
-        print_num(out, data, i1, 10, neg_flag1, width, ladjust, padc, 0);
+        print_num(out, data, l1, 10, neg_flag1, width, ladjust, padc, 0);
         print_char(out, data, c2, 1, ladjust);
-        print_num(out, data, i2, 10, neg_flag2, width, ladjust, padc, 0);
+        print_num(out, data, l2, 10, neg_flag2, width, ladjust, padc, 0);
         print_char(out, data, c3, 1, ladjust);
       }
       break;
