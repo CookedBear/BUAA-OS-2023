@@ -109,14 +109,14 @@ void vprintfmt(fmt_callback_t out, void *data, const char *fmt, va_list ap) {
 
         l1 = va_arg(ap, long int);
         l2 = va_arg(ap, long int);
-        if ((l1 >> 63) == 1) {
+        if ((int)(l1 >> 63) & 1) {
           neg_flag1 = 1;
           l1 = -l1;
         } else {
           neg_flag1 = 0;
         }
 
-        if ((l2 >> 63) == 1) {
+        if ((int)(l2 >> 63) & 1) {
           neg_flag2 = 1;
           l2 = -l2;
         } else {
@@ -128,26 +128,26 @@ void vprintfmt(fmt_callback_t out, void *data, const char *fmt, va_list ap) {
         print_num(out, data, l2, 10, neg_flag2, width, ladjust, padc, 0);
         print_char(out, data, c3, 1, ladjust);
       } else {
-        l1 = va_arg(ap, int);
-        l2 = va_arg(ap, int);
-        if (l1 < 0) {
+        i1 = va_arg(ap, int);
+        i2 = va_arg(ap, int);
+        if (i1 < 0) {
 
           neg_flag1 = 1;
-          l1 = -l1;
+          i1 = -i1;
         } else {
           neg_flag1 = 0;
         }
 
-        if (l2 < 0) {
+        if (i2 < 0) {
           neg_flag2 = 1;
-          l2 = -l2;
+          i2 = -i2;
         } else {
           neg_flag2 = 0;
         }
         print_char(out, data, c1, 1, ladjust);
-        print_num(out, data, l1, 10, neg_flag1, width, ladjust, padc, 0);
+        print_num(out, data, i1, 10, neg_flag1, width, ladjust, padc, 0);
         print_char(out, data, c2, 1, ladjust);
-        print_num(out, data, l2, 10, neg_flag2, width, ladjust, padc, 0);
+        print_num(out, data, i2, 10, neg_flag2, width, ladjust, padc, 0);
         print_char(out, data, c3, 1, ladjust);
       }
       break;
