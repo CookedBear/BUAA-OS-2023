@@ -83,23 +83,24 @@ void vprintfmt(fmt_callback_t out, void *data, const char *fmt, va_list ap) {
       /* Exercise 1.4: Your code here. (8/8) */
       if (long_flag) {
         num = va_arg(ap, long int);
-        if ((int)(num >> 63) & 1) {
-          neg_flag = 1;
-          num = -num;
-        } else {
-          neg_flag = 0;
-        }
-      } else {
-        num = va_arg(ap, int);
         if (num < 0) {
           neg_flag = 1;
           num = -num;
         } else {
           neg_flag = 0;
         }
+        print_num(out, data, num, 10, neg_flag, width, ladjust, padc, 0);
+      } else {
+        int snum = va_arg(ap, int);
+        if (snum < 0) {
+          neg_flag = 1;
+          snum = -snum;
+        } else {
+          neg_flag = 0;
+        }
+        print_num(out, data, snum, 10, neg_flag, width, ladjust, padc, 0);
       }
 
-      print_num(out, data, num, 10, neg_flag, width, ladjust, padc, 0);
       break;
     case 'R':
 
@@ -111,14 +112,14 @@ void vprintfmt(fmt_callback_t out, void *data, const char *fmt, va_list ap) {
 
         l1 = va_arg(ap, long int);
         l2 = va_arg(ap, long int);
-        if ((int)(l1 >> 63) & 1) {
+        if (l1 < 0) {
           neg_flag1 = 1;
           l1 = -l1;
         } else {
           neg_flag1 = 0;
         }
 
-        if ((int)(l2 >> 63) & 1) {
+        if (l2 < 0) {
           neg_flag2 = 1;
           l2 = -l2;
         } else {

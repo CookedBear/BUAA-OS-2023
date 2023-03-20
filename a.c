@@ -2,6 +2,6 @@
 
 int main() {
   long l1 = -1;
-  printf("%d", (int)(l1 >> 63) && 1);
+  printf("%d", l1 < 0);
   return 0;
 }

@@ -23,6 +23,7 @@ void mips_init() {
   printk("you have %-5lR\n", l1, l2);
   printk("you have %lR\n", l1, l2);
   printk("%ld", l1);
+  printk("%d", i2);
 
   // lab2:
   // mips_detect_memory();
