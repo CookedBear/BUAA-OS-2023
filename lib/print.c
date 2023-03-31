@@ -70,24 +70,35 @@ void vprintfmt(fmt_callback_t out, void *data, const char *fmt, va_list ap) {
 			break;
 
 		case 'd':
-		case 'D':
-			/*
-			 * Refer to other parts (case 'b', case 'o', etc.) and func 'print_num' to
-			 * complete this part. Think the differences between case 'd' and the
-			 * others. (hint: 'neg_flag').
-			 */
-			/* Exercise 1.4: Your code here. (8/8) */
-			if (long_flag) {
-				num = va_arg(ap, long int);
-			} else {
-				num = va_arg(ap, int);
-			}
+    	case 'D':
+		/*
+		* Refer to other parts (case 'b', case 'o', etc.) and func 'print_num' to
+		* complete this part. Think the differences between case 'd' and the
+		* others. (hint: 'neg_flag').
+		*/
+		/* Exercise 1.4: Your code here. (8/8) */
+		if (long_flag) {
+			num = va_arg(ap, long int);
 			if (num < 0) {
-				neg_flag = 1;
-				num = -num;
+			neg_flag = 1;
+			num = -num;
+			} else {
+			neg_flag = 0;
 			}
 			print_num(out, data, num, 10, neg_flag, width, ladjust, padc, 0);
-			break;
+		} else {
+			int snum = va_arg(ap, int);
+			if (snum < 0) {
+			neg_flag = 1;
+			snum = -snum;
+			} else {
+			neg_flag = 0;
+			}
+			print_num(out, data, snum, 10, neg_flag, width, ladjust, padc, 0);
+		}
+
+		break;
+
 
 		case 'o':
 		case 'O':
