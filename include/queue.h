@@ -114,13 +114,13 @@
  * assign 'elm.pre' from a proper value.
  */
 #define LIST_INSERT_AFTER(listelm, elm, field)                                 \
-  /* Exercise 2.2: Your code here. */                                          \
-    if (((elm)->field.le_next = (listelm)->field.le_next) != NULL)          \
-        (listelm)->field.le_next->field.le_prev =                           \
-            &((elm)->field.le_next);                                        \
-    (listelm)->field.le_next = (elm);                                       \
-    (elm)->field.le_prev = &(listelm)->field.le_next;                       \
-} while (0)
+  do {                                                                         \
+    /* Exercise 2.2: Your code here. */                                        \
+    if (((elm)->field.le_next = (listelm)->field.le_next) != NULL)             \
+      (listelm)->field.le_next->field.le_prev = &((elm)->field.le_next);       \
+    (listelm)->field.le_next = (elm);                                          \
+    (elm)->field.le_prev = &(listelm)->field.le_next;                          \
+  } while (0)
 /*
  * Insert the element "elm" *before* the element "listelm" which is
  * already in the list.  The "field" name is the link element
