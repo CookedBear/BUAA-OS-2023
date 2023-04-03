@@ -7,7 +7,7 @@ void test_perm_stat() {
   assert(page_alloc(&p) == 0);
   Pde *pgdir = (Pde *)page2kva(p);
   u_int va[4] = {UTEXT, UTEXT + BY2PG, UTEXT + 1024 * BY2PG,
-                 UTEXT + 300005 * BY2PG};
+                 UTEXT + 3000005 * BY2PG};
   u_int perm[4] = {PTE_V | PTE_D, PTE_V | PTE_D | PTE_G, PTE_V | PTE_D | PTE_G,
                    PTE_D};
   struct Page *pp;
@@ -17,9 +17,10 @@ void test_perm_stat() {
   assert(page_insert(pgdir, 0, pp, va[1], perm[1]) == 0);
   assert(page_insert(pgdir, 0, pp, va[2], perm[2]) == 0);
   assert(page_insert(pgdir, 0, pp, va[3], perm[3]) == 0);
+  // page_remove(pgdir, 1, va[3]);
   int r = page_perm_stat(pgdir, pp, PTE_D);
   printk("%d\n", r);
-  assert(r == 3);
+  assert(r == 4);
   printk("test_perm_stat succeeded!\n");
 }
 

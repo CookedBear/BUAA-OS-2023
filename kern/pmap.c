@@ -126,7 +126,16 @@ u_int page_perm_stat(Pde *pgdir, struct Page *pp, u_int perm_mask) {
           if ((((perm >> 8) & 1) >= ((perm_mask >> 8) & 1)) &&
               (((perm >> 9) & 1) >= ((perm_mask >> 9) & 1)) &&
               (((perm >> 10) & 1) >= ((perm_mask >> 10) & 1)) &&
-              (((perm >> 11) & 1) >= ((perm_mask >> 11) & 1))) {
+              (((perm >> 11) & 1) >= ((perm_mask >> 11) & 1)) &&
+              (((perm >> 11) & 1) >= ((perm_mask >> 11) & 1)) &&
+              (((perm >> 7) & 1) >= ((perm_mask >> 7) & 1)) &&
+              (((perm >> 6) & 1) >= ((perm_mask >> 6) & 1)) &&
+              (((perm >> 5) & 1) >= ((perm_mask >> 5) & 1)) &&
+              (((perm >> 4) & 1) >= ((perm_mask >> 4) & 1)) &&
+              (((perm >> 3) & 1) >= ((perm_mask >> 3) & 1)) &&
+              (((perm >> 2) & 1) >= ((perm_mask >> 2) & 1)) &&
+              (((perm >> 1) & 1) >= ((perm_mask >> 1) & 1)) &&
+              (((perm)&1) >= ((perm_mask)&1))) {
             count++;
           }
         }
