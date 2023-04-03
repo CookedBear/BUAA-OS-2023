@@ -121,7 +121,7 @@ u_int page_perm_stat(Pde *pgdir, struct Page *pp, u_int perm_mask) {
       for (int j = 0; j < 1024; ++j) {
         pte = pte_base + j;
         if ((pte != 0) && ((*pte & PTE_V) != 0) && ((pp) == pa2page(*pte))) {
-          u_int perm = (*pte) & 3840;
+          u_int perm = (*pte) & 0xfff;
           // printk("%d %d\n", perm, perm_mask);
           if ((((perm >> 8) & 1) >= ((perm_mask >> 8) & 1)) &&
               (((perm >> 9) & 1) >= ((perm_mask >> 9) & 1)) &&
