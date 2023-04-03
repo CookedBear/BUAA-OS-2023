@@ -84,7 +84,7 @@ static void swap_test() {
     strcpy(kuseg(va), s[i]);
   }
   printk("1x Page Used\n");
-  printk("%d", SWAP_NPAGE);
+  // printk("%d", SWAP_NPAGE);
 
   // Test ReMap Pages
   for (int i = SWAP_NPAGE; i < 2 * SWAP_NPAGE; i++) {
@@ -100,6 +100,9 @@ static void swap_test() {
   for (int i = 0; i < 2 * SWAP_NPAGE; i++) {
     u_long va = TEST_VA_START + i * BY2PG;
     ensure(strcmp(kuseg(va), s[i]) == 0, "Content[%d] Wrong!", i);
+    if (strcmp(kuseg(va), s[i]) != 0) {
+      printk("%d\n", i);
+    }
   }
 
   printk("Congratulation!\n\n");

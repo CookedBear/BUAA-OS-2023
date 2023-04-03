@@ -547,9 +547,9 @@ struct Page *swap_alloc(Pde *pgdir, u_int asid) {
   // Step 1: Ensure free page
   if (LIST_EMPTY(&page_free_swapable_list)) {
     /* Your Code Here (1/3) */
-    int pagecnt = asid % 9;
+    int pagecnt = asid % 16;
     struct Page *pp = pa2page(0x3900000) + pagecnt;
-    u_char *da = disk_alloc();
+    u_long da = disk_alloc();
 
     Pde *pgdirr;
     Pte *ptebase;
@@ -561,19 +561,21 @@ struct Page *swap_alloc(Pde *pgdir, u_int asid) {
         ptebase = (Pte *)KADDR(PTE_ADDR(*pgdirr));
         for (int j = 0; j < 1024; j++) {
           ptdir = ptebase + j;
-          if ((ptdir != 0) && (*ptdir & PTE_V) && (*ptdir >> 12) == ppn) {
+          if ((ptdir != 0) && (*ptdir & PTE_V) && PPN(*ptdir) == ppn) {
             *ptdir = *ptdir & (~PTE_V);
             *ptdir = *ptdir | PTE_SWP;
             u_long pagenum = (u_long)da / BY2PG;
-            *ptdir = (pagenum << 12) | (*ptdir & 0xfff);
+            *ptdir = da | (*ptdir & 0xfff);
             // memcpy(da, (const void *)page2kva(pp), BY2PG);
-            tlb_invalidate(asid, (i << 22) + (j << 12));
+            tlb_invalidate(asid,
+                           (u_long)(i << PDSHIFT) + (u_long)(j << PGSHIFT));
           }
         }
       }
     }
     memcpy(da, (const void *)page2kva(pp), BY2PG);
     LIST_INSERT_HEAD(&page_free_swapable_list, pp, pp_link);
+    // return pp;
   }
 
   // Step 2: Get a free page and clear it
@@ -601,8 +603,8 @@ static void swap(Pde *pgdir, u_int asid, u_long va) {
   struct Page *pp = swap_alloc(pgdir, asid);
   Pte *ptte;
   pgdir_walk(pgdir, va, 0, &ptte);
-  int pagenum = *ptte >> 12;
-  memcpy((void *)page2kva(pp), (const void *)(pagenum << 12), BY2PG);
+  u_long da = PTE_ADDR(*ptte);
+  memcpy((void *)page2kva(pp), (const void *)da, BY2PG);
   Pde *pde = pgdir;
   Pte *pte;
   Pte *ptebase;
@@ -614,17 +616,17 @@ static void swap(Pde *pgdir, u_int asid, u_long va) {
       for (int j = 0; j < 1024; j++) {
         pte = ptebase + j;
         if ((pte != 0) && (*pte & PTE_SWP) && ~(*pte & PTE_V)) {
-          if ((*pte >> 12) == pagenum) {
+          if (PTE_ADDR(*pte) == da) {
             *pte = *pte | PTE_V;
             *pte = *pte & ~(PTE_SWP);
-            *pte = (u_long)(page2pa(pp)) & (*pte & 0xfff);
-            tlb_invalidate(asid, (i << 22) + (j << 12));
+            *pte = (Pte)(page2pa(pp)) | (*pte & 0xfff);
+            tlb_invalidate(asid, (u_long)(i << 22) + (u_long)(j << 12));
           }
         }
       }
     }
   }
-  disk_free((u_char *)(pagenum << 12));
+  disk_free((u_char *)da);
   // tlb_invalidate(asid, va);
 }
 
