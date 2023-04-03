@@ -108,6 +108,32 @@ void page_init(void) {
   }
 }
 
+u_int page_perm_stat(Pde *pgdir, struct Page *pp, u_int perm_mask) {
+  Pde *pgdir_entryp = pgdir;
+  Pte *pte_base;
+  Pte *pte;
+  u_int count = 0;
+  for (int i = 0; i < 1024; ++i) {
+    pgdir_entryp = pgdir + i;
+    if (*pgdir_entryp & PTE_V) {
+      pte_base = (Pte *)KADDR(PTE_ADDR(*pgdir_entryp));
+      for (int j = 0; j < 1024; ++j) {
+        pte = pte_base + j;
+        if ((*pte & PTE_V) && (page2pa(pp) == PTE_ADDR(*pte))) {
+          u_int perm = (*pte) & 3840;
+          // printk("%d %d\n", perm, perm_mask);
+          if ((((perm >> 8) & 1) >= ((perm_mask >> 8) & 1)) &&
+              (((perm >> 9) & 1) >= ((perm_mask >> 9) & 1)) &&
+              (((perm >> 10) & 1) >= ((perm_mask >> 10) & 1)) &&
+              (((perm >> 11) & 1) >= ((perm_mask >> 11) & 1))) {
+            count++;
+          }
+        }
+      }
+    }
+  }
+  return count;
+}
 /* Overview:
  *   Allocate a physical page from free memory, and fill this page with zero.
  *
@@ -224,6 +250,7 @@ static int pgdir_walk(Pde *pgdir, u_long va, int create, Pte **ppte) {
 int page_insert(Pde *pgdir, u_int asid, struct Page *pp, u_long va,
                 u_int perm) {
   Pte *pte;
+  // printk("|%d|\n", perm);
 
   /* Step 1: Get corresponding page table entry. */
   pgdir_walk(pgdir, va, 0, &pte);
