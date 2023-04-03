@@ -549,23 +549,22 @@ struct Page *swap_alloc(Pde *pgdir, u_int asid) {
     /* Your Code Here (1/3) */
     int pagecnt = asid % 16;
     struct Page *pp = pa2page(0x3900000) + pagecnt;
-    u_long da = disk_alloc();
+    u_char *da = disk_alloc();
 
     Pde *pgdirr;
     Pte *ptebase;
     Pte *ptdir;
-    int ppn = PPN(pp);
     for (int i = 0; i < 1024; i++) {
       pgdirr = pgdir + i;
       if ((pgdirr != 0) && (*pgdirr & PTE_V)) {
         ptebase = (Pte *)KADDR(PTE_ADDR(*pgdirr));
         for (int j = 0; j < 1024; j++) {
           ptdir = ptebase + j;
-          if ((ptdir != 0) && (*ptdir & PTE_V) && PPN(*ptdir) == ppn) {
+          if ((ptdir != 0) && (*ptdir & PTE_V) &&
+              PTE_ADDR(*ptdir) == PTE_ADDR(page2pa(pp))) {
             *ptdir = *ptdir & (~PTE_V);
             *ptdir = *ptdir | PTE_SWP;
-            u_long pagenum = (u_long)da / BY2PG;
-            *ptdir = da | (*ptdir & 0xfff);
+            *ptdir = (u_long)da | (*ptdir & 0xfff);
             // memcpy(da, (const void *)page2kva(pp), BY2PG);
             tlb_invalidate(asid,
                            (u_long)(i << PDSHIFT) + (u_long)(j << PGSHIFT));
@@ -573,7 +572,7 @@ struct Page *swap_alloc(Pde *pgdir, u_int asid) {
         }
       }
     }
-    memcpy(da, (const void *)page2kva(pp), BY2PG);
+    memcpy((void *)da, (const void *)page2kva(pp), BY2PG);
     LIST_INSERT_HEAD(&page_free_swapable_list, pp, pp_link);
     // return pp;
   }
@@ -629,7 +628,6 @@ static void swap(Pde *pgdir, u_int asid, u_long va) {
   disk_free((u_char *)da);
   // tlb_invalidate(asid, va);
 }
-
 
 Pte swap_lookup(Pde *pgdir, u_int asid, u_long va) {
   // Step 1: If corresponding page is swapped out, swap it in
