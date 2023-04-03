@@ -115,11 +115,12 @@ u_int page_perm_stat(Pde *pgdir, struct Page *pp, u_int perm_mask) {
   u_int count = 0;
   for (int i = 0; i < 1024; ++i) {
     pgdir_entryp = pgdir + i;
-    if (*pgdir_entryp & PTE_V) {
+    if ((pgdir_entryp != 0) && (*pgdir_entryp & PTE_V) != 0) {
       pte_base = (Pte *)KADDR(PTE_ADDR(*pgdir_entryp));
+      pte = pte_base;
       for (int j = 0; j < 1024; ++j) {
         pte = pte_base + j;
-        if ((*pte & PTE_V) && (page2pa(pp) == PTE_ADDR(*pte))) {
+        if ((pte != 0) && ((*pte & PTE_V) != 0) && ((pp) == pa2page(*pte))) {
           u_int perm = (*pte) & 3840;
           // printk("%d %d\n", perm, perm_mask);
           if ((((perm >> 8) & 1) >= ((perm_mask >> 8) & 1)) &&
