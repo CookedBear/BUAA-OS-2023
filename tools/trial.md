@@ -1,0 +1,8 @@
+- PDX(va) ：页目录偏移量（查找遍历页表时常用）
+- PTX(va) ：页表偏移量（查找遍历页表时常用）
+- PTE_ADDR(pte) ：获取页表项中的物理地址（读取 pte 时常用）
+- PADDR(kva) ：kseg0 处虚地址 物理地址
+- KADDR(pa) ：物理地址 kseg0 处虚地址（读取 pte 后可进行转换）
+- va2pa(Pde *pgdir, u_long va) ：查页表，虚地址 物理地址（测试时常用）
+- pa2page(u_long pa) ：物理地址 页控制块（读取 pte 后可进行转换）
+- page2pa(struct Page *pp) ：页控制块 物理地址（填充 pte 时常用）
