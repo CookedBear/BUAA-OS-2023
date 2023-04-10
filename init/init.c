@@ -20,11 +20,11 @@ void mips_init() {
   page_init();
 
   // lab3:
-  // env_init();
+  env_init();
 
   // lab3:
-  // ENV_CREATE_PRIORITY(user_bare_loop, 1);
-  // ENV_CREATE_PRIORITY(user_bare_loop, 2);
+  ENV_CREATE_PRIORITY(user_bare_loop, 1);
+  ENV_CREATE_PRIORITY(user_bare_loop, 2);
 
   // lab4:
   // ENV_CREATE(user_tltest);
@@ -40,8 +40,11 @@ void mips_init() {
   // ENV_CREATE(user_devtst);
 
   // lab3:
-  // kclock_init();
-  // enable_irq();
+  printk("Ready\n");
+  kclock_init();
+  printk("clock inited\n");
+  enable_irq();
+  printk("Fin\n");
   while (1) {
   }
 }

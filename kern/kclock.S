@@ -13,10 +13,12 @@ LEAF(kclock_init)
 	 *   'DEV_RTC_HZ' defined in include/drivers/dev_rtc.h.
 	 *   To access device through mmio, a physical address must be converted to a
 	 *   kseg1 address.
-	 *
+	 *	 #define DEV_RTC_HZ 0x0100
+	 *	 #define DEV_RTC_ADDRESS 0x15000000
+	 * 	 #define KSEG1 0xA0000000U
 	 * Reference: http://gavare.se/gxemul/gxemul-stable/doc/experiments.html#expdevices
 	 */
 	/* Exercise 3.11: Your code here. */
-
+	sw 		t0 , (KSEG1 | DEV_RTC_ADDRESS | DEV_RTC_HZ)
 	jr      ra
 END(kclock_init)
