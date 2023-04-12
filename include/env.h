@@ -56,6 +56,7 @@ void enable_irq(void);
 
 void env_check(void);
 void envid2env_check(void);
+void arrive();
 
 #define ENV_CREATE_PRIORITY(x, y)                                                                  \
 	({                                                                                         \

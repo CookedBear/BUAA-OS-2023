@@ -4,7 +4,10 @@ int main() {
 	int a = 0;
 	int id = 0;
 	debugf("fktest on ostest!\n");
-	if ((id = fork()) == 0) {
+	id = fork();
+	debugf("id = %d\n", id);
+	if ((id) == 0) {
+		debugf("child\n");
 		if ((id = fork()) == 0) {
 			if ((id = fork()) == 0) {
 				if ((id = fork()) == 0) {

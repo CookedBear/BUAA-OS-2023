@@ -36,6 +36,9 @@ void schedule(int yield) {
 	 */
 	/* Exercise 3.12: Your code here. */
 	if (yield != 0 || count == 0 || e == NULL || e->env_status != ENV_RUNNABLE) {
+		if (e != NULL) {
+			TAILQ_REMOVE(&env_sched_list, e, env_sched_link);
+		}
 		if (e != NULL && e->env_status == ENV_RUNNABLE) {
 			TAILQ_INSERT_TAIL(&env_sched_list, e, env_sched_link);
 		}
@@ -43,9 +46,9 @@ void schedule(int yield) {
 			panic("schedule: no runnable envs");
 		}
 		e = TAILQ_FIRST(&env_sched_list);
-		TAILQ_REMOVE(&env_sched_list, e, env_sched_link);
 		count = e->env_pri;
 	}
 	count--;
 	env_run(e);
 }
+// test 4-3: wrongly use the cut piece as running env, while is the head one.

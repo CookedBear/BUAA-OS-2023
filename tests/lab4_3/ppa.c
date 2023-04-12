@@ -4,7 +4,7 @@ const int PP1 = 0x800, PP2 = 0x1001;
 int main() {
 	u_int me, who, i;
 	me = syscall_getenvid();
-	debugf("i am %x\n", me);
+	debugf("ppa: i am %x\n", me);
 	if (me == PP1) {
 		who = PP2;
 		debugf("\n@@@@@send 0 from %x to %x\n", me, who);

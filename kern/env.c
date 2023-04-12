@@ -121,19 +121,30 @@ int envid2env(u_int envid, struct Env **penv, int checkperm) {
    *   You may want to use 'ENVX'.
    */
   /* Exercise 4.3: Your code here. (1/2) */
+  if (envid == 0) {
+    *penv = curenv;
+    return 0;
+  }
+  e = &envs[ENVX(envid)];
 
-  if (e->env_status == ENV_FREE || e->env_id != envid) {
+  if (e->env_status == ENV_FREE || e->env_id != envid) {  // double check: invaild env_id
+    *penv = 0;
     return -E_BAD_ENV;
   }
 
   /* Step 2: Check when 'checkperm' is non-zero. */
+  /* If checkperm != 0, try to check the relationship of two envs */
   /* Hints:
    *   Check whether the calling env has sufficient permissions to manipulate
    * the specified env, i.e. 'e' is either 'curenv' or its immediate child. If
    * violated, return '-E_BAD_ENV'.
    */
   /* Exercise 4.3: Your code here. (2/2) */
-
+  if (checkperm && (e->env_id != curenv->env_id && e->env_parent_id != curenv->env_id)) {
+    *penv = 0;
+    printk("E_BAD_ENV: %x, %x, %x\n", e->env_id, curenv->env_id, e->env_parent_id);
+    return -E_BAD_ENV;
+  }
   /* Step 3: Assign 'e' to '*penv'. */
   *penv = e;
   return 0;
@@ -247,7 +258,9 @@ int env_alloc(struct Env **new, u_int parent_id) {
   /* Step 2: Call a 'env_setup_vm' to initialize the user address space for this
    * new Env. */
   /* Exercise 3.4: Your code here. (2/4) */
-  env_setup_vm(e);
+  if (env_setup_vm(e)) {
+    return -E_BAD_ENV;
+  }
   /* Step 3: Initialize these fields for the new Env with appropriate values:
    *   'env_user_tlb_mod_entry' (lab4), 'env_runs' (lab6), 'env_id' (lab3),
    * 'env_asid' (lab3), 'env_parent_id' (lab3)
@@ -294,11 +307,13 @@ static int load_icode_mapper(void *data, u_long va, size_t offset, u_int perm,
                              const void *src, size_t len) {
   struct Env *env = (struct Env *)data;
   struct Page *p;
-  // int r;
+  int r;
 
   /* Step 1: Allocate a page with 'page_alloc'. */
   /* Exercise 3.5: Your code here. (1/2) */
-  page_alloc(&p);
+  if ((r = page_alloc(&p)) != 0) {
+      return r;
+  }
   /* Step 2: If 'src' is not NULL, copy the 'len' bytes started at 'src' into
    * 'offset' at this page. */
   // Hint: You may want to use 'memcpy'.
@@ -588,4 +603,8 @@ void envid2env_check() {
   re = envid2env(pe2->env_id, &pe, 1);
   assert(re == -E_BAD_ENV);
   printk("envid2env() work well!\n");
+}
+
+void arrive() {
+  printk("arrive here\n");
 }
