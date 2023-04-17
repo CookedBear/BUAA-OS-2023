@@ -199,7 +199,7 @@ static int env_setup_vm(struct Env *e) {
   try(page_alloc(&p));
   /* Exercise 3.3: Your code here. */
   p->pp_ref++;
-  e->env_pgdir = (Pde *) page2kva(p);
+  e->env_pgdir = (Pde *)page2kva(p);
   /* Step 2: Copy the template page directory 'base_pgdir' to 'e->env_pgdir'. */
   /* Hint:
    *   As a result, the address space of all envs is identical in [UTOP, UVPT).
@@ -304,7 +304,7 @@ static int load_icode_mapper(void *data, u_long va, size_t offset, u_int perm,
   // Hint: You may want to use 'memcpy'.
   if (src != NULL) {
     /* Exercise 3.5: Your code here. (2/2) */
-    memcpy((void *) (page2kva(p) + offset), src, len);
+    memcpy((void *)(page2kva(p) + offset), src, len);
   }
 
   /* Step 3: Insert 'p' into 'env->env_pgdir' at 'va' with 'perm'. */
@@ -341,8 +341,8 @@ static void load_icode(struct Env *e, const void *binary, size_t size) {
   /* Step 3: Set 'e->env_tf.cp0_epc' to 'ehdr->e_entry'. */
   /* Exercise 3.6: Your code here. */
   e->env_tf.cp0_epc = ehdr->e_entry;
-  /* env_tf.cp0_epc 字段指示了进程恢复运行时PC 应恢复到的位置,说明其为连续的虚拟地址中
-     的某一个值 */
+  /* env_tf.cp0_epc 字段指示了进程恢复运行时PC
+     应恢复到的位置,说明其为连续的虚拟地址中 的某一个值 */
 }
 
 /* Overview:
@@ -361,7 +361,7 @@ struct Env *env_create(const void *binary, size_t size, int priority) {
   /* Step 2: Assign the 'priority' to 'e' and mark its 'env_status' as runnable.
    */
   /* Exercise 3.7: Your code here. (2/3) */
-  e->env_pri = (u_int) priority;
+  e->env_pri = (u_int)priority;
   e->env_status = ENV_RUNNABLE;
   /* Step 3: Use 'load_icode' to load the image from 'binary', and insert 'e'
    * into 'env_sched_list' using 'TAILQ_INSERT_HEAD'. */
@@ -447,8 +447,8 @@ static inline void pre_env_run(struct Env *e) {
   struct Trapframe *tf = (struct Trapframe *)KSTACKTOP - 1;
   u_int epc = tf->cp0_epc;
   if (epc == MOS_SCHED_END_PC) {
-    printk("env %08x reached end pc: 0x%08x, $v0=0x%08x\n", e->env_id, epc,
-           tf->regs[2]);
+    printk("env %08x reached end pc: 0x%08x, $v0=0x%08x, env_ov_cnt=%d\n",
+           e->env_id, epc, tf->regs[2], e->env_ov_cnt);
     env_destroy(e);
     schedule(0);
   }
@@ -499,7 +499,6 @@ void env_run(struct Env *e) {
    */
   /* Exercise 3.8: Your code here. (2/2) */
   env_pop_tf(&curenv->env_tf, curenv->env_asid);
-  
 }
 
 void env_check() {
