@@ -20,23 +20,26 @@ extern volatile struct Env *env;
 
 #define USED(x) (void)(x)
 
+void ipc_broadcast(u_int val, void *srcva, u_int perm);
+int syscall_ipc_broadcast(u_int val, void *srcva, u_int perm);
 // debugf
 void debugf(const char *fmt, ...);
 
-void _user_panic(const char *, int, const char *, ...) __attribute__((noreturn));
+void _user_panic(const char *, int, const char *, ...)
+    __attribute__((noreturn));
 void _user_halt(const char *, int, const char *, ...) __attribute__((noreturn));
 
 #define user_panic(...) _user_panic(__FILE__, __LINE__, __VA_ARGS__)
 #define user_halt(...) _user_halt(__FILE__, __LINE__, __VA_ARGS__)
 
 #undef panic_on
-#define panic_on(expr)                                                                             \
-	do {                                                                                       \
-		int r = (expr);                                                                    \
-		if (r != 0) {                                                                      \
-			user_panic("'" #expr "' returned %d", r);                                  \
-		}                                                                                  \
-	} while (0)
+#define panic_on(expr)                                                         \
+  do {                                                                         \
+    int r = (expr);                                                            \
+    if (r != 0) {                                                              \
+      user_panic("'" #expr "' returned %d", r);                                \
+    }                                                                          \
+  } while (0)
 
 /// fork, spawn
 int spawn(char *prog, char **argv);
@@ -53,17 +56,19 @@ void syscall_yield(void);
 int syscall_env_destroy(u_int envid);
 int syscall_set_tlb_mod_entry(u_int envid, void (*func)(struct Trapframe *));
 int syscall_mem_alloc(u_int envid, void *va, u_int perm);
-int syscall_mem_map(u_int srcid, void *srcva, u_int dstid, void *dstva, u_int perm);
+int syscall_mem_map(u_int srcid, void *srcva, u_int dstid, void *dstva,
+                    u_int perm);
 int syscall_mem_unmap(u_int envid, void *va);
 
 __attribute__((always_inline)) inline static int syscall_exofork(void) {
-	return msyscall(SYS_exofork, 0, 0, 0, 0, 0);
+  return msyscall(SYS_exofork, 0, 0, 0, 0, 0);
 }
 
 int syscall_set_env_status(u_int envid, u_int status);
 int syscall_set_trapframe(u_int envid, struct Trapframe *tf);
 void syscall_panic(const char *msg) __attribute__((noreturn));
-int syscall_ipc_try_send(u_int envid, u_int value, const void *srcva, u_int perm);
+int syscall_ipc_try_send(u_int envid, u_int value, const void *srcva,
+                         u_int perm);
 int syscall_ipc_recv(void *dstva);
 int syscall_cgetc();
 int syscall_write_dev(void *, u_int, u_int);
@@ -119,16 +124,16 @@ int remove(const char *path);
 int ftruncate(int fd, u_int size);
 int sync(void);
 
-#define user_assert(x)                                                                             \
-	do {                                                                                       \
-		if (!(x))                                                                          \
-			user_panic("assertion failed: %s", #x);                                    \
-	} while (0)
+#define user_assert(x)                                                         \
+  do {                                                                         \
+    if (!(x))                                                                  \
+      user_panic("assertion failed: %s", #x);                                  \
+  } while (0)
 
 // File open modes
-#define O_RDONLY 0x0000	 /* open for reading only */
-#define O_WRONLY 0x0001	 /* open for writing only */
-#define O_RDWR 0x0002	 /* open for reading and writing */
+#define O_RDONLY 0x0000  /* open for reading only */
+#define O_WRONLY 0x0001  /* open for writing only */
+#define O_RDWR 0x0002    /* open for reading and writing */
 #define O_ACCMODE 0x0003 /* mask for above modes */
 
 // Unimplemented open modes
