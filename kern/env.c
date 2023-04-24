@@ -127,7 +127,8 @@ int envid2env(u_int envid, struct Env **penv, int checkperm) {
   }
   e = &envs[ENVX(envid)];
 
-  if (e->env_status == ENV_FREE || e->env_id != envid) {  // double check: invaild env_id
+  if (e->env_status == ENV_FREE ||
+      e->env_id != envid) { // double check: invaild env_id
     *penv = 0;
     return -E_BAD_ENV;
   }
@@ -140,9 +141,11 @@ int envid2env(u_int envid, struct Env **penv, int checkperm) {
    * violated, return '-E_BAD_ENV'.
    */
   /* Exercise 4.3: Your code here. (2/2) */
-  if (checkperm && (e->env_id != curenv->env_id && e->env_parent_id != curenv->env_id)) {
+  if (checkperm &&
+      (e->env_id != curenv->env_id && e->env_parent_id != curenv->env_id)) {
     *penv = 0;
-    printk("E_BAD_ENV: %x, %x, %x\n", e->env_id, curenv->env_id, e->env_parent_id);
+    printk("E_BAD_ENV: %x, %x, %x\n", e->env_id, curenv->env_id,
+           e->env_parent_id);
     return -E_BAD_ENV;
   }
   /* Step 3: Assign 'e' to '*penv'. */
@@ -210,7 +213,7 @@ static int env_setup_vm(struct Env *e) {
   try(page_alloc(&p));
   /* Exercise 3.3: Your code here. */
   p->pp_ref++;
-  e->env_pgdir = (Pde *) page2kva(p);
+  e->env_pgdir = (Pde *)page2kva(p);
   /* Step 2: Copy the template page directory 'base_pgdir' to 'e->env_pgdir'. */
   /* Hint:
    *   As a result, the address space of all envs is identical in [UTOP, UVPT).
@@ -273,6 +276,7 @@ int env_alloc(struct Env **new, u_int parent_id) {
   e->env_runs = 0;               // for lab6
   /* Exercise 3.4: Your code here. (3/4) */
   e->env_id = mkenvid(e);
+  e->env_gid = 0;
   if (asid_alloc(&(e->env_asid)) == -E_NO_FREE_ENV) {
     return -E_NO_FREE_ENV;
   }
@@ -312,14 +316,14 @@ static int load_icode_mapper(void *data, u_long va, size_t offset, u_int perm,
   /* Step 1: Allocate a page with 'page_alloc'. */
   /* Exercise 3.5: Your code here. (1/2) */
   if ((r = page_alloc(&p)) != 0) {
-      return r;
+    return r;
   }
   /* Step 2: If 'src' is not NULL, copy the 'len' bytes started at 'src' into
    * 'offset' at this page. */
   // Hint: You may want to use 'memcpy'.
   if (src != NULL) {
     /* Exercise 3.5: Your code here. (2/2) */
-    memcpy((void *) (page2kva(p) + offset), src, len);
+    memcpy((void *)(page2kva(p) + offset), src, len);
   }
 
   /* Step 3: Insert 'p' into 'env->env_pgdir' at 'va' with 'perm'. */
@@ -356,8 +360,8 @@ static void load_icode(struct Env *e, const void *binary, size_t size) {
   /* Step 3: Set 'e->env_tf.cp0_epc' to 'ehdr->e_entry'. */
   /* Exercise 3.6: Your code here. */
   e->env_tf.cp0_epc = ehdr->e_entry;
-  /* env_tf.cp0_epc 字段指示了进程恢复运行时PC 应恢复到的位置,说明其为连续的虚拟地址中
-     的某一个值 */
+  /* env_tf.cp0_epc 字段指示了进程恢复运行时PC
+     应恢复到的位置,说明其为连续的虚拟地址中 的某一个值 */
 }
 
 /* Overview:
@@ -376,7 +380,7 @@ struct Env *env_create(const void *binary, size_t size, int priority) {
   /* Step 2: Assign the 'priority' to 'e' and mark its 'env_status' as runnable.
    */
   /* Exercise 3.7: Your code here. (2/3) */
-  e->env_pri = (u_int) priority;
+  e->env_pri = (u_int)priority;
   e->env_status = ENV_RUNNABLE;
   /* Step 3: Use 'load_icode' to load the image from 'binary', and insert 'e'
    * into 'env_sched_list' using 'TAILQ_INSERT_HEAD'. */
@@ -514,7 +518,6 @@ void env_run(struct Env *e) {
    */
   /* Exercise 3.8: Your code here. (2/2) */
   env_pop_tf(&curenv->env_tf, curenv->env_asid);
-  
 }
 
 void env_check() {
@@ -606,5 +609,10 @@ void envid2env_check() {
 }
 
 void arrive() {
-  printk("arrive here\n");
+  int a = 0;
+  int b = 1;
+  int c = 2;
+  int d = 3;
+  int e = 4;
+  printk("arrive here%d%d%d%d%d\n", a, b, c, d, e);
 }
