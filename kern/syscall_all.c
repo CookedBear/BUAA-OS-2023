@@ -433,7 +433,7 @@ int sys_ipc_try_send(u_int envid, u_int value, u_int srcva, u_int perm) {
 		if (NULL == p) {
 			return -E_INVAL;
 		} else {
-			page_insert(e->env_pgdir, e->env_asid, p, e->env_ipc_dstva, perm);
+			try(page_insert(e->env_pgdir, e->env_asid, p, e->env_ipc_dstva, perm));
 		}
 	}
 	return 0;
