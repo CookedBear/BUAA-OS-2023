@@ -475,6 +475,27 @@ int sys_cgetc(void) {
  */
 int sys_write_dev(u_int va, u_int pa, u_int len) {
 	/* Exercise 5.1: Your code here. (1/2) */
+	if (is_illegal_va_range(va, len)) {
+		return -E_INVAL;
+	}
+
+	if (pa < 0x10000000 || pa > 0x15000200) {
+		return -E_INVAL;
+	}
+
+	// TEST 5-1: Forget to think about the illegal_pa in this part
+	if ((pa >= 0x10000021 && pa < 0x13000000) || 
+		(pa >= 0x13004201 && pa < 0x15000000)) {
+		return -E_INVAL;
+	}
+
+	if ((pa >= 0x10000000 && pa <= 0x10000020 && (pa + len) > 0x10000020) ||
+	    (pa >= 0x13000000 && pa <= 0x13004200 && (pa + len) > 0x13004200) ||
+		(pa >= 0x15000000 && pa <= 0x15000200 && (pa + len) > 0x15000200)) {
+		return -E_INVAL;
+	}
+
+	memcpy((void *) (KSEG1 + pa), (const void *) va, len);
 
 	return 0;
 }
@@ -492,6 +513,26 @@ int sys_write_dev(u_int va, u_int pa, u_int len) {
  */
 int sys_read_dev(u_int va, u_int pa, u_int len) {
 	/* Exercise 5.1: Your code here. (2/2) */
+	if (is_illegal_va_range(va, len)) {
+		return -E_INVAL;
+	}
+
+	if (pa < 0x10000000 || pa > 0x15000200) {
+		return -E_INVAL;
+	}
+
+	if ((pa >= 0x10000021 && pa < 0x13000000) ||
+		(pa >= 0x13004201 && pa < 0x15000000)) {
+		return -E_INVAL;
+	}
+
+	if ((pa >= 0x10000000 && pa <= 0x10000020 && (pa + len) > 0x10000020) ||
+	    (pa >= 0x13000000 && pa <= 0x13004200 && (pa + len) > 0x13004200) ||
+		(pa >= 0x15000000 && pa <= 0x15000200 && (pa + len) > 0x15000200)) {
+		return -E_INVAL;
+	}
+
+	memcpy((void *) va, (const void *) (KSEG1 + pa), len);
 
 	return 0;
 }

@@ -29,10 +29,24 @@ void ide_read(u_int diskno, u_int secno, void *dst, u_int nsecs) {
 	u_int begin = secno * BY2SECT;
 	u_int end = begin + nsecs * BY2SECT;
 
+	//sample: ide_read(0, blockno * SECT2BLK, va, SECT2BLK);
+
 	for (u_int off = 0; begin + off < end; off += BY2SECT) {
 		uint32_t temp = diskno;
 		/* Exercise 5.3: Your code here. (1/2) */
+		syscall_write_dev(&temp, (DEV_DISK_ADDRESS | DEV_DISK_ID), sizeof(temp)); //select disk_id
+		temp = begin + off;
+		syscall_write_dev(&temp, (DEV_DISK_ADDRESS | DEV_DISK_OFFSET), sizeof(temp)); // select reading offset_address
+		temp = DEV_DISK_OPERATION_READ;
+		syscall_write_dev(&temp, (DEV_DISK_ADDRESS | DEV_DISK_START_OPERATION), sizeof(temp)); // select operation
 
+		syscall_read_dev(&temp, (DEV_DISK_ADDRESS | DEV_DISK_STATUS), sizeof(temp)); // get reading result
+		if (temp == 0) {
+			panic_on(temp == 0);
+		} else {
+			syscall_read_dev((void *) ((u_int) dst + off), (DEV_DISK_ADDRESS | DEV_DISK_BUFFER), BY2SECT); // pull from buffer
+		}
+		
 	}
 }
 
@@ -59,6 +73,16 @@ void ide_write(u_int diskno, u_int secno, void *src, u_int nsecs) {
 	for (u_int off = 0; begin + off < end; off += BY2SECT) {
 		uint32_t temp = diskno;
 		/* Exercise 5.3: Your code here. (2/2) */
+		syscall_write_dev(src + off, (DEV_DISK_ADDRESS | DEV_DISK_BUFFER), BY2SECT);
+		syscall_write_dev(&temp, (DEV_DISK_ADDRESS | DEV_DISK_ID), sizeof(temp));
+		temp = begin + off;
+		syscall_write_dev(&temp, (DEV_DISK_ADDRESS | DEV_DISK_OFFSET), sizeof(temp));
+		temp = DEV_DISK_OPERATION_WRITE;
+		syscall_write_dev(&temp, (DEV_DISK_ADDRESS | DEV_DISK_START_OPERATION), sizeof(temp));
 
+		syscall_read_dev(&temp, (DEV_DISK_ADDRESS | DEV_DISK_STATUS), sizeof(temp));
+		if (temp == 0) {
+			panic_on(temp == 0);
+		}
 	}
 }
