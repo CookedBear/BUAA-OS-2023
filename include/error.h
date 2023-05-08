@@ -44,15 +44,17 @@
 // File not a valid executable
 #define E_NOT_EXEC 13
 
+#define E_NO_SEM 14
+
 /*
  * A quick wrapper around function calls to propagate errors.
  * Use this with caution, as it leaks resources we've acquired so far.
  */
-#define try(expr)                                                                                  \
-	do {                                                                                       \
-		int r = (expr);                                                                    \
-		if (r != 0)                                                                        \
-			return r;                                                                  \
-	} while (0)
+#define try(expr)                                                              \
+  do {                                                                         \
+    int r = (expr);                                                            \
+    if (r != 0)                                                                \
+      return r;                                                                \
+  } while (0)
 
 #endif // _ERROR_H_
