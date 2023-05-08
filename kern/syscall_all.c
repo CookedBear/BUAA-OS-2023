@@ -122,16 +122,33 @@ void sys_barrier_alloc(int n) {
 
 int sys_barrier_wait(int type) {
   // printk("now barrier %d\n", barrier);
+  static u_int eenvid[100];
+  static u_int place = 0;
+  for (int i = 0; i < 100; i++) {
+    eenvid[i] = 0;
+  }
   if (type == 0) {
     return barrier;
   }
   if (barrier < 0) {
     return -1; // not barrier
   } else if (barrier == 0) {
-    return 0;
+
   } else {
     barrier--;
-    return barrier;
+    eenvid[place++] = sys_getenvid();
+    struct Env *env;
+    envid2env(sys_getenvid(), &env, 0);
+    env->env_status = ENV_NOT_RUNNABLE;
+    TAILQ_REMOVE(&env_sched_list, env, env_sched_link);
+    schedule(1);
+    return 11;
+  }
+  for (int i = 0; i <= place; i++) {
+    struct Env *env;
+    envid2env(eenvid[i], &env, 0);
+    env->env_status = ENV_RUNNABLE;
+    TAILQ_INSERT_HEAD(&env_sched_list, env, env_sched_link);
   }
 }
 
