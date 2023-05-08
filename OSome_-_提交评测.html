@@ -1,0 +1,2640 @@
+<!DOCTYPE html>
+<html class="" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="http://os.buaa.edu.cn/favicon.ico"><title>OSome - 提交评测</title><script src="OSome%20-%20%E6%8F%90%E4%BA%A4%E8%AF%84%E6%B5%8B_files/safari-nomodule-fix.js" type="module"></script><script defer="defer" type="module" src="OSome%20-%20%E6%8F%90%E4%BA%A4%E8%AF%84%E6%B5%8B_files/chunk-vendors.1efc432f.js"></script><script defer="defer" type="module" src="OSome%20-%20%E6%8F%90%E4%BA%A4%E8%AF%84%E6%B5%8B_files/app.81a4b311.js"></script><link href="OSome%20-%20%E6%8F%90%E4%BA%A4%E8%AF%84%E6%B5%8B_files/chunk-vendors.5fa50cda.css" rel="stylesheet"><link href="OSome%20-%20%E6%8F%90%E4%BA%A4%E8%AF%84%E6%B5%8B_files/app.f105ed5e.css" rel="stylesheet"><script defer="defer" src="OSome%20-%20%E6%8F%90%E4%BA%A4%E8%AF%84%E6%B5%8B_files/chunk-vendors-legacy.8f95ccf6.js" nomodule=""></script><script defer="defer" src="OSome%20-%20%E6%8F%90%E4%BA%A4%E8%AF%84%E6%B5%8B_files/app-legacy.a99fd4cf.js" nomodule=""></script><style type="text/css">
+.vue-cropper[data-v-6dae58fd] {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  direction: ltr;
+  touch-action: none;
+  text-align: left;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC");
+}
+.cropper-box[data-v-6dae58fd],
+.cropper-box-canvas[data-v-6dae58fd],
+.cropper-drag-box[data-v-6dae58fd],
+.cropper-crop-box[data-v-6dae58fd],
+.cropper-face[data-v-6dae58fd] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  user-select: none;
+}
+.cropper-box-canvas img[data-v-6dae58fd] {
+  position: relative;
+  text-align: left;
+  user-select: none;
+  transform: none;
+  max-width: none;
+  max-height: none;
+}
+.cropper-box[data-v-6dae58fd] {
+  overflow: hidden;
+}
+.cropper-move[data-v-6dae58fd] {
+  cursor: move;
+}
+.cropper-crop[data-v-6dae58fd] {
+  cursor: crosshair;
+}
+.cropper-modal[data-v-6dae58fd] {
+  background: rgba(0, 0, 0, 0.5);
+}
+.cropper-crop-box[data-v-6dae58fd] {
+  /*border: 2px solid #39f;*/
+}
+.cropper-view-box[data-v-6dae58fd] {
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  outline: 1px solid #39f;
+  outline-color: rgba(51, 153, 255, 0.75);
+  user-select: none;
+}
+.cropper-view-box img[data-v-6dae58fd] {
+  user-select: none;
+  text-align: left;
+  max-width: none;
+  max-height: none;
+}
+.cropper-face[data-v-6dae58fd] {
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  opacity: 0.1;
+}
+.crop-info[data-v-6dae58fd] {
+  position: absolute;
+  left: 0px;
+  min-width: 65px;
+  text-align: center;
+  color: white;
+  line-height: 20px;
+  background-color: rgba(0, 0, 0, 0.8);
+  font-size: 12px;
+}
+.crop-line[data-v-6dae58fd] {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+}
+.line-w[data-v-6dae58fd] {
+  top: -3px;
+  left: 0;
+  height: 5px;
+  cursor: n-resize;
+}
+.line-a[data-v-6dae58fd] {
+  top: 0;
+  left: -3px;
+  width: 5px;
+  cursor: w-resize;
+}
+.line-s[data-v-6dae58fd] {
+  bottom: -3px;
+  left: 0;
+  height: 5px;
+  cursor: s-resize;
+}
+.line-d[data-v-6dae58fd] {
+  top: 0;
+  right: -3px;
+  width: 5px;
+  cursor: e-resize;
+}
+.crop-point[data-v-6dae58fd] {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  opacity: 0.75;
+  background-color: #39f;
+  border-radius: 100%;
+}
+.point1[data-v-6dae58fd] {
+  top: -4px;
+  left: -4px;
+  cursor: nw-resize;
+}
+.point2[data-v-6dae58fd] {
+  top: -5px;
+  left: 50%;
+  margin-left: -3px;
+  cursor: n-resize;
+}
+.point3[data-v-6dae58fd] {
+  top: -4px;
+  right: -4px;
+  cursor: ne-resize;
+}
+.point4[data-v-6dae58fd] {
+  top: 50%;
+  left: -4px;
+  margin-top: -3px;
+  cursor: w-resize;
+}
+.point5[data-v-6dae58fd] {
+  top: 50%;
+  right: -4px;
+  margin-top: -3px;
+  cursor: e-resize;
+}
+.point6[data-v-6dae58fd] {
+  bottom: -5px;
+  left: -4px;
+  cursor: sw-resize;
+}
+.point7[data-v-6dae58fd] {
+  bottom: -5px;
+  left: 50%;
+  margin-left: -3px;
+  cursor: s-resize;
+}
+.point8[data-v-6dae58fd] {
+  bottom: -5px;
+  right: -4px;
+  cursor: se-resize;
+}
+@media screen and (max-width: 500px) {
+.crop-point[data-v-6dae58fd] {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    opacity: 0.45;
+    background-color: #39f;
+    border-radius: 100%;
+}
+.point1[data-v-6dae58fd] {
+    top: -10px;
+    left: -10px;
+}
+.point2[data-v-6dae58fd],
+  .point4[data-v-6dae58fd],
+  .point5[data-v-6dae58fd],
+  .point7[data-v-6dae58fd] {
+    display: none;
+}
+.point3[data-v-6dae58fd] {
+    top: -10px;
+    right: -10px;
+}
+.point4[data-v-6dae58fd] {
+    top: 0;
+    left: 0;
+}
+.point6[data-v-6dae58fd] {
+    bottom: -10px;
+    left: -10px;
+}
+.point8[data-v-6dae58fd] {
+    bottom: -10px;
+    right: -10px;
+}
+}
+</style><style type="text/css" id="vuetify-theme-stylesheet">.v-application a { color: #1976d2; }
+.v-application .primary {
+  background-color: #1976d2 !important;
+  border-color: #1976d2 !important;
+}
+.v-application .primary--text {
+  color: #1976d2 !important;
+  caret-color: #1976d2 !important;
+}
+.v-application .primary.lighten-5 {
+  background-color: #c7fdff !important;
+  border-color: #c7fdff !important;
+}
+.v-application .primary--text.text--lighten-5 {
+  color: #c7fdff !important;
+  caret-color: #c7fdff !important;
+}
+.v-application .primary.lighten-4 {
+  background-color: #a8e0ff !important;
+  border-color: #a8e0ff !important;
+}
+.v-application .primary--text.text--lighten-4 {
+  color: #a8e0ff !important;
+  caret-color: #a8e0ff !important;
+}
+.v-application .primary.lighten-3 {
+  background-color: #8ac5ff !important;
+  border-color: #8ac5ff !important;
+}
+.v-application .primary--text.text--lighten-3 {
+  color: #8ac5ff !important;
+  caret-color: #8ac5ff !important;
+}
+.v-application .primary.lighten-2 {
+  background-color: #6aaaff !important;
+  border-color: #6aaaff !important;
+}
+.v-application .primary--text.text--lighten-2 {
+  color: #6aaaff !important;
+  caret-color: #6aaaff !important;
+}
+.v-application .primary.lighten-1 {
+  background-color: #488fef !important;
+  border-color: #488fef !important;
+}
+.v-application .primary--text.text--lighten-1 {
+  color: #488fef !important;
+  caret-color: #488fef !important;
+}
+.v-application .primary.darken-1 {
+  background-color: #005eb6 !important;
+  border-color: #005eb6 !important;
+}
+.v-application .primary--text.text--darken-1 {
+  color: #005eb6 !important;
+  caret-color: #005eb6 !important;
+}
+.v-application .primary.darken-2 {
+  background-color: #00479b !important;
+  border-color: #00479b !important;
+}
+.v-application .primary--text.text--darken-2 {
+  color: #00479b !important;
+  caret-color: #00479b !important;
+}
+.v-application .primary.darken-3 {
+  background-color: #003180 !important;
+  border-color: #003180 !important;
+}
+.v-application .primary--text.text--darken-3 {
+  color: #003180 !important;
+  caret-color: #003180 !important;
+}
+.v-application .primary.darken-4 {
+  background-color: #001e67 !important;
+  border-color: #001e67 !important;
+}
+.v-application .primary--text.text--darken-4 {
+  color: #001e67 !important;
+  caret-color: #001e67 !important;
+}
+.v-application .secondary {
+  background-color: #424242 !important;
+  border-color: #424242 !important;
+}
+.v-application .secondary--text {
+  color: #424242 !important;
+  caret-color: #424242 !important;
+}
+.v-application .secondary.lighten-5 {
+  background-color: #c1c1c1 !important;
+  border-color: #c1c1c1 !important;
+}
+.v-application .secondary--text.text--lighten-5 {
+  color: #c1c1c1 !important;
+  caret-color: #c1c1c1 !important;
+}
+.v-application .secondary.lighten-4 {
+  background-color: #a6a6a6 !important;
+  border-color: #a6a6a6 !important;
+}
+.v-application .secondary--text.text--lighten-4 {
+  color: #a6a6a6 !important;
+  caret-color: #a6a6a6 !important;
+}
+.v-application .secondary.lighten-3 {
+  background-color: #8b8b8b !important;
+  border-color: #8b8b8b !important;
+}
+.v-application .secondary--text.text--lighten-3 {
+  color: #8b8b8b !important;
+  caret-color: #8b8b8b !important;
+}
+.v-application .secondary.lighten-2 {
+  background-color: #727272 !important;
+  border-color: #727272 !important;
+}
+.v-application .secondary--text.text--lighten-2 {
+  color: #727272 !important;
+  caret-color: #727272 !important;
+}
+.v-application .secondary.lighten-1 {
+  background-color: #595959 !important;
+  border-color: #595959 !important;
+}
+.v-application .secondary--text.text--lighten-1 {
+  color: #595959 !important;
+  caret-color: #595959 !important;
+}
+.v-application .secondary.darken-1 {
+  background-color: #2c2c2c !important;
+  border-color: #2c2c2c !important;
+}
+.v-application .secondary--text.text--darken-1 {
+  color: #2c2c2c !important;
+  caret-color: #2c2c2c !important;
+}
+.v-application .secondary.darken-2 {
+  background-color: #171717 !important;
+  border-color: #171717 !important;
+}
+.v-application .secondary--text.text--darken-2 {
+  color: #171717 !important;
+  caret-color: #171717 !important;
+}
+.v-application .secondary.darken-3 {
+  background-color: #000000 !important;
+  border-color: #000000 !important;
+}
+.v-application .secondary--text.text--darken-3 {
+  color: #000000 !important;
+  caret-color: #000000 !important;
+}
+.v-application .secondary.darken-4 {
+  background-color: #000000 !important;
+  border-color: #000000 !important;
+}
+.v-application .secondary--text.text--darken-4 {
+  color: #000000 !important;
+  caret-color: #000000 !important;
+}
+.v-application .accent {
+  background-color: #82b1ff !important;
+  border-color: #82b1ff !important;
+}
+.v-application .accent--text {
+  color: #82b1ff !important;
+  caret-color: #82b1ff !important;
+}
+.v-application .accent.lighten-5 {
+  background-color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+.v-application .accent--text.text--lighten-5 {
+  color: #ffffff !important;
+  caret-color: #ffffff !important;
+}
+.v-application .accent.lighten-4 {
+  background-color: #f8ffff !important;
+  border-color: #f8ffff !important;
+}
+.v-application .accent--text.text--lighten-4 {
+  color: #f8ffff !important;
+  caret-color: #f8ffff !important;
+}
+.v-application .accent.lighten-3 {
+  background-color: #daffff !important;
+  border-color: #daffff !important;
+}
+.v-application .accent--text.text--lighten-3 {
+  color: #daffff !important;
+  caret-color: #daffff !important;
+}
+.v-application .accent.lighten-2 {
+  background-color: #bce8ff !important;
+  border-color: #bce8ff !important;
+}
+.v-application .accent--text.text--lighten-2 {
+  color: #bce8ff !important;
+  caret-color: #bce8ff !important;
+}
+.v-application .accent.lighten-1 {
+  background-color: #9fccff !important;
+  border-color: #9fccff !important;
+}
+.v-application .accent--text.text--lighten-1 {
+  color: #9fccff !important;
+  caret-color: #9fccff !important;
+}
+.v-application .accent.darken-1 {
+  background-color: #6596e2 !important;
+  border-color: #6596e2 !important;
+}
+.v-application .accent--text.text--darken-1 {
+  color: #6596e2 !important;
+  caret-color: #6596e2 !important;
+}
+.v-application .accent.darken-2 {
+  background-color: #467dc6 !important;
+  border-color: #467dc6 !important;
+}
+.v-application .accent--text.text--darken-2 {
+  color: #467dc6 !important;
+  caret-color: #467dc6 !important;
+}
+.v-application .accent.darken-3 {
+  background-color: #2364aa !important;
+  border-color: #2364aa !important;
+}
+.v-application .accent--text.text--darken-3 {
+  color: #2364aa !important;
+  caret-color: #2364aa !important;
+}
+.v-application .accent.darken-4 {
+  background-color: #004c90 !important;
+  border-color: #004c90 !important;
+}
+.v-application .accent--text.text--darken-4 {
+  color: #004c90 !important;
+  caret-color: #004c90 !important;
+}
+.v-application .error {
+  background-color: #ff5252 !important;
+  border-color: #ff5252 !important;
+}
+.v-application .error--text {
+  color: #ff5252 !important;
+  caret-color: #ff5252 !important;
+}
+.v-application .error.lighten-5 {
+  background-color: #ffe4d5 !important;
+  border-color: #ffe4d5 !important;
+}
+.v-application .error--text.text--lighten-5 {
+  color: #ffe4d5 !important;
+  caret-color: #ffe4d5 !important;
+}
+.v-application .error.lighten-4 {
+  background-color: #ffc6b9 !important;
+  border-color: #ffc6b9 !important;
+}
+.v-application .error--text.text--lighten-4 {
+  color: #ffc6b9 !important;
+  caret-color: #ffc6b9 !important;
+}
+.v-application .error.lighten-3 {
+  background-color: #ffa99e !important;
+  border-color: #ffa99e !important;
+}
+.v-application .error--text.text--lighten-3 {
+  color: #ffa99e !important;
+  caret-color: #ffa99e !important;
+}
+.v-application .error.lighten-2 {
+  background-color: #ff8c84 !important;
+  border-color: #ff8c84 !important;
+}
+.v-application .error--text.text--lighten-2 {
+  color: #ff8c84 !important;
+  caret-color: #ff8c84 !important;
+}
+.v-application .error.lighten-1 {
+  background-color: #ff6f6a !important;
+  border-color: #ff6f6a !important;
+}
+.v-application .error--text.text--lighten-1 {
+  color: #ff6f6a !important;
+  caret-color: #ff6f6a !important;
+}
+.v-application .error.darken-1 {
+  background-color: #df323b !important;
+  border-color: #df323b !important;
+}
+.v-application .error--text.text--darken-1 {
+  color: #df323b !important;
+  caret-color: #df323b !important;
+}
+.v-application .error.darken-2 {
+  background-color: #bf0025 !important;
+  border-color: #bf0025 !important;
+}
+.v-application .error--text.text--darken-2 {
+  color: #bf0025 !important;
+  caret-color: #bf0025 !important;
+}
+.v-application .error.darken-3 {
+  background-color: #9f0010 !important;
+  border-color: #9f0010 !important;
+}
+.v-application .error--text.text--darken-3 {
+  color: #9f0010 !important;
+  caret-color: #9f0010 !important;
+}
+.v-application .error.darken-4 {
+  background-color: #800000 !important;
+  border-color: #800000 !important;
+}
+.v-application .error--text.text--darken-4 {
+  color: #800000 !important;
+  caret-color: #800000 !important;
+}
+.v-application .info {
+  background-color: #2196f3 !important;
+  border-color: #2196f3 !important;
+}
+.v-application .info--text {
+  color: #2196f3 !important;
+  caret-color: #2196f3 !important;
+}
+.v-application .info.lighten-5 {
+  background-color: #d4ffff !important;
+  border-color: #d4ffff !important;
+}
+.v-application .info--text.text--lighten-5 {
+  color: #d4ffff !important;
+  caret-color: #d4ffff !important;
+}
+.v-application .info.lighten-4 {
+  background-color: #b5ffff !important;
+  border-color: #b5ffff !important;
+}
+.v-application .info--text.text--lighten-4 {
+  color: #b5ffff !important;
+  caret-color: #b5ffff !important;
+}
+.v-application .info.lighten-3 {
+  background-color: #95e8ff !important;
+  border-color: #95e8ff !important;
+}
+.v-application .info--text.text--lighten-3 {
+  color: #95e8ff !important;
+  caret-color: #95e8ff !important;
+}
+.v-application .info.lighten-2 {
+  background-color: #75ccff !important;
+  border-color: #75ccff !important;
+}
+.v-application .info--text.text--lighten-2 {
+  color: #75ccff !important;
+  caret-color: #75ccff !important;
+}
+.v-application .info.lighten-1 {
+  background-color: #51b0ff !important;
+  border-color: #51b0ff !important;
+}
+.v-application .info--text.text--lighten-1 {
+  color: #51b0ff !important;
+  caret-color: #51b0ff !important;
+}
+.v-application .info.darken-1 {
+  background-color: #007cd6 !important;
+  border-color: #007cd6 !important;
+}
+.v-application .info--text.text--darken-1 {
+  color: #007cd6 !important;
+  caret-color: #007cd6 !important;
+}
+.v-application .info.darken-2 {
+  background-color: #0064ba !important;
+  border-color: #0064ba !important;
+}
+.v-application .info--text.text--darken-2 {
+  color: #0064ba !important;
+  caret-color: #0064ba !important;
+}
+.v-application .info.darken-3 {
+  background-color: #004d9f !important;
+  border-color: #004d9f !important;
+}
+.v-application .info--text.text--darken-3 {
+  color: #004d9f !important;
+  caret-color: #004d9f !important;
+}
+.v-application .info.darken-4 {
+  background-color: #003784 !important;
+  border-color: #003784 !important;
+}
+.v-application .info--text.text--darken-4 {
+  color: #003784 !important;
+  caret-color: #003784 !important;
+}
+.v-application .success {
+  background-color: #4caf50 !important;
+  border-color: #4caf50 !important;
+}
+.v-application .success--text {
+  color: #4caf50 !important;
+  caret-color: #4caf50 !important;
+}
+.v-application .success.lighten-5 {
+  background-color: #dcffd6 !important;
+  border-color: #dcffd6 !important;
+}
+.v-application .success--text.text--lighten-5 {
+  color: #dcffd6 !important;
+  caret-color: #dcffd6 !important;
+}
+.v-application .success.lighten-4 {
+  background-color: #beffba !important;
+  border-color: #beffba !important;
+}
+.v-application .success--text.text--lighten-4 {
+  color: #beffba !important;
+  caret-color: #beffba !important;
+}
+.v-application .success.lighten-3 {
+  background-color: #a2ff9e !important;
+  border-color: #a2ff9e !important;
+}
+.v-application .success--text.text--lighten-3 {
+  color: #a2ff9e !important;
+  caret-color: #a2ff9e !important;
+}
+.v-application .success.lighten-2 {
+  background-color: #85e783 !important;
+  border-color: #85e783 !important;
+}
+.v-application .success--text.text--lighten-2 {
+  color: #85e783 !important;
+  caret-color: #85e783 !important;
+}
+.v-application .success.lighten-1 {
+  background-color: #69cb69 !important;
+  border-color: #69cb69 !important;
+}
+.v-application .success--text.text--lighten-1 {
+  color: #69cb69 !important;
+  caret-color: #69cb69 !important;
+}
+.v-application .success.darken-1 {
+  background-color: #2d9437 !important;
+  border-color: #2d9437 !important;
+}
+.v-application .success--text.text--darken-1 {
+  color: #2d9437 !important;
+  caret-color: #2d9437 !important;
+}
+.v-application .success.darken-2 {
+  background-color: #00791e !important;
+  border-color: #00791e !important;
+}
+.v-application .success--text.text--darken-2 {
+  color: #00791e !important;
+  caret-color: #00791e !important;
+}
+.v-application .success.darken-3 {
+  background-color: #006000 !important;
+  border-color: #006000 !important;
+}
+.v-application .success--text.text--darken-3 {
+  color: #006000 !important;
+  caret-color: #006000 !important;
+}
+.v-application .success.darken-4 {
+  background-color: #004700 !important;
+  border-color: #004700 !important;
+}
+.v-application .success--text.text--darken-4 {
+  color: #004700 !important;
+  caret-color: #004700 !important;
+}
+.v-application .warning {
+  background-color: #fb8c00 !important;
+  border-color: #fb8c00 !important;
+}
+.v-application .warning--text {
+  color: #fb8c00 !important;
+  caret-color: #fb8c00 !important;
+}
+.v-application .warning.lighten-5 {
+  background-color: #ffff9e !important;
+  border-color: #ffff9e !important;
+}
+.v-application .warning--text.text--lighten-5 {
+  color: #ffff9e !important;
+  caret-color: #ffff9e !important;
+}
+.v-application .warning.lighten-4 {
+  background-color: #fffb82 !important;
+  border-color: #fffb82 !important;
+}
+.v-application .warning--text.text--lighten-4 {
+  color: #fffb82 !important;
+  caret-color: #fffb82 !important;
+}
+.v-application .warning.lighten-3 {
+  background-color: #ffdf67 !important;
+  border-color: #ffdf67 !important;
+}
+.v-application .warning--text.text--lighten-3 {
+  color: #ffdf67 !important;
+  caret-color: #ffdf67 !important;
+}
+.v-application .warning.lighten-2 {
+  background-color: #ffc24b !important;
+  border-color: #ffc24b !important;
+}
+.v-application .warning--text.text--lighten-2 {
+  color: #ffc24b !important;
+  caret-color: #ffc24b !important;
+}
+.v-application .warning.lighten-1 {
+  background-color: #ffa72d !important;
+  border-color: #ffa72d !important;
+}
+.v-application .warning--text.text--lighten-1 {
+  color: #ffa72d !important;
+  caret-color: #ffa72d !important;
+}
+.v-application .warning.darken-1 {
+  background-color: #db7200 !important;
+  border-color: #db7200 !important;
+}
+.v-application .warning--text.text--darken-1 {
+  color: #db7200 !important;
+  caret-color: #db7200 !important;
+}
+.v-application .warning.darken-2 {
+  background-color: #bb5900 !important;
+  border-color: #bb5900 !important;
+}
+.v-application .warning--text.text--darken-2 {
+  color: #bb5900 !important;
+  caret-color: #bb5900 !important;
+}
+.v-application .warning.darken-3 {
+  background-color: #9d4000 !important;
+  border-color: #9d4000 !important;
+}
+.v-application .warning--text.text--darken-3 {
+  color: #9d4000 !important;
+  caret-color: #9d4000 !important;
+}
+.v-application .warning.darken-4 {
+  background-color: #802700 !important;
+  border-color: #802700 !important;
+}
+.v-application .warning--text.text--darken-4 {
+  color: #802700 !important;
+  caret-color: #802700 !important;
+}</style><style type="text/css">
+textarea:disabled {
+  background-color: #fff;
+}
+.v-note-wrapper {
+  position: relative;
+  min-width: 300px;
+  min-height: 300px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #fff;
+  z-index: 1500;
+  text-align: left;
+  border: 1px solid #f2f6fc;
+  border-radius: 4px;
+}
+.v-note-wrapper.fullscreen {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  margin: 0;
+  height: auto;
+  z-index: 1501;
+}
+.v-note-wrapper .v-note-op {
+  padding: 1px;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  white-space: pre-line;
+  -webkit-box-flex: 0;
+  -webkit-flex: none;
+      -ms-flex: none;
+          flex: none;
+  min-height: 40px;
+  -webkit-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  border-bottom: 1px solid #f2f6fc;
+  border-radius: 4px 4px 0 0;
+  background-color: #fff;
+  z-index: 1;
+}
+.v-note-wrapper .v-note-op .v-left-item,
+.v-note-wrapper .v-note-op .v-right-item {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  min-height: 40px;
+  box-sizing: border-box;
+}
+.v-note-wrapper .v-note-op .v-left-item .op-icon-divider,
+.v-note-wrapper .v-note-op .v-right-item .op-icon-divider {
+  height: 40px;
+  border-left: 1px solid #e5e5e5;
+  margin: 0 6px 0 4px;
+}
+.v-note-wrapper .v-note-op .v-left-item .op-icon,
+.v-note-wrapper .v-note-op .v-right-item .op-icon {
+  box-sizing: border-box;
+  display: inline-block;
+  cursor: pointer;
+  height: 28px;
+  width: 28px;
+  margin: 6px 0 5px 0px;
+  font-size: 14px;
+  padding: 4.5px 6px 5px 3.5px;
+  color: #757575;
+  border-radius: 5px;
+  text-align: center;
+  background: none;
+  border: none;
+  outline: none;
+  line-height: 1;
+}
+.v-note-wrapper .v-note-op .v-left-item .op-icon.dropdown-wrapper,
+.v-note-wrapper .v-note-op .v-right-item .op-icon.dropdown-wrapper {
+  line-height: 18px;
+}
+.v-note-wrapper .v-note-op .v-left-item .op-icon.selected,
+.v-note-wrapper .v-note-op .v-right-item .op-icon.selected {
+  color: rgba(0,0,0,0.8);
+  background: #eaeaea;
+}
+.v-note-wrapper .v-note-op .v-left-item .op-icon:hover,
+.v-note-wrapper .v-note-op .v-right-item .op-icon:hover {
+  color: rgba(0,0,0,0.8);
+  background: #e9e9eb;
+}
+.v-note-wrapper .v-note-op .v-left-item.transition .op-icon,
+.v-note-wrapper .v-note-op .v-right-item.transition .op-icon {
+  -webkit-transition: all 0.2s linear 0s;
+  transition: all 0.2s linear 0s;
+}
+.v-note-wrapper .v-note-op .v-right-item {
+  text-align: right;
+  padding-right: 6px;
+  max-width: 30%;
+}
+.v-note-wrapper .v-note-op .v-left-item {
+  text-align: left;
+  padding-left: 6px;
+}
+.v-note-wrapper .v-note-panel {
+  position: relative;
+  border-top: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 50%;
+      -ms-flex: 0 0 50%;
+          flex: 0 0 50%;
+  width: 50%;
+  padding: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  cursor: text;
+  border-bottom-left-radius: 4px;
+}
+.v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper.scroll-style::-webkit-scrollbar {
+  width: 6px;
+  background-color: #e5e5e5;
+}
+.v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper.scroll-style::-webkit-scrollbar-thumb {
+  background-color: #b7b7b7;
+  border-radius: 4px;
+}
+.v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper.scroll-style::-webkit-scrollbar-thumb:hover {
+  background-color: #a1a1a1;
+}
+.v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper.scroll-style::-webkit-scrollbar-thumb:active {
+  background-color: #a1a1a1;
+}
+.v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper.scroll-style::-webkit-scrollbar-track {
+  -webkit-box-shadow: 0 0 0px #808080 inset;
+}
+.v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper.scroll-style-border-radius::-webkit-scrollbar {
+  border-bottom-right-radius: 4px;
+}
+.v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper.transition {
+  -webkit-transition: all 0.2s linear 0s;
+  transition: all 0.2s linear 0s;
+}
+.v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper.single-edit {
+  width: 100%;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
+  overflow-y: auto;
+}
+.v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper.single-show {
+  width: 0;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 0;
+      -ms-flex: 0 0 0px;
+          flex: 0 0 0;
+  display: none;
+}
+.v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper .content-div {
+  width: 100%;
+  padding: 20px 25px;
+  box-sizing: border-box;
+  outline: 0 none;
+  border: none !important;
+  color: #2c3e50;
+  font-size: 16px;
+}
+.v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper .content-input-wrapper {
+  width: 100%;
+  padding: 8px 25px 15px 25px;
+}
+.v-note-wrapper .v-note-panel .v-note-show {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 50%;
+      -ms-flex: 0 0 50%;
+          flex: 0 0 50%;
+  width: 50%;
+  overflow-y: auto;
+  padding: 0 0;
+  -webkit-transition: all 0.2s linear 0s;
+  transition: all 0.2s linear 0s;
+}
+.v-note-wrapper .v-note-panel .v-note-show.single-show {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
+  width: 100%;
+}
+.v-note-wrapper .v-note-panel .v-note-show .v-show-content,
+.v-note-wrapper .v-note-panel .v-note-show .v-show-content-html {
+  width: 100%;
+  height: 100%;
+  padding: 8px 25px 15px 25px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+.v-note-wrapper .v-note-panel .v-note-show .v-show-content.scroll-style::-webkit-scrollbar,
+.v-note-wrapper .v-note-panel .v-note-show .v-show-content-html.scroll-style::-webkit-scrollbar {
+  width: 6px;
+  background-color: #e5e5e5;
+}
+.v-note-wrapper .v-note-panel .v-note-show .v-show-content.scroll-style::-webkit-scrollbar-thumb,
+.v-note-wrapper .v-note-panel .v-note-show .v-show-content-html.scroll-style::-webkit-scrollbar-thumb {
+  background-color: #b7b7b7;
+  border-radius: 4px;
+}
+.v-note-wrapper .v-note-panel .v-note-show .v-show-content.scroll-style::-webkit-scrollbar-thumb:hover,
+.v-note-wrapper .v-note-panel .v-note-show .v-show-content-html.scroll-style::-webkit-scrollbar-thumb:hover {
+  background-color: #a1a1a1;
+}
+.v-note-wrapper .v-note-panel .v-note-show .v-show-content.scroll-style::-webkit-scrollbar-thumb:active,
+.v-note-wrapper .v-note-panel .v-note-show .v-show-content-html.scroll-style::-webkit-scrollbar-thumb:active {
+  background-color: #a1a1a1;
+}
+.v-note-wrapper .v-note-panel .v-note-show .v-show-content.scroll-style::-webkit-scrollbar-track,
+.v-note-wrapper .v-note-panel .v-note-show .v-show-content-html.scroll-style::-webkit-scrollbar-track {
+  -webkit-box-shadow: 0 0 0px #808080 inset;
+}
+.v-note-wrapper .v-note-panel .v-note-show .v-show-content.scroll-style-border-radius::-webkit-scrollbar,
+.v-note-wrapper .v-note-panel .v-note-show .v-show-content-html.scroll-style-border-radius::-webkit-scrollbar {
+  border-bottom-right-radius: 4px;
+}
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  width: 250px;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: rgba(255,255,255,0.98);
+  border-left: 1px solid #f2f6fc;
+  border-right: 1px solid #f2f6fc;
+}
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper.transition {
+  -webkit-transition: all 0.1s linear 0s;
+  transition: all 0.1s linear 0s;
+}
+@media only screen and (max-width: 768px) {
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper {
+    width: 50%;
+}
+}
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper.slideTop-enter-active,
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper.slideTop-leave-active {
+  height: 100%;
+}
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper.slideTop-enter,
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper.slideTop-leave-active {
+  height: 0;
+}
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-title {
+  height: 50px;
+  width: 100%;
+  border-bottom: 1px solid #f2f6fc;
+  -webkit-box-flex: 0;
+  -webkit-flex: none;
+      -ms-flex: none;
+          flex: none;
+  line-height: 50px;
+  font-size: 16px;
+  box-sizing: border-box;
+  padding: 0 12px 0 18px;
+}
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-title .v-note-navigation-close {
+  float: right;
+  color: #606266;
+  font-size: 18px;
+  cursor: pointer;
+}
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-title .v-note-navigation-close:hover {
+  color: #303133;
+}
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content {
+  overflow-y: auto;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  padding: 8px 0;
+}
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content.scroll-style::-webkit-scrollbar {
+  width: 6px;
+  background-color: #e5e5e5;
+}
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content.scroll-style::-webkit-scrollbar-thumb {
+  background-color: #b7b7b7;
+  border-radius: 4px;
+}
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content.scroll-style::-webkit-scrollbar-thumb:hover {
+  background-color: #a1a1a1;
+}
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content.scroll-style::-webkit-scrollbar-thumb:active {
+  background-color: #a1a1a1;
+}
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content.scroll-style::-webkit-scrollbar-track {
+  -webkit-box-shadow: 0 0 0px #808080 inset;
+}
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content.scroll-style-border-radius::-webkit-scrollbar {
+  border-bottom-right-radius: 4px;
+}
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h1,
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h2,
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h3,
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h4,
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h5,
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h6 {
+  margin: 2px 0;
+  font-weight: 500;
+  font-size: 17px;
+  color: #2185d0;
+  cursor: pointer;
+  line-height: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 12px;
+  border-bottom: none;
+}
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h1:hover,
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h2:hover,
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h3:hover,
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h4:hover,
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h5:hover,
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h6:hover {
+  color: #483d8b;
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
+}
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h2 {
+  padding-left: 27px;
+  font-size: 17px;
+}
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h3 {
+  padding-left: 42px;
+  font-size: 17px;
+}
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h4 {
+  padding-left: 58px;
+  font-size: 15px;
+}
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h5 {
+  padding-left: 72px;
+  font-size: 15px;
+}
+.v-note-wrapper .v-note-panel .v-note-navigation-wrapper .v-note-navigation-content h6 {
+  padding-left: 87px;
+  font-size: 15px;
+}
+.v-note-wrapper .v-note-read-model {
+  position: relative;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: #fbfbfb;
+  padding: 30px 8% 50px 8%;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+.v-note-wrapper .v-note-read-model.scroll-style::-webkit-scrollbar {
+  width: 6px;
+  background-color: #e5e5e5;
+}
+.v-note-wrapper .v-note-read-model.scroll-style::-webkit-scrollbar-thumb {
+  background-color: #b7b7b7;
+  border-radius: 4px;
+}
+.v-note-wrapper .v-note-read-model.scroll-style::-webkit-scrollbar-thumb:hover {
+  background-color: #a1a1a1;
+}
+.v-note-wrapper .v-note-read-model.scroll-style::-webkit-scrollbar-thumb:active {
+  background-color: #a1a1a1;
+}
+.v-note-wrapper .v-note-read-model.scroll-style::-webkit-scrollbar-track {
+  -webkit-box-shadow: 0 0 0px #808080 inset;
+}
+.v-note-wrapper .v-note-read-model.scroll-style-border-radius::-webkit-scrollbar {
+  border-bottom-right-radius: 4px;
+}
+.v-note-wrapper .v-note-read-model.show {
+  display: block;
+}
+.v-note-wrapper.shadow {
+  border: none;
+}
+.v-note-help-wrapper {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 1600;
+  -webkit-transition: all 0.1s linear 0s;
+  transition: all 0.1s linear 0s;
+}
+.v-note-help-wrapper.fade-enter-active,
+.v-note-help-wrapper.fade-leave-active {
+  opacity: 1;
+}
+.v-note-help-wrapper.fade-enter,
+.v-note-help-wrapper.fade-leave-active {
+  opacity: 0;
+}
+.v-note-help-wrapper .v-note-help-content {
+  position: relative;
+  width: 60%;
+  max-width: 800px;
+  margin: 30px auto;
+  height: 90%;
+  min-width: 320px;
+  -webkit-transition: all 0.1s linear 0s;
+  transition: all 0.1s linear 0s;
+  z-index: 3;
+  border: 1px solid #f2f6fc;
+}
+.v-note-help-wrapper .v-note-help-content.shadow {
+  border: none;
+  box-shadow: 0 0px 5px rgba(0,0,0,0.157), 0 0px 5px rgba(0,0,0,0.227);
+}
+.v-note-help-wrapper .v-note-help-content i {
+  font-size: 28px;
+  position: absolute;
+  right: 15px;
+  top: 8px;
+  color: rgba(0,0,0,0.7);
+  cursor: pointer;
+}
+.v-note-help-wrapper .v-note-help-content i:hover {
+  color: #000;
+}
+.v-note-help-wrapper .v-note-help-content .v-note-help-show {
+  width: 100%;
+  height: 100%;
+  font-size: 18px;
+  background: #fbfbfb;
+  overflow-y: auto;
+  padding: 2% 6%;
+}
+.v-note-help-wrapper .v-note-help-content .v-note-help-show.scroll-style::-webkit-scrollbar {
+  width: 6px;
+  background-color: #e5e5e5;
+}
+.v-note-help-wrapper .v-note-help-content .v-note-help-show.scroll-style::-webkit-scrollbar-thumb {
+  background-color: #b7b7b7;
+  border-radius: 4px;
+}
+.v-note-help-wrapper .v-note-help-content .v-note-help-show.scroll-style::-webkit-scrollbar-thumb:hover {
+  background-color: #a1a1a1;
+}
+.v-note-help-wrapper .v-note-help-content .v-note-help-show.scroll-style::-webkit-scrollbar-thumb:active {
+  background-color: #a1a1a1;
+}
+.v-note-help-wrapper .v-note-help-content .v-note-help-show.scroll-style::-webkit-scrollbar-track {
+  -webkit-box-shadow: 0 0 0px #808080 inset;
+}
+.v-note-help-wrapper .v-note-help-content .v-note-help-show.scroll-style-border-radius::-webkit-scrollbar {
+  border-bottom-right-radius: 4px;
+}
+.v-note-img-wrapper {
+  position: fixed;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 1600;
+  -webkit-transition: all 0.1s linear 0s;
+  transition: all 0.1s linear 0s;
+}
+.v-note-img-wrapper.fade-enter-active,
+.v-note-img-wrapper.fade-leave-active {
+  opacity: 1;
+}
+.v-note-img-wrapper.fade-enter,
+.v-note-img-wrapper.fade-leave-active {
+  opacity: 0;
+}
+.v-note-img-wrapper img {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+  z-index: 3;
+}
+.v-note-img-wrapper i {
+  font-size: 28px;
+  position: absolute;
+  right: 15px;
+  top: 8px;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+}
+.v-note-img-wrapper i:hover {
+  color: #fff;
+}
+</style><style type="text/css">
+.auto-textarea-wrapper[data-v-7a63e4b3] {
+    height: 100%;
+}
+</style><style type="text/css">
+.op-icon.dropdown-wrapper.dropdown[data-v-548e2160] {
+  position: relative;
+}
+.op-icon.dropdown-wrapper.dropdown[type=button][data-v-548e2160] {
+  -webkit-appearance: unset;
+}
+.op-icon.dropdown-wrapper.dropdown .popup-dropdown[data-v-548e2160] {
+  position: absolute;
+  display: block;
+  background: #fff;
+  top: 32px;
+  left: -45px;
+  min-width: 130px;
+  z-index: 1600;
+  border: 1px solid #ebeef5;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.1);
+}
+.op-icon.dropdown-wrapper.dropdown .popup-dropdown .dropdown-item[data-v-548e2160]:first-child {
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.op-icon.dropdown-wrapper.dropdown .popup-dropdown .dropdown-item[data-v-548e2160]:last-child {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+.op-icon.dropdown-wrapper.dropdown .popup-dropdown.op-header[data-v-548e2160] {
+  left: -30px;
+  min-width: 90px;
+}
+.op-icon.dropdown-wrapper.dropdown .popup-dropdown.fade-enter-active[data-v-548e2160],
+.op-icon.dropdown-wrapper.dropdown .popup-dropdown.fade-leave-active[data-v-548e2160] {
+  opacity: 1;
+}
+.op-icon.dropdown-wrapper.dropdown .popup-dropdown.fade-enter[data-v-548e2160],
+.op-icon.dropdown-wrapper.dropdown .popup-dropdown.fade-leave-active[data-v-548e2160] {
+  opacity: 0;
+}
+.op-icon.dropdown-wrapper.dropdown .popup-dropdown.transition[data-v-548e2160],
+.op-icon.dropdown-wrapper.dropdown .popup-dropdown.transition .dropdown-item[data-v-548e2160] {
+  -webkit-transition: all 0.2s linear 0s;
+  transition: all 0.2s linear 0s;
+}
+.op-icon.dropdown-wrapper.dropdown .dropdown-item[data-v-548e2160] {
+  height: 40px;
+  line-height: 40px;
+  font-size: 14px;
+  color: #606266;
+  position: relative;
+}
+.op-icon.dropdown-wrapper.dropdown .dropdown-item[data-v-548e2160]:hover {
+  color: #303133;
+  background-color: #e9e9eb;
+}
+.op-icon.dropdown-wrapper.dropdown .dropdown-item input[data-v-548e2160] {
+  position: absolute;
+  font-size: 100px;
+  right: 0;
+  top: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.op-icon.dropdown-wrapper.dropdown .dropdown-images[data-v-548e2160] {
+  box-sizing: border-box;
+}
+.op-icon.dropdown-wrapper.dropdown .dropdown-images button[data-v-548e2160] {
+  position: absolute;
+  top: -1px;
+  right: 5px;
+  font-size: 14px;
+}
+.op-icon.dropdown-wrapper.dropdown .dropdown-images button[data-v-548e2160]:hover {
+  color: #f56c6c;
+  background-color: transparent;
+}
+.op-icon.dropdown-wrapper.dropdown .dropdown-images span[data-v-548e2160] {
+  display: inline-block;
+  width: 80px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.op-icon.dropdown-wrapper.dropdown .dropdown-images:hover .image-show[data-v-548e2160] {
+  display: block !important;
+}
+.op-icon.dropdown-wrapper.dropdown .dropdown-images .image-show[data-v-548e2160] {
+  display: none;
+  position: absolute;
+  left: -128px;
+  top: 0;
+  width: 120px;
+  height: 90px;
+  object-fit: contain;
+  border: 1px solid #f2f6fc;
+}
+.op-icon.dropdown-wrapper.dropdown .dropdown-images .image-show.transition[data-v-548e2160] {
+  -webkit-transition: all 0.2s linear 0s;
+  transition: all 0.2s linear 0s;
+}
+.op-icon.dropdown-wrapper.dropdown .dropdown-images.transition[data-v-548e2160] {
+  -webkit-transition: all 0.2s linear 0s;
+  transition: all 0.2s linear 0s;
+}
+.add-image-link-wrapper[data-v-548e2160] {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 1600;
+  -webkit-transition: all 0.1s linear 0s;
+  transition: all 0.1s linear 0s;
+}
+.add-image-link-wrapper.fade-enter-active[data-v-548e2160],
+.add-image-link-wrapper.fade-leave-active[data-v-548e2160] {
+  opacity: 1;
+}
+.add-image-link-wrapper.fade-enter[data-v-548e2160],
+.add-image-link-wrapper.fade-leave-active[data-v-548e2160] {
+  opacity: 0;
+}
+.add-image-link-wrapper .add-image-link[data-v-548e2160] {
+  position: fixed;
+  box-sizing: border-box;
+  text-align: center;
+  width: 24%;
+  left: 38%;
+  height: auto;
+  padding: 40px;
+  top: 25%;
+  -webkit-transition: all 0.1s linear 0s;
+  transition: all 0.1s linear 0s;
+  z-index: 3;
+  background: #fff;
+  border-radius: 2px;
+}
+@media only screen and (max-width: 1500px) {
+.add-image-link-wrapper .add-image-link[data-v-548e2160] {
+    width: 34%;
+    left: 33%;
+}
+}
+@media only screen and (max-width: 1000px) {
+.add-image-link-wrapper .add-image-link[data-v-548e2160] {
+    width: 50%;
+    left: 25%;
+}
+}
+@media only screen and (max-width: 600px) {
+.add-image-link-wrapper .add-image-link[data-v-548e2160] {
+    width: 80%;
+    left: 10%;
+}
+}
+.add-image-link-wrapper .add-image-link i[data-v-548e2160] {
+  font-size: 24px;
+  position: absolute;
+  right: 8px;
+  top: 6px;
+  color: rgba(0,0,0,0.7);
+  cursor: pointer;
+}
+.add-image-link-wrapper .add-image-link .title[data-v-548e2160] {
+  font-size: 20px;
+  margin-bottom: 30px;
+  margin-top: 10px;
+  font-weight: 500 !important;
+}
+.add-image-link-wrapper .add-image-link .input-wrapper[data-v-548e2160] {
+  margin-top: 10px;
+  width: 80%;
+  border: 1px solid #eeece8;
+  text-align: left;
+  margin-left: 10%;
+  height: 35px;
+}
+.add-image-link-wrapper .add-image-link .input-wrapper input[data-v-548e2160] {
+  height: 32px;
+  line-height: 32px;
+  font-size: 15px;
+  width: 90%;
+  margin-left: 8px;
+  border: none;
+  outline: none;
+}
+.add-image-link-wrapper .add-image-link .op-btn[data-v-548e2160] {
+  width: 100px;
+  height: 35px;
+  display: inline-block;
+  margin-top: 30px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 35px;
+  opacity: 0.9;
+  border-radius: 2px;
+  letter-spacing: 1px;
+  font-size: 15px;
+}
+.add-image-link-wrapper .add-image-link .op-btn.sure[data-v-548e2160] {
+  background: #2185d0;
+  color: #fff;
+  margin-left: 5%;
+}
+.add-image-link-wrapper .add-image-link .op-btn.sure[data-v-548e2160]:hover {
+  opacity: 1;
+}
+.add-image-link-wrapper .add-image-link .op-btn.cancel[data-v-548e2160] {
+  border: 1px solid #bcbcbc;
+  color: #bcbcbc;
+}
+.add-image-link-wrapper .add-image-link .op-btn.cancel[data-v-548e2160]:hover {
+  color: #000;
+}
+</style><style type="text/css">
+.auto-textarea-wrapper {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  line-height: normal;
+}
+.auto-textarea-wrapper .auto-textarea-block {
+  display: block;
+  white-space: pre-wrap;
+  word-wrap: break-word !important;
+  visibility: hidden;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 100%;
+}
+.auto-textarea-wrapper .auto-textarea-input {
+  font-family: Menlo, "Ubuntu Mono", Consolas, "Courier New", "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  overflow-y: hidden;
+  color: #2c3e50;
+}
+.auto-textarea-wrapper .auto-textarea-input.no-border {
+  outline: 0 none;
+  border: none !important;
+}
+.auto-textarea-wrapper .auto-textarea-input.no-resize {
+  resize: none;
+}
+</style><link rel="stylesheet" href="OSome%20-%20%E6%8F%90%E4%BA%A4%E8%AF%84%E6%B5%8B_files/github-markdown.min.css"><link rel="stylesheet" href="OSome%20-%20%E6%8F%90%E4%BA%A4%E8%AF%84%E6%B5%8B_files/katex.min.css"><script type="text/javascript" charset="UTF-8" src="OSome%20-%20%E6%8F%90%E4%BA%A4%E8%AF%84%E6%B5%8B_files/katex.min.js"></script><script type="text/javascript" charset="UTF-8" src="OSome%20-%20%E6%8F%90%E4%BA%A4%E8%AF%84%E6%B5%8B_files/highlight.min.js"></script><link rel="stylesheet" href="OSome%20-%20%E6%8F%90%E4%BA%A4%E8%AF%84%E6%B5%8B_files/github.min.css" id="md-code-style"><style type="text/css">.infinite-loading-container[data-v-644ea9c9]{clear:both;text-align:center}.infinite-loading-container[data-v-644ea9c9] [class^=loading-]{display:inline-block;margin:5px 0;width:28px;height:28px;font-size:28px;line-height:28px;border-radius:50%}.btn-try-infinite[data-v-644ea9c9]{margin-top:5px;padding:5px 10px;color:#999;font-size:14px;line-height:1;background:transparent;border:1px solid #ccc;border-radius:3px;outline:none;cursor:pointer}.btn-try-infinite[data-v-644ea9c9]:not(:active):hover{opacity:.8}</style><style type="text/css">.loading-wave-dots[data-v-46b20d22]{position:relative}.loading-wave-dots[data-v-46b20d22] .wave-item{position:absolute;top:50%;left:50%;display:inline-block;margin-top:-4px;width:8px;height:8px;border-radius:50%;-webkit-animation:loading-wave-dots-data-v-46b20d22 linear 2.8s infinite;animation:loading-wave-dots-data-v-46b20d22 linear 2.8s infinite}.loading-wave-dots[data-v-46b20d22] .wave-item:first-child{margin-left:-36px}.loading-wave-dots[data-v-46b20d22] .wave-item:nth-child(2){margin-left:-20px;-webkit-animation-delay:.14s;animation-delay:.14s}.loading-wave-dots[data-v-46b20d22] .wave-item:nth-child(3){margin-left:-4px;-webkit-animation-delay:.28s;animation-delay:.28s}.loading-wave-dots[data-v-46b20d22] .wave-item:nth-child(4){margin-left:12px;-webkit-animation-delay:.42s;animation-delay:.42s}.loading-wave-dots[data-v-46b20d22] .wave-item:last-child{margin-left:28px;-webkit-animation-delay:.56s;animation-delay:.56s}@-webkit-keyframes loading-wave-dots-data-v-46b20d22{0%{-webkit-transform:translateY(0);transform:translateY(0);background:#bbb}10%{-webkit-transform:translateY(-6px);transform:translateY(-6px);background:#999}20%{-webkit-transform:translateY(0);transform:translateY(0);background:#bbb}to{-webkit-transform:translateY(0);transform:translateY(0);background:#bbb}}@keyframes loading-wave-dots-data-v-46b20d22{0%{-webkit-transform:translateY(0);transform:translateY(0);background:#bbb}10%{-webkit-transform:translateY(-6px);transform:translateY(-6px);background:#999}20%{-webkit-transform:translateY(0);transform:translateY(0);background:#bbb}to{-webkit-transform:translateY(0);transform:translateY(0);background:#bbb}}.loading-circles[data-v-46b20d22] .circle-item{width:5px;height:5px;-webkit-animation:loading-circles-data-v-46b20d22 linear .75s infinite;animation:loading-circles-data-v-46b20d22 linear .75s infinite}.loading-circles[data-v-46b20d22] .circle-item:first-child{margin-top:-14.5px;margin-left:-2.5px}.loading-circles[data-v-46b20d22] .circle-item:nth-child(2){margin-top:-11.26px;margin-left:6.26px}.loading-circles[data-v-46b20d22] .circle-item:nth-child(3){margin-top:-2.5px;margin-left:9.5px}.loading-circles[data-v-46b20d22] .circle-item:nth-child(4){margin-top:6.26px;margin-left:6.26px}.loading-circles[data-v-46b20d22] .circle-item:nth-child(5){margin-top:9.5px;margin-left:-2.5px}.loading-circles[data-v-46b20d22] .circle-item:nth-child(6){margin-top:6.26px;margin-left:-11.26px}.loading-circles[data-v-46b20d22] .circle-item:nth-child(7){margin-top:-2.5px;margin-left:-14.5px}.loading-circles[data-v-46b20d22] .circle-item:last-child{margin-top:-11.26px;margin-left:-11.26px}@-webkit-keyframes loading-circles-data-v-46b20d22{0%{background:#dfdfdf}90%{background:#505050}to{background:#dfdfdf}}@keyframes loading-circles-data-v-46b20d22{0%{background:#dfdfdf}90%{background:#505050}to{background:#dfdfdf}}.loading-bubbles[data-v-46b20d22] .bubble-item{background:#666;-webkit-animation:loading-bubbles-data-v-46b20d22 linear .75s infinite;animation:loading-bubbles-data-v-46b20d22 linear .75s infinite}.loading-bubbles[data-v-46b20d22] .bubble-item:first-child{margin-top:-12.5px;margin-left:-.5px}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(2){margin-top:-9.26px;margin-left:8.26px}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(3){margin-top:-.5px;margin-left:11.5px}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(4){margin-top:8.26px;margin-left:8.26px}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(5){margin-top:11.5px;margin-left:-.5px}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(6){margin-top:8.26px;margin-left:-9.26px}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(7){margin-top:-.5px;margin-left:-12.5px}.loading-bubbles[data-v-46b20d22] .bubble-item:last-child{margin-top:-9.26px;margin-left:-9.26px}@-webkit-keyframes loading-bubbles-data-v-46b20d22{0%{width:1px;height:1px;box-shadow:0 0 0 3px #666}90%{width:1px;height:1px;box-shadow:0 0 0 0 #666}to{width:1px;height:1px;box-shadow:0 0 0 3px #666}}@keyframes loading-bubbles-data-v-46b20d22{0%{width:1px;height:1px;box-shadow:0 0 0 3px #666}90%{width:1px;height:1px;box-shadow:0 0 0 0 #666}to{width:1px;height:1px;box-shadow:0 0 0 3px #666}}.loading-default[data-v-46b20d22]{position:relative;border:1px solid #999;-webkit-animation:loading-rotating-data-v-46b20d22 ease 1.5s infinite;animation:loading-rotating-data-v-46b20d22 ease 1.5s infinite}.loading-default[data-v-46b20d22]:before{content:"";position:absolute;display:block;top:0;left:50%;margin-top:-3px;margin-left:-3px;width:6px;height:6px;background-color:#999;border-radius:50%}.loading-spiral[data-v-46b20d22]{border:2px solid #777;border-right-color:transparent;-webkit-animation:loading-rotating-data-v-46b20d22 linear .85s infinite;animation:loading-rotating-data-v-46b20d22 linear .85s infinite}@-webkit-keyframes loading-rotating-data-v-46b20d22{0%{-webkit-transform:rotate(0);transform:rotate(0)}to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}@keyframes loading-rotating-data-v-46b20d22{0%{-webkit-transform:rotate(0);transform:rotate(0)}to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}.loading-bubbles[data-v-46b20d22],.loading-circles[data-v-46b20d22]{position:relative}.loading-bubbles[data-v-46b20d22] .bubble-item,.loading-circles[data-v-46b20d22] .circle-item{position:absolute;top:50%;left:50%;display:inline-block;border-radius:50%}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(2),.loading-circles[data-v-46b20d22] .circle-item:nth-child(2){-webkit-animation-delay:93ms;animation-delay:93ms}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(3),.loading-circles[data-v-46b20d22] .circle-item:nth-child(3){-webkit-animation-delay:.186s;animation-delay:.186s}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(4),.loading-circles[data-v-46b20d22] .circle-item:nth-child(4){-webkit-animation-delay:.279s;animation-delay:.279s}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(5),.loading-circles[data-v-46b20d22] .circle-item:nth-child(5){-webkit-animation-delay:.372s;animation-delay:.372s}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(6),.loading-circles[data-v-46b20d22] .circle-item:nth-child(6){-webkit-animation-delay:.465s;animation-delay:.465s}.loading-bubbles[data-v-46b20d22] .bubble-item:nth-child(7),.loading-circles[data-v-46b20d22] .circle-item:nth-child(7){-webkit-animation-delay:.558s;animation-delay:.558s}.loading-bubbles[data-v-46b20d22] .bubble-item:last-child,.loading-circles[data-v-46b20d22] .circle-item:last-child{-webkit-animation-delay:.651s;animation-delay:.651s}</style></head><body><noscript><strong>We're sorry but pendulum-frontend doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div data-app="true" class="v-application v-application--is-ltr theme--light" id="app"><div class="v-application--wrap"><div data-v-9b465940="" class="v-snack fix-snackbar v-snack--has-background v-snack--top"><div class="v-snack__wrapper v-sheet theme--dark rounded-pill" style="display: none;"><div role="status" aria-live="polite" class="v-snack__content"><i data-v-9b465940="" aria-hidden="true" class="v-icon notranslate material-icons theme--dark"></i><span data-v-9b465940="" class="ml-3"></span></div><div class="v-snack__action "><button data-v-9b465940="" type="button" class="v-btn v-btn--icon v-btn--round theme--dark v-size--default v-snack__btn"><span class="v-btn__content"><i data-v-9b465940="" aria-hidden="true" class="v-icon notranslate mdi mdi-close theme--dark"></i></span></button></div></div></div><div data-v-14a4bac8="" data-app="true" class="v-application v-application--is-ltr theme--light" id="app"><div class="v-application--wrap"><nav data-v-14a4bac8="" class="v-navigation-drawer v-navigation-drawer--fixed v-navigation-drawer--mini-variant v-navigation-drawer--open v-navigation-drawer--open-on-hover theme--light" style="height: 100vh; top: 0px; max-height: calc(100% - 0px); transform: translateX(0%); width: 56px;" data-booted="true"><div class="v-navigation-drawer__content"><div data-v-14a4bac8="" class="v-list v-sheet theme--light"><div data-v-14a4bac8="" tabindex="-1" class="menu-head v-list-item theme--light"><div data-v-14a4bac8="" class="v-avatar v-list-item__avatar" style="height: 40px; min-width: 40px; width: 40px;"><div data-v-14a4bac8="" class="v-image v-responsive theme--light"><div class="v-responsive__sizer" style="padding-bottom: 100%;"></div><div class="v-image__image v-image__image--cover" style="background-image: url(&quot;http://os.buaa.edu.cn/public/user.svg&quot;); background-position: center center;"></div><!----><div class="v-responsive__content" style="width: 48px;"></div></div></div><div data-v-14a4bac8="" class="v-list-item__content"><div data-v-14a4bac8="" class="v-list-item__title text-h7">孙奕博</div><div data-v-14a4bac8="" class="v-list-item__subtitle">2023春-操作系统</div></div></div></div><hr data-v-14a4bac8="" role="separator" aria-orientation="horizontal" class="v-divider theme--light"><div data-v-14a4bac8="" class="v-list v-sheet theme--light v-list--dense v-list--nav"><a data-v-14a4bac8="" href="http://os.buaa.edu.cn/billboard" class="v-list-item v-list-item--link theme--light" tabindex="0"><div data-v-14a4bac8="" class="v-list-item__icon"><i data-v-14a4bac8="" aria-hidden="true" class="v-icon notranslate mdi mdi-bullhorn-outline theme--light green--text"></i></div><div data-v-14a4bac8="" class="v-list-item__title"><span data-v-14a4bac8="" class="menu-title ml-n8">课程公告</span></div></a><a data-v-14a4bac8="" href="http://os.buaa.edu.cn/progress" class="v-list-item v-list-item--link theme--light" tabindex="0"><div data-v-14a4bac8="" class="v-list-item__icon"><i data-v-14a4bac8="" aria-hidden="true" class="v-icon notranslate mdi mdi-send-outline theme--light green--text"></i></div><div data-v-14a4bac8="" class="v-list-item__title"><span data-v-14a4bac8="" class="menu-title ml-n8">提交评测</span></div></a><a data-v-14a4bac8="" href="http://os.buaa.edu.cn/discussion" class="v-list-item v-list-item--link theme--light" tabindex="0"><div data-v-14a4bac8="" class="v-list-item__icon"><i data-v-14a4bac8="" aria-hidden="true" class="v-icon notranslate mdi mdi-forum-outline theme--light green--text"></i></div><div data-v-14a4bac8="" class="v-list-item__title"><span data-v-14a4bac8="" class="menu-title ml-n8">讨论区</span></div></a><a data-v-14a4bac8="" href="http://os.buaa.edu.cn/tutorial" class="v-list-item v-list-item--link theme--light" tabindex="0"><div data-v-14a4bac8="" class="v-list-item__icon"><i data-v-14a4bac8="" aria-hidden="true" class="v-icon notranslate mdi mdi-book-open-outline theme--light green--text"></i></div><div data-v-14a4bac8="" class="v-list-item__title"><span data-v-14a4bac8="" class="menu-title ml-n8">实验教程</span></div></a><a data-v-14a4bac8="" href="http://os.buaa.edu.cn/user-center" class="v-list-item v-list-item--link theme--light" tabindex="0"><div data-v-14a4bac8="" class="v-list-item__icon"><i data-v-14a4bac8="" aria-hidden="true" class="v-icon notranslate mdi mdi-account-details-outline theme--light green--text"></i></div><div data-v-14a4bac8="" class="v-list-item__title"><span data-v-14a4bac8="" class="menu-title ml-n8">个人中心</span></div></a></div></div><div class="v-navigation-drawer__border"></div></nav><header data-v-14a4bac8="" class="v-sheet theme--light elevation-2 v-toolbar v-app-bar v-app-bar--fixed v-app-bar--is-scrolled white" style="height: 64px; margin-top: 0px; transform: translateY(0px); left: 56px; right: 0px;" data-booted="true"><div class="v-toolbar__content" style="height: 64px;"><div data-v-14a4bac8="" class="v-toolbar__title ml-7">提交评测</div><div data-v-14a4bac8="" class="spacer"></div><div data-v-14a4bac8="" class="v-toolbar__title mr-1"> 2023-05-08 21:24:39 <!----></div><div data-v-14a4bac8="" class="v-menu"></div><button data-v-14a4bac8="" type="button" class="v-btn v-btn--icon v-btn--round theme--light v-size--default" aria-haspopup="true" aria-expanded="false"><span class="v-btn__content"><i data-v-14a4bac8="" aria-hidden="true" class="v-icon notranslate mdi mdi-message-text-outline theme--light"></i></span></button></div></header><div data-v-14a4bac8="" class="v-dialog__container"><!----></div><main data-v-14a4bac8="" class="v-main" style="padding: 64px 0px 0px 56px;" data-booted="true"><div class="v-main__wrap"><div data-v-166d71d2="" data-v-14a4bac8="" data-app="true" class="v-application v-application--is-ltr theme--light" id="app"><div class="v-application--wrap"><button data-v-166d71d2="" type="button" class="white--text mt-3 mr-2 v-btn v-btn--is-elevated v-btn--fab v-btn--fixed v-btn--has-bg v-btn--right v-btn--round theme--light v-size--default green"><span class="v-btn__content"> 提交 </span></button><button data-v-166d71d2="" type="button" class="white--text mr-2 v-btn v-btn--is-elevated v-btn--fab v-btn--fixed v-btn--has-bg v-btn--right v-btn--round theme--light v-size--default green" style="margin-top: 80px;"><span class="v-btn__content"> 更新 </span></button><div data-v-166d71d2="" class="row align-start" style="width: 100%;"><div data-v-166d71d2="" class="col"><div data-v-166d71d2="" class="v-window elevation-0 v-item-group theme--light"><div class="v-window__container" style=""><div data-v-166d71d2="" class="v-window-item v-window-item--active" style=""><div data-v-166d71d2="" class="elevation-0 mx-2 my-2 v-card v-sheet theme--light"><div data-v-7a63e4b3="" data-v-4bef91fc="" data-v-166d71d2="" class="v-note-wrapper markdown-body shadow" style="min-height: 0px; z-index: 1; background-color: transparent;"><div data-v-7a63e4b3="" class="v-note-op" style="background: rgb(255, 255, 255); display: none;"><div data-v-548e2160="" data-v-7a63e4b3="" class="v-left-item transition"> <button data-v-548e2160="" disabled="disabled" type="button" aria-hidden="true" title="粗体 (ctrl+b)" class="op-icon fa fa-mavon-bold"></button> <button data-v-548e2160="" disabled="disabled" type="button" aria-hidden="true" title="斜体 (ctrl+i)" class="op-icon fa fa-mavon-italic"></button> <div data-v-548e2160="" disabled="disabled" type="button" aria-hidden="true" title="标题 (ctrl+h)" class="op-icon fa fa-mavon-header dropdown dropdown-wrapper"><div data-v-548e2160="" class="op-header popup-dropdown transition" style="display: none;"><div data-v-548e2160="" title="#" class="dropdown-item"><span data-v-548e2160="">一级标题</span></div> <div data-v-548e2160="" title="## " class="dropdown-item"><span data-v-548e2160="">二级标题</span></div> <div data-v-548e2160="" title="### " class="dropdown-item"><span data-v-548e2160="">三级标题</span></div> <div data-v-548e2160="" title="#### " class="dropdown-item"><span data-v-548e2160="">四级标题</span></div> <div data-v-548e2160="" title="##### " class="dropdown-item"><span data-v-548e2160="">五级标题</span></div> <div data-v-548e2160="" title="###### " class="dropdown-item"><span data-v-548e2160="">六级标题</span></div></div></div> <span data-v-548e2160="" class="op-icon-divider"></span> <button data-v-548e2160="" disabled="disabled" type="button" title="下划线 (ctrl+u)" aria-hidden="true" class="op-icon fa fa-mavon-underline"></button> <button data-v-548e2160="" disabled="disabled" type="button" title="中划线 (ctrl+shift+d)" aria-hidden="true" class="op-icon fa fa-mavon-strikethrough"></button> <button data-v-548e2160="" disabled="disabled" type="button" title="标记 (ctrl+m)" aria-hidden="true" class="op-icon fa fa-mavon-thumb-tack"></button> <button data-v-548e2160="" disabled="disabled" type="button" aria-hidden="true" title="上角标 (ctrl+alt+s)" class="op-icon fa fa-mavon-superscript"></button> <button data-v-548e2160="" disabled="disabled" type="button" aria-hidden="true" title="下角标 (ctrl+shift+s)" class="op-icon fa fa-mavon-subscript"></button> <button data-v-548e2160="" disabled="disabled" type="button" aria-hidden="true" title="居左 (ctrl+l)" class="op-icon fa fa-mavon-align-left"></button> <button data-v-548e2160="" disabled="disabled" type="button" aria-hidden="true" title="居中 (ctrl+e)" class="op-icon fa fa-mavon-align-center"></button> <button data-v-548e2160="" disabled="disabled" type="button" aria-hidden="true" title="居右 (ctrl+r)" class="op-icon fa fa-mavon-align-right"></button> <span data-v-548e2160="" class="op-icon-divider"></span> <button data-v-548e2160="" disabled="disabled" type="button" aria-hidden="true" title="段落引用 (ctrl+q)" class="op-icon fa fa-mavon-quote-left"></button> <button data-v-548e2160="" disabled="disabled" type="button" aria-hidden="true" title="有序列表 (ctrl+o)" class="op-icon fa fa-mavon-list-ol"></button> <button data-v-548e2160="" disabled="disabled" type="button" aria-hidden="true" title="无序列表 (ctrl+alt+u)" class="op-icon fa fa-mavon-list-ul"></button> <span data-v-548e2160="" class="op-icon-divider"></span> <button data-v-548e2160="" disabled="disabled" type="button" aria-hidden="true" title="链接 (ctrl+l)" class="op-icon fa fa-mavon-link"></button> <div data-v-548e2160="" disabled="disabled" type="button" aria-hidden="true" class="op-icon fa fa-mavon-picture-o dropdown dropdown-wrapper"><div data-v-548e2160="" class="op-image popup-dropdown transition" style="display: none;"><div data-v-548e2160="" class="dropdown-item"><span data-v-548e2160="">添加图片链接</span></div> <div data-v-548e2160="" class="dropdown-item" style="overflow: hidden;"><input data-v-548e2160="" type="file" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" multiple="multiple">上传图片
+                </div> <!----></div></div> <button data-v-548e2160="" disabled="disabled" type="button" aria-hidden="true" title="代码块 (ctrl+alt+c)" class="op-icon fa fa-mavon-code"></button> <button data-v-548e2160="" disabled="disabled" type="button" aria-hidden="true" title="表格 (ctrl+alt+t)" class="op-icon fa fa-mavon-table"></button> <span data-v-548e2160="" class="op-icon-divider"></span> <button data-v-548e2160="" type="button" aria-hidden="true" title="上一步 (ctrl+z)" class="op-icon fa fa-mavon-undo"></button> <button data-v-548e2160="" type="button" aria-hidden="true" title="下一步 (ctrl+y)" class="op-icon fa fa-mavon-repeat"></button> <button data-v-548e2160="" type="button" aria-hidden="true" title="清空 (ctrl+breakspace)" class="op-icon fa fa-mavon-trash-o"></button> <button data-v-548e2160="" type="button" aria-hidden="true" title="保存 (ctrl+s)" class="op-icon fa fa-mavon-floppy-o"></button>  <!----></div> <div data-v-7a63e4b3="" class="v-right-item transition"> <button type="button" aria-hidden="true" title="开启标题导航 (F8)" class="op-icon fa fa-mavon-bars"></button> <button type="button" aria-hidden="true" title="关闭标题导航 (F8)" class="op-icon fa fa-mavon-bars selected" style="display: none;"></button> <button type="button" aria-hidden="true" title="编辑 (F9)" class="op-icon fa fa-mavon-eye-slash selected"></button> <button type="button" aria-hidden="true" title="预览 (F9)" class="op-icon fa fa-mavon-eye" style="display: none;"></button> <button type="button" title="全屏编辑 (F10)" aria-hidden="true" class="op-icon fa fa-mavon-arrows-alt"></button> <button type="button" title="退出全屏 (F10)" aria-hidden="true" class="op-icon fa fa-mavon-compress selected" style="display: none;"></button> <button type="button" aria-hidden="true" title="沉浸式阅读 (F11)" class="op-icon fa fa-mavon-window-maximize"></button> <button type="button" aria-hidden="true" title="双栏 (F12)" class="op-icon fa fa-mavon-columns"></button> <span class="op-icon-divider"></span> <button type="button" title="查看html文本" aria-hidden="true" class="op-icon fa fa-mavon-code"></button> <button type="button" title="返回markdown文本" aria-hidden="true" class="op-icon fa fa-mavon-code selected" style="display: none;"></button> <button type="button" title="markdown语法帮助" aria-hidden="true" class="op-icon fa fa-mavon-question-circle" style="font-size: 17px; padding: 5px 6px 5px 3px;"></button> </div></div> <div data-v-7a63e4b3="" class="v-note-panel"><div data-v-7a63e4b3="" class="v-note-edit divarea-wrapper scroll-style single-show transition"><div data-v-7a63e4b3="" class="content-input-wrapper" style="background-color: rgb(255, 255, 255);"><div data-v-7a63e4b3="" class="auto-textarea-wrapper content-input" style="font-size: 14px; line-height: 1.5; height: 100%; background-color: rgb(255, 255, 255);"><pre class="auto-textarea-block" style="font-size: 14px; line-height: 1.5; min-height: 100%;"><br># Lab4-2-Extra Semaphore
+
+
+## 准备工作：创建并切换到 `lab4-2-extra` 分支
+
+1. **基于已完成的 lab4 提交自动初始化 lab4-2-extra 分支**
+
+2. 在开发机依次执行以下命令：
+
+   ```console
+   $ cd ~/学号
+   $ git fetch
+   $ git checkout lab4-2-extra
+   ```
+
+   初始化的 `lab4-2-extra` 分支基于课下完成的 `lab4` 分支，并且在 `tests` 目录下添加了 `lab4_sem` 样例测试目录。
+
+## 题目背景 &amp; 题目描述
+
+在理论课中，我们学习到了信号量的相关知识。信号量机制是实现进程间同步互斥的有效手段。在本 extra 中，我们希望在 lab4 的基础上新增简单的信号量相关功能。你需要实现以下五个用户态函数，实现进程间的同步互斥。
+
+### 定义错误码
+
+在 `include/error.h` 中添加新异常码。
+
+```c
+#define E_NO_SEM 14
+```
+
+### 初始化信号量
+
+```c
+int sem_init(const char * name, int init_value, int checkperm)
+```
+
+注册一个名为 `name` 的信号量，为其分配 id，设置权限与初始值。
+
+ `name` 为信号量的名字，其初始值为 `init_value` ，`checkperm` 表示使用该信号量时是否需要检查进程的权限，
+ 非 0 时，表示该信号量仅该进程与该进程的**后代**（包括该进程及其所有后代的子进程）可见；为 0 时，表示该信号量对系统中的所有进程可见。
+
+成功初始化信号量返回值为被注册信号量的 id，若没有多余的 id 可以分配，则返回 `-E_NO_SEM` 。
+
+### 对信号量进行 P 操作
+
+```c
+int sem_wait(int sem_id)
+```
+
+对 id 为 `sem_id` 的信号量进行 P 操作。
+
+当信号量的值大于 0 时，将信号量的值减 1。
+当信号量的值等于 0 时，申请该信号量的进程阻塞，当信号量的值重新大于 0 时，将信号量的值减 1, 进程继续执行。
+
+成功进行 P 操作后返回值为 0，若未找到符合权限的可操作信号量，则返回 `-E_NO_SEM`。
+
+### 对信号量进程 V 操作
+
+```c
+int sem_post(int sem_id)
+```
+
+对 id 为 `sem_id` 的信号量进行 V 操作。
+
+将信号量的值加 1，若存在阻塞在此信号量上的进程，
+则唤醒一个阻塞在此信号量上的进程（不要求唤醒顺序）。
+
+成功进行 V 操作后返回值为 0，若未找到符合权限的可操作信号量，则返回 `-E_NO_SEM`。
+
+### 查询信号量的值
+
+```c
+int sem_getvalue(int sem_id)
+```
+
+查询 id 为 `sem_id` 的信号量的值。
+
+成功查找返回值为 `sem_id` 对应的信号量的值，若未找到符合权限的可操作信号量，则返回 `-E_NO_SEM`。
+
+### 查询信号量的 id
+
+```c
+int sem_getid(const char *name)
+```
+
+查询名为 `name` 的信号量的 id。
+
+成功查找返回值为查找到的信号量的 id，若未找到符合权限的可操作信号量，则返回 `-E_NO_SEM`。
+
+## 题目要求
+
+在 `user/include/lib.h` 中声明以下函数：
+
+```c
+int sem_init(const char *name, int init_value, int checkperm);
+int sem_wait(int sem_id);
+int sem_post(int sem_id);
+int sem_getvalue(int sem_id);
+int sem_getid(const char *name);
+```
+在 `user/lib/ipc.c` 中实现以上函数。
+
+## 题目说明
+
+创建的信号量数量不超过 10 个，对 id 的分配方式不做要求。
+
+信号量名称不超过 32 个字节（包括 `\0` ），测试中保证不会出现信号量重名。
+
+保证子进程访问父进程注册的信号量时，父进程未被销毁。
+
+## 提示
+
+为了完成以上五个函数，你可以通过添加对应的系统调用实现。
+
+## 样例输出 &amp;&amp; 本地测试
+
+对于如下用户程序样例：
+
+```c
+#include &lt;lib.h&gt;
+
+static void os_assert(int cond, const char *err) {
+	if (!cond) {
+		user_halt("%s\n", err);
+	}
+}
+
+int main() {
+	int items_id = sem_init("items", 5, 0);
+	int lock_id = sem_init("lock", 0, 0);
+	int r = fork();
+	if (r &lt; 0) {
+		user_halt("OSTEST_FORK");
+	}
+	if (r == 0) {
+		sem_wait(lock_id);
+		os_assert(sem_getvalue(items_id) == 4, "WRONG_RETURN_VALUE_WAIT");
+		os_assert(sem_getvalue(lock_id) == 0, "WRONG_RETURN_VALUE_WAIT");
+		debugf("OSTEST_OK\n");
+		return 0;
+	} else {
+		os_assert(sem_getvalue(items_id) == 5, "WRONG_RETURN_VALUE");
+		os_assert(sem_getvalue(lock_id) == 0, "WRONG_RETURN_VALUE");
+
+		sem_wait(items_id);
+
+		os_assert(sem_getvalue(items_id) == 4, "WRONG_RETURN_VALUE_WAIT");
+		os_assert(sem_getvalue(lock_id) == 0, "WRONG_RETURN_VALUE_WAIT");
+
+		sem_post(lock_id);
+		debugf("OSTEST_OK\n");
+		return 0;
+	}
+}
+
+```
+其应当输出：
+
+```
+init.c:	mips_init() is called
+Memory size: 65536 KiB, number of pages: 16384
+to memory 80430000 for struct Pages.
+pmap.c:	 mips vm init success
+OSTEST_OK
+[00000800] destroying 00000800
+[00000800] free env 00000800
+i am killed ...
+OSTEST_OK
+[00001001] destroying 00001001
+[00001001] free env 00001001
+i am killed ...
+
+```
+
+你可以使用：
+
+* `make test lab4_sem &amp;&amp; make run` 在本地测试上述样例（调试模式）
+* `MOS_PROFILE=release make test lab=4_sem &amp;&amp; make run` 在本地测试上述样例（开启优化）
+
+或者在 `tests/lab4_sem/test.c` 的 `main()` 函数中编写测试代码自行测试。
+
+## 提交评测 &amp; 评测标准
+
+请在开发机中执行下列命令后，**在课程网站上提交评测**。
+
+```console
+$ cd ~/学号
+$ git add -A
+$ git commit -m "message"  # 请将 message 改为有意义的信息
+$ git push
+```
+
+在线评测时，所有的 `.mk` 文件、所有的 `Makefile` 文件、`init/init.c` 以及 `tests/` 和 `tools/` 目录下的所有文件都可能被替换为标准版本，因此请同学们在本地开发时，**不要**在这些文件中编写实际功能所依赖的代码。
+
+测试点和分数说明如下：
+
+| 测试点序号 | 评测内容                 | 分数 |
+| ---------- | ------------------------ | ---- |
+| 1          | 样例                     | 20   |
+| 2          | 单进程异常相关测试 | 20   |
+| 3          | 只包含 `checkperm` 为真的信号量  | 20   |
+| 4          | 无异常综合测试 | 20   |
+| 5          | 综合测试 | 20   |
+ </pre> <textarea spellcheck="false" placeholder="开始编辑..." class="auto-textarea-input no-border no-resize" style="font-size: 14px; line-height: 1.5;" disabled="disabled">#
+ Lab4-2-Extra Semaphore
+
+
+## 准备工作：创建并切换到 `lab4-2-extra` 分支
+
+1. **基于已完成的 lab4 提交自动初始化 lab4-2-extra 分支**
+
+2. 在开发机依次执行以下命令：
+
+   ```console
+   $ cd ~/学号
+   $ git fetch
+   $ git checkout lab4-2-extra
+   ```
+
+   初始化的 `lab4-2-extra` 分支基于课下完成的 `lab4` 分支，并且在 `tests` 目录下添加了 `lab4_sem`
+ 样例测试目录。
+
+## 题目背景 &amp; 题目描述
+
+在理论课中，我们学习到了信号量的相关知识。信号量机制是实现进程间同步互斥的有效手段。在本 extra 中，我们希望在 lab4 
+的基础上新增简单的信号量相关功能。你需要实现以下五个用户态函数，实现进程间的同步互斥。
+
+### 定义错误码
+
+在 `include/error.h` 中添加新异常码。
+
+```c
+#define E_NO_SEM 14
+```
+
+### 初始化信号量
+
+```c
+int sem_init(const char * name, int init_value, int checkperm)
+```
+
+注册一个名为 `name` 的信号量，为其分配 id，设置权限与初始值。
+
+ `name` 为信号量的名字，其初始值为 `init_value` ，`checkperm` 表示使用该信号量时是否需要检查进程的权限，
+ 非 0 时，表示该信号量仅该进程与该进程的**后代**（包括该进程及其所有后代的子进程）可见；为 0 时，表示该信号量对系统中的所有进程可见。
+
+成功初始化信号量返回值为被注册信号量的 id，若没有多余的 id 可以分配，则返回 `-E_NO_SEM` 。
+
+### 对信号量进行 P 操作
+
+```c
+int sem_wait(int sem_id)
+```
+
+对 id 为 `sem_id` 的信号量进行 P 操作。
+
+当信号量的值大于 0 时，将信号量的值减 1。
+当信号量的值等于 0 时，申请该信号量的进程阻塞，当信号量的值重新大于 0 时，将信号量的值减 1, 进程继续执行。
+
+成功进行 P 操作后返回值为 0，若未找到符合权限的可操作信号量，则返回 `-E_NO_SEM`。
+
+### 对信号量进程 V 操作
+
+```c
+int sem_post(int sem_id)
+```
+
+对 id 为 `sem_id` 的信号量进行 V 操作。
+
+将信号量的值加 1，若存在阻塞在此信号量上的进程，
+则唤醒一个阻塞在此信号量上的进程（不要求唤醒顺序）。
+
+成功进行 V 操作后返回值为 0，若未找到符合权限的可操作信号量，则返回 `-E_NO_SEM`。
+
+### 查询信号量的值
+
+```c
+int sem_getvalue(int sem_id)
+```
+
+查询 id 为 `sem_id` 的信号量的值。
+
+成功查找返回值为 `sem_id` 对应的信号量的值，若未找到符合权限的可操作信号量，则返回 `-E_NO_SEM`。
+
+### 查询信号量的 id
+
+```c
+int sem_getid(const char *name)
+```
+
+查询名为 `name` 的信号量的 id。
+
+成功查找返回值为查找到的信号量的 id，若未找到符合权限的可操作信号量，则返回 `-E_NO_SEM`。
+
+## 题目要求
+
+在 `user/include/lib.h` 中声明以下函数：
+
+```c
+int sem_init(const char *name, int init_value, int checkperm);
+int sem_wait(int sem_id);
+int sem_post(int sem_id);
+int sem_getvalue(int sem_id);
+int sem_getid(const char *name);
+```
+在 `user/lib/ipc.c` 中实现以上函数。
+
+## 题目说明
+
+创建的信号量数量不超过 10 个，对 id 的分配方式不做要求。
+
+信号量名称不超过 32 个字节（包括 `\0` ），测试中保证不会出现信号量重名。
+
+保证子进程访问父进程注册的信号量时，父进程未被销毁。
+
+## 提示
+
+为了完成以上五个函数，你可以通过添加对应的系统调用实现。
+
+## 样例输出 &amp;&amp; 本地测试
+
+对于如下用户程序样例：
+
+```c
+#include &lt;lib.h&gt;
+
+static void os_assert(int cond, const char *err) {
+	if (!cond) {
+		user_halt("%s\n", err);
+	}
+}
+
+int main() {
+	int items_id = sem_init("items", 5, 0);
+	int lock_id = sem_init("lock", 0, 0);
+	int r = fork();
+	if (r &lt; 0) {
+		user_halt("OSTEST_FORK");
+	}
+	if (r == 0) {
+		sem_wait(lock_id);
+		os_assert(sem_getvalue(items_id) == 4, "WRONG_RETURN_VALUE_WAIT");
+		os_assert(sem_getvalue(lock_id) == 0, "WRONG_RETURN_VALUE_WAIT");
+		debugf("OSTEST_OK\n");
+		return 0;
+	} else {
+		os_assert(sem_getvalue(items_id) == 5, "WRONG_RETURN_VALUE");
+		os_assert(sem_getvalue(lock_id) == 0, "WRONG_RETURN_VALUE");
+
+		sem_wait(items_id);
+
+		os_assert(sem_getvalue(items_id) == 4, "WRONG_RETURN_VALUE_WAIT");
+		os_assert(sem_getvalue(lock_id) == 0, "WRONG_RETURN_VALUE_WAIT");
+
+		sem_post(lock_id);
+		debugf("OSTEST_OK\n");
+		return 0;
+	}
+}
+
+```
+其应当输出：
+
+```
+init.c:	mips_init() is called
+Memory size: 65536 KiB, number of pages: 16384
+to memory 80430000 for struct Pages.
+pmap.c:	 mips vm init success
+OSTEST_OK
+[00000800] destroying 00000800
+[00000800] free env 00000800
+i am killed ...
+OSTEST_OK
+[00001001] destroying 00001001
+[00001001] free env 00001001
+i am killed ...
+
+```
+
+你可以使用：
+
+* `make test lab4_sem &amp;&amp; make run` 在本地测试上述样例（调试模式）
+* `MOS_PROFILE=release make test lab=4_sem &amp;&amp; make run` 
+在本地测试上述样例（开启优化）
+
+或者在 `tests/lab4_sem/test.c` 的 `main()` 函数中编写测试代码自行测试。
+
+## 提交评测 &amp; 评测标准
+
+请在开发机中执行下列命令后，**在课程网站上提交评测**。
+
+```console
+$ cd ~/学号
+$ git add -A
+$ git commit -m "message"  # 请将 message 改为有意义的信息
+$ git push
+```
+
+在线评测时，所有的 `.mk` 文件、所有的 `Makefile` 文件、`init/init.c` 以及 `tests/` 和 
+`tools/` 目录下的所有文件都可能被替换为标准版本，因此请同学们在本地开发时，**不要**在这些文件中编写实际功能所依赖的代码。
+
+测试点和分数说明如下：
+
+| 测试点序号 | 评测内容                 | 分数 |
+| ---------- | ------------------------ | ---- |
+| 1          | 样例                     | 20   |
+| 2          | 单进程异常相关测试 | 20   |
+| 3          | 只包含 `checkperm` 为真的信号量  | 20   |
+| 4          | 无异常综合测试 | 20   |
+| 5          | 综合测试 | 20   |
+</textarea></div></div></div> <div data-v-7a63e4b3="" class="v-note-show single-show"><div data-v-7a63e4b3="" class="v-show-content scroll-style scroll-style-border-radius"><h1><a id="Lab42Extra_Semaphore_0"></a>Lab4-2-Extra Semaphore</h1>
+<h2><a id="_lab42extra__3"></a>准备工作：创建并切换到 <code>lab4-2-extra</code> 分支</h2>
+<ol>
+<li>
+<p><strong>基于已完成的 lab4 提交自动初始化 lab4-2-extra 分支</strong></p>
+</li>
+<li>
+<p>在开发机依次执行以下命令：</p>
+<pre><div class="hljs"><code class="lang-console"><span class="hljs-meta">$ </span><span class="language-bash"><span class="hljs-built_in">cd</span> ~/学号</span>
+<span class="hljs-meta">$ </span><span class="language-bash">git fetch</span>
+<span class="hljs-meta">$ </span><span class="language-bash">git checkout lab4-2-extra</span>
+</code></div></pre>
+<p>初始化的 <code>lab4-2-extra</code> 分支基于课下完成的 <code>lab4</code> 分支，并且在 <code>tests</code> 目录下添加了 <code>lab4_sem</code> 样例测试目录。</p>
+</li>
+</ol>
+<h2><a id="___17"></a>题目背景 &amp; 题目描述</h2>
+<p>在理论课中，我们学习到了信号量的相关知识。信号量机制是实现进程间同步互斥的有效手段。在本 extra 中，我们希望在 lab4 的基础上新增简单的信号量相关功能。你需要实现以下五个用户态函数，实现进程间的同步互斥。</p>
+<h3><a id="_21"></a>定义错误码</h3>
+<p>在 <code>include/error.h</code> 中添加新异常码。</p>
+<pre><div class="hljs"><code class="lang-c"><span class="hljs-meta">#<span class="hljs-keyword">define</span> E_NO_SEM 14</span>
+</code></div></pre>
+<h3><a id="_29"></a>初始化信号量</h3>
+<pre><div class="hljs"><code class="lang-c"><span class="hljs-type">int</span> <span class="hljs-title function_">sem_init</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> * name, <span class="hljs-type">int</span> init_value, <span class="hljs-type">int</span> checkperm)</span>
+</code></div></pre>
+<p>注册一个名为 <code>name</code> 的信号量，为其分配 id，设置权限与初始值。</p>
+<p><code>name</code> 为信号量的名字，其初始值为 <code>init_value</code> ，<code>checkperm</code> 表示使用该信号量时是否需要检查进程的权限，<br>
+非 0 时，表示该信号量仅该进程与该进程的<strong>后代</strong>（包括该进程及其所有后代的子进程）可见；为 0 时，表示该信号量对系统中的所有进程可见。</p>
+<p>成功初始化信号量返回值为被注册信号量的 id，若没有多余的 id 可以分配，则返回 <code>-E_NO_SEM</code> 。</p>
+<h3><a id="_P__42"></a>对信号量进行 P 操作</h3>
+<pre><div class="hljs"><code class="lang-c"><span class="hljs-type">int</span> <span class="hljs-title function_">sem_wait</span><span class="hljs-params">(<span class="hljs-type">int</span> sem_id)</span>
+</code></div></pre>
+<p>对 id 为 <code>sem_id</code> 的信号量进行 P 操作。</p>
+<p>当信号量的值大于 0 时，将信号量的值减 1。<br>
+当信号量的值等于 0 时，申请该信号量的进程阻塞，当信号量的值重新大于 0 时，将信号量的值减 1, 进程继续执行。</p>
+<p>成功进行 P 操作后返回值为 0，若未找到符合权限的可操作信号量，则返回 <code>-E_NO_SEM</code>。</p>
+<h3><a id="_V__55"></a>对信号量进程 V 操作</h3>
+<pre><div class="hljs"><code class="lang-c"><span class="hljs-type">int</span> <span class="hljs-title function_">sem_post</span><span class="hljs-params">(<span class="hljs-type">int</span> sem_id)</span>
+</code></div></pre>
+<p>对 id 为 <code>sem_id</code> 的信号量进行 V 操作。</p>
+<p>将信号量的值加 1，若存在阻塞在此信号量上的进程，<br>
+则唤醒一个阻塞在此信号量上的进程（不要求唤醒顺序）。</p>
+<p>成功进行 V 操作后返回值为 0，若未找到符合权限的可操作信号量，则返回 <code>-E_NO_SEM</code>。</p>
+<h3><a id="_68"></a>查询信号量的值</h3>
+<pre><div class="hljs"><code class="lang-c"><span class="hljs-type">int</span> <span class="hljs-title function_">sem_getvalue</span><span class="hljs-params">(<span class="hljs-type">int</span> sem_id)</span>
+</code></div></pre>
+<p>查询 id 为 <code>sem_id</code> 的信号量的值。</p>
+<p>成功查找返回值为 <code>sem_id</code> 对应的信号量的值，若未找到符合权限的可操作信号量，则返回 <code>-E_NO_SEM</code>。</p>
+<h3><a id="_id_78"></a>查询信号量的 id</h3>
+<pre><div class="hljs"><code class="lang-c"><span class="hljs-type">int</span> <span class="hljs-title function_">sem_getid</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *name)</span>
+</code></div></pre>
+<p>查询名为 <code>name</code> 的信号量的 id。</p>
+<p>成功查找返回值为查找到的信号量的 id，若未找到符合权限的可操作信号量，则返回 <code>-E_NO_SEM</code>。</p>
+<h2><a id="_88"></a>题目要求</h2>
+<p>在 <code>user/include/lib.h</code> 中声明以下函数：</p>
+<pre><div class="hljs"><code class="lang-c"><span class="hljs-type">int</span> <span class="hljs-title function_">sem_init</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *name, <span class="hljs-type">int</span> init_value, <span class="hljs-type">int</span> checkperm)</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">sem_wait</span><span class="hljs-params">(<span class="hljs-type">int</span> sem_id)</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">sem_post</span><span class="hljs-params">(<span class="hljs-type">int</span> sem_id)</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">sem_getvalue</span><span class="hljs-params">(<span class="hljs-type">int</span> sem_id)</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">sem_getid</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *name)</span>;
+</code></div></pre>
+<p>在 <code>user/lib/ipc.c</code> 中实现以上函数。</p>
+<h2><a id="_101"></a>题目说明</h2>
+<p>创建的信号量数量不超过 10 个，对 id 的分配方式不做要求。</p>
+<p>信号量名称不超过 32 个字节（包括 <code>\0</code> ），测试中保证不会出现信号量重名。</p>
+<p>保证子进程访问父进程注册的信号量时，父进程未被销毁。</p>
+<h2><a id="_109"></a>提示</h2>
+<p>为了完成以上五个函数，你可以通过添加对应的系统调用实现。</p>
+<h2><a id="___113"></a>样例输出 &amp;&amp; 本地测试</h2>
+<p>对于如下用户程序样例：</p>
+<pre><div class="hljs"><code class="lang-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;lib.h&gt;</span></span>
+
+<span class="hljs-type">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">os_assert</span><span class="hljs-params">(<span class="hljs-type">int</span> cond, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *err)</span> {
+	<span class="hljs-keyword">if</span> (!cond) {
+		user_halt(<span class="hljs-string">"%s\n"</span>, err);
+	}
+}
+
+<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> {
+	<span class="hljs-type">int</span> items_id = sem_init(<span class="hljs-string">"items"</span>, <span class="hljs-number">5</span>, <span class="hljs-number">0</span>);
+	<span class="hljs-type">int</span> lock_id = sem_init(<span class="hljs-string">"lock"</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+	<span class="hljs-type">int</span> r = fork();
+	<span class="hljs-keyword">if</span> (r &lt; <span class="hljs-number">0</span>) {
+		user_halt(<span class="hljs-string">"OSTEST_FORK"</span>);
+	}
+	<span class="hljs-keyword">if</span> (r == <span class="hljs-number">0</span>) {
+		sem_wait(lock_id);
+		os_assert(sem_getvalue(items_id) == <span class="hljs-number">4</span>, <span class="hljs-string">"WRONG_RETURN_VALUE_WAIT"</span>);
+		os_assert(sem_getvalue(lock_id) == <span class="hljs-number">0</span>, <span class="hljs-string">"WRONG_RETURN_VALUE_WAIT"</span>);
+		debugf(<span class="hljs-string">"OSTEST_OK\n"</span>);
+		<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+	} <span class="hljs-keyword">else</span> {
+		os_assert(sem_getvalue(items_id) == <span class="hljs-number">5</span>, <span class="hljs-string">"WRONG_RETURN_VALUE"</span>);
+		os_assert(sem_getvalue(lock_id) == <span class="hljs-number">0</span>, <span class="hljs-string">"WRONG_RETURN_VALUE"</span>);
+
+		sem_wait(items_id);
+
+		os_assert(sem_getvalue(items_id) == <span class="hljs-number">4</span>, <span class="hljs-string">"WRONG_RETURN_VALUE_WAIT"</span>);
+		os_assert(sem_getvalue(lock_id) == <span class="hljs-number">0</span>, <span class="hljs-string">"WRONG_RETURN_VALUE_WAIT"</span>);
+
+		sem_post(lock_id);
+		debugf(<span class="hljs-string">"OSTEST_OK\n"</span>);
+		<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+	}
+}
+
+</code></div></pre>
+<p>其应当输出：</p>
+<pre><code class="lang-">init.c:	mips_init() is called
+Memory size: 65536 KiB, number of pages: 16384
+to memory 80430000 for struct Pages.
+pmap.c:	 mips vm init success
+OSTEST_OK
+[00000800] destroying 00000800
+[00000800] free env 00000800
+i am killed ...
+OSTEST_OK
+[00001001] destroying 00001001
+[00001001] free env 00001001
+i am killed ...
+
+</code></pre>
+<p>你可以使用：</p>
+<ul>
+<li><code>make test lab4_sem &amp;&amp; make run</code> 在本地测试上述样例（调试模式）</li>
+<li><code>MOS_PROFILE=release make test lab=4_sem &amp;&amp; make run</code> 在本地测试上述样例（开启优化）</li>
+</ul>
+<p>或者在 <code>tests/lab4_sem/test.c</code> 的 <code>main()</code> 函数中编写测试代码自行测试。</p>
+<h2><a id="___180"></a>提交评测 &amp; 评测标准</h2>
+<p>请在开发机中执行下列命令后，<strong>在课程网站上提交评测</strong>。</p>
+<pre><div class="hljs"><code class="lang-console"><span class="hljs-meta">$ </span><span class="language-bash"><span class="hljs-built_in">cd</span> ~/学号</span>
+<span class="hljs-meta">$ </span><span class="language-bash">git add -A</span>
+<span class="hljs-meta">$ </span><span class="language-bash">git commit -m <span class="hljs-string">"message"</span>  <span class="hljs-comment"># 请将 message 改为有意义的信息</span></span>
+<span class="hljs-meta">$ </span><span class="language-bash">git push</span>
+</code></div></pre>
+<p>在线评测时，所有的 <code>.mk</code> 文件、所有的 <code>Makefile</code> 文件、<code>init/init.c</code> 以及 <code>tests/</code> 和 <code>tools/</code> 目录下的所有文件都可能被替换为标准版本，因此请同学们在本地开发时，<strong>不要</strong>在这些文件中编写实际功能所依赖的代码。</p>
+<p>测试点和分数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th>测试点序号</th>
+<th>评测内容</th>
+<th>分数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>样例</td>
+<td>20</td>
+</tr>
+<tr>
+<td>2</td>
+<td>单进程异常相关测试</td>
+<td>20</td>
+</tr>
+<tr>
+<td>3</td>
+<td>只包含 <code>checkperm</code> 为真的信号量</td>
+<td>20</td>
+</tr>
+<tr>
+<td>4</td>
+<td>无异常综合测试</td>
+<td>20</td>
+</tr>
+<tr>
+<td>5</td>
+<td>综合测试</td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+</div> <div data-v-7a63e4b3="" class="v-show-content-html scroll-style scroll-style-border-radius" style="display: none;">
+                &lt;h1&gt;&lt;a 
+id="Lab42Extra_Semaphore_0"&gt;&lt;/a&gt;Lab4-2-Extra 
+Semaphore&lt;/h1&gt;
+&lt;h2&gt;&lt;a id="_lab42extra__3"&gt;&lt;/a&gt;准备工作：创建并切换到 
+&lt;code&gt;lab4-2-extra&lt;/code&gt; 分支&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;基于已完成的 lab4 提交自动初始化 lab4-2-extra 
+分支&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在开发机依次执行以下命令：&lt;/p&gt;
+&lt;pre&gt;&lt;div class="hljs"&gt;&lt;code 
+class="lang-console"&gt;&lt;span class="hljs-meta"&gt;$ 
+&lt;/span&gt;&lt;span class="language-bash"&gt;&lt;span 
+class="hljs-built_in"&gt;cd&lt;/span&gt; ~/学号&lt;/span&gt;
+&lt;span class="hljs-meta"&gt;$ &lt;/span&gt;&lt;span 
+class="language-bash"&gt;git fetch&lt;/span&gt;
+&lt;span class="hljs-meta"&gt;$ &lt;/span&gt;&lt;span 
+class="language-bash"&gt;git checkout lab4-2-extra&lt;/span&gt;
+&lt;/code&gt;&lt;/div&gt;&lt;/pre&gt;
+&lt;p&gt;初始化的 &lt;code&gt;lab4-2-extra&lt;/code&gt; 分支基于课下完成的 
+&lt;code&gt;lab4&lt;/code&gt; 分支，并且在 &lt;code&gt;tests&lt;/code&gt; 
+目录下添加了 &lt;code&gt;lab4_sem&lt;/code&gt; 样例测试目录。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;&lt;a id="___17"&gt;&lt;/a&gt;题目背景 &amp;amp; 题目描述&lt;/h2&gt;
+&lt;p&gt;在理论课中，我们学习到了信号量的相关知识。信号量机制是实现进程间同步互斥的有效手段。在本 extra 中，我们希望在 lab4
+ 的基础上新增简单的信号量相关功能。你需要实现以下五个用户态函数，实现进程间的同步互斥。&lt;/p&gt;
+&lt;h3&gt;&lt;a id="_21"&gt;&lt;/a&gt;定义错误码&lt;/h3&gt;
+&lt;p&gt;在 &lt;code&gt;include/error.h&lt;/code&gt; 中添加新异常码。&lt;/p&gt;
+&lt;pre&gt;&lt;div class="hljs"&gt;&lt;code class="lang-c"&gt;&lt;span 
+class="hljs-meta"&gt;#&lt;span 
+class="hljs-keyword"&gt;define&lt;/span&gt; E_NO_SEM 14&lt;/span&gt;
+&lt;/code&gt;&lt;/div&gt;&lt;/pre&gt;
+&lt;h3&gt;&lt;a id="_29"&gt;&lt;/a&gt;初始化信号量&lt;/h3&gt;
+&lt;pre&gt;&lt;div class="hljs"&gt;&lt;code class="lang-c"&gt;&lt;span 
+class="hljs-type"&gt;int&lt;/span&gt; &lt;span class="hljs-title 
+function_"&gt;sem_init&lt;/span&gt;&lt;span 
+class="hljs-params"&gt;(&lt;span class="hljs-type"&gt;const&lt;/span&gt;
+ &lt;span class="hljs-type"&gt;char&lt;/span&gt; * name, &lt;span 
+class="hljs-type"&gt;int&lt;/span&gt; init_value, &lt;span 
+class="hljs-type"&gt;int&lt;/span&gt; checkperm)&lt;/span&gt;
+&lt;/code&gt;&lt;/div&gt;&lt;/pre&gt;
+&lt;p&gt;注册一个名为 &lt;code&gt;name&lt;/code&gt; 的信号量，为其分配 
+id，设置权限与初始值。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;name&lt;/code&gt; 为信号量的名字，其初始值为 
+&lt;code&gt;init_value&lt;/code&gt; ，&lt;code&gt;checkperm&lt;/code&gt; 
+表示使用该信号量时是否需要检查进程的权限，&lt;br /&gt;
+非 0 
+时，表示该信号量仅该进程与该进程的&lt;strong&gt;后代&lt;/strong&gt;（包括该进程及其所有后代的子进程）可见；为 0 
+时，表示该信号量对系统中的所有进程可见。&lt;/p&gt;
+&lt;p&gt;成功初始化信号量返回值为被注册信号量的 id，若没有多余的 id 可以分配，则返回 
+&lt;code&gt;-E_NO_SEM&lt;/code&gt; 。&lt;/p&gt;
+&lt;h3&gt;&lt;a id="_P__42"&gt;&lt;/a&gt;对信号量进行 P 操作&lt;/h3&gt;
+&lt;pre&gt;&lt;div class="hljs"&gt;&lt;code class="lang-c"&gt;&lt;span 
+class="hljs-type"&gt;int&lt;/span&gt; &lt;span class="hljs-title 
+function_"&gt;sem_wait&lt;/span&gt;&lt;span 
+class="hljs-params"&gt;(&lt;span class="hljs-type"&gt;int&lt;/span&gt; 
+sem_id)&lt;/span&gt;
+&lt;/code&gt;&lt;/div&gt;&lt;/pre&gt;
+&lt;p&gt;对 id 为 &lt;code&gt;sem_id&lt;/code&gt; 的信号量进行 P 操作。&lt;/p&gt;
+&lt;p&gt;当信号量的值大于 0 时，将信号量的值减 1。&lt;br /&gt;
+当信号量的值等于 0 时，申请该信号量的进程阻塞，当信号量的值重新大于 0 时，将信号量的值减 1, 进程继续执行。&lt;/p&gt;
+&lt;p&gt;成功进行 P 操作后返回值为 0，若未找到符合权限的可操作信号量，则返回 
+&lt;code&gt;-E_NO_SEM&lt;/code&gt;。&lt;/p&gt;
+&lt;h3&gt;&lt;a id="_V__55"&gt;&lt;/a&gt;对信号量进程 V 操作&lt;/h3&gt;
+&lt;pre&gt;&lt;div class="hljs"&gt;&lt;code class="lang-c"&gt;&lt;span 
+class="hljs-type"&gt;int&lt;/span&gt; &lt;span class="hljs-title 
+function_"&gt;sem_post&lt;/span&gt;&lt;span 
+class="hljs-params"&gt;(&lt;span class="hljs-type"&gt;int&lt;/span&gt; 
+sem_id)&lt;/span&gt;
+&lt;/code&gt;&lt;/div&gt;&lt;/pre&gt;
+&lt;p&gt;对 id 为 &lt;code&gt;sem_id&lt;/code&gt; 的信号量进行 V 操作。&lt;/p&gt;
+&lt;p&gt;将信号量的值加 1，若存在阻塞在此信号量上的进程，&lt;br /&gt;
+则唤醒一个阻塞在此信号量上的进程（不要求唤醒顺序）。&lt;/p&gt;
+&lt;p&gt;成功进行 V 操作后返回值为 0，若未找到符合权限的可操作信号量，则返回 
+&lt;code&gt;-E_NO_SEM&lt;/code&gt;。&lt;/p&gt;
+&lt;h3&gt;&lt;a id="_68"&gt;&lt;/a&gt;查询信号量的值&lt;/h3&gt;
+&lt;pre&gt;&lt;div class="hljs"&gt;&lt;code class="lang-c"&gt;&lt;span 
+class="hljs-type"&gt;int&lt;/span&gt; &lt;span class="hljs-title 
+function_"&gt;sem_getvalue&lt;/span&gt;&lt;span 
+class="hljs-params"&gt;(&lt;span class="hljs-type"&gt;int&lt;/span&gt; 
+sem_id)&lt;/span&gt;
+&lt;/code&gt;&lt;/div&gt;&lt;/pre&gt;
+&lt;p&gt;查询 id 为 &lt;code&gt;sem_id&lt;/code&gt; 的信号量的值。&lt;/p&gt;
+&lt;p&gt;成功查找返回值为 &lt;code&gt;sem_id&lt;/code&gt; 
+对应的信号量的值，若未找到符合权限的可操作信号量，则返回 
+&lt;code&gt;-E_NO_SEM&lt;/code&gt;。&lt;/p&gt;
+&lt;h3&gt;&lt;a id="_id_78"&gt;&lt;/a&gt;查询信号量的 id&lt;/h3&gt;
+&lt;pre&gt;&lt;div class="hljs"&gt;&lt;code class="lang-c"&gt;&lt;span 
+class="hljs-type"&gt;int&lt;/span&gt; &lt;span class="hljs-title 
+function_"&gt;sem_getid&lt;/span&gt;&lt;span 
+class="hljs-params"&gt;(&lt;span class="hljs-type"&gt;const&lt;/span&gt;
+ &lt;span class="hljs-type"&gt;char&lt;/span&gt; *name)&lt;/span&gt;
+&lt;/code&gt;&lt;/div&gt;&lt;/pre&gt;
+&lt;p&gt;查询名为 &lt;code&gt;name&lt;/code&gt; 的信号量的 id。&lt;/p&gt;
+&lt;p&gt;成功查找返回值为查找到的信号量的 id，若未找到符合权限的可操作信号量，则返回 
+&lt;code&gt;-E_NO_SEM&lt;/code&gt;。&lt;/p&gt;
+&lt;h2&gt;&lt;a id="_88"&gt;&lt;/a&gt;题目要求&lt;/h2&gt;
+&lt;p&gt;在 &lt;code&gt;user/include/lib.h&lt;/code&gt; 
+中声明以下函数：&lt;/p&gt;
+&lt;pre&gt;&lt;div class="hljs"&gt;&lt;code class="lang-c"&gt;&lt;span 
+class="hljs-type"&gt;int&lt;/span&gt; &lt;span class="hljs-title 
+function_"&gt;sem_init&lt;/span&gt;&lt;span 
+class="hljs-params"&gt;(&lt;span class="hljs-type"&gt;const&lt;/span&gt;
+ &lt;span class="hljs-type"&gt;char&lt;/span&gt; *name, &lt;span 
+class="hljs-type"&gt;int&lt;/span&gt; init_value, &lt;span 
+class="hljs-type"&gt;int&lt;/span&gt; checkperm)&lt;/span&gt;;
+&lt;span class="hljs-type"&gt;int&lt;/span&gt; &lt;span 
+class="hljs-title function_"&gt;sem_wait&lt;/span&gt;&lt;span 
+class="hljs-params"&gt;(&lt;span class="hljs-type"&gt;int&lt;/span&gt; 
+sem_id)&lt;/span&gt;;
+&lt;span class="hljs-type"&gt;int&lt;/span&gt; &lt;span 
+class="hljs-title function_"&gt;sem_post&lt;/span&gt;&lt;span 
+class="hljs-params"&gt;(&lt;span class="hljs-type"&gt;int&lt;/span&gt; 
+sem_id)&lt;/span&gt;;
+&lt;span class="hljs-type"&gt;int&lt;/span&gt; &lt;span 
+class="hljs-title function_"&gt;sem_getvalue&lt;/span&gt;&lt;span 
+class="hljs-params"&gt;(&lt;span class="hljs-type"&gt;int&lt;/span&gt; 
+sem_id)&lt;/span&gt;;
+&lt;span class="hljs-type"&gt;int&lt;/span&gt; &lt;span 
+class="hljs-title function_"&gt;sem_getid&lt;/span&gt;&lt;span 
+class="hljs-params"&gt;(&lt;span class="hljs-type"&gt;const&lt;/span&gt;
+ &lt;span class="hljs-type"&gt;char&lt;/span&gt; *name)&lt;/span&gt;;
+&lt;/code&gt;&lt;/div&gt;&lt;/pre&gt;
+&lt;p&gt;在 &lt;code&gt;user/lib/ipc.c&lt;/code&gt; 中实现以上函数。&lt;/p&gt;
+&lt;h2&gt;&lt;a id="_101"&gt;&lt;/a&gt;题目说明&lt;/h2&gt;
+&lt;p&gt;创建的信号量数量不超过 10 个，对 id 的分配方式不做要求。&lt;/p&gt;
+&lt;p&gt;信号量名称不超过 32 个字节（包括 &lt;code&gt;\0&lt;/code&gt; 
+），测试中保证不会出现信号量重名。&lt;/p&gt;
+&lt;p&gt;保证子进程访问父进程注册的信号量时，父进程未被销毁。&lt;/p&gt;
+&lt;h2&gt;&lt;a id="_109"&gt;&lt;/a&gt;提示&lt;/h2&gt;
+&lt;p&gt;为了完成以上五个函数，你可以通过添加对应的系统调用实现。&lt;/p&gt;
+&lt;h2&gt;&lt;a id="___113"&gt;&lt;/a&gt;样例输出 &amp;amp;&amp;amp; 
+本地测试&lt;/h2&gt;
+&lt;p&gt;对于如下用户程序样例：&lt;/p&gt;
+&lt;pre&gt;&lt;div class="hljs"&gt;&lt;code class="lang-c"&gt;&lt;span 
+class="hljs-meta"&gt;#&lt;span 
+class="hljs-keyword"&gt;include&lt;/span&gt; &lt;span 
+class="hljs-string"&gt;&amp;lt;lib.h&amp;gt;&lt;/span&gt;&lt;/span&gt;
+
+&lt;span class="hljs-type"&gt;static&lt;/span&gt; &lt;span 
+class="hljs-type"&gt;void&lt;/span&gt; &lt;span class="hljs-title 
+function_"&gt;os_assert&lt;/span&gt;&lt;span 
+class="hljs-params"&gt;(&lt;span class="hljs-type"&gt;int&lt;/span&gt; 
+cond, &lt;span class="hljs-type"&gt;const&lt;/span&gt; &lt;span 
+class="hljs-type"&gt;char&lt;/span&gt; *err)&lt;/span&gt; {
+	&lt;span class="hljs-keyword"&gt;if&lt;/span&gt; (!cond) {
+		user_halt(&lt;span 
+class="hljs-string"&gt;&amp;quot;%s\n&amp;quot;&lt;/span&gt;, err);
+	}
+}
+
+&lt;span class="hljs-type"&gt;int&lt;/span&gt; &lt;span 
+class="hljs-title function_"&gt;main&lt;/span&gt;&lt;span 
+class="hljs-params"&gt;()&lt;/span&gt; {
+	&lt;span class="hljs-type"&gt;int&lt;/span&gt; items_id = 
+sem_init(&lt;span 
+class="hljs-string"&gt;&amp;quot;items&amp;quot;&lt;/span&gt;, &lt;span 
+class="hljs-number"&gt;5&lt;/span&gt;, &lt;span 
+class="hljs-number"&gt;0&lt;/span&gt;);
+	&lt;span class="hljs-type"&gt;int&lt;/span&gt; lock_id = 
+sem_init(&lt;span 
+class="hljs-string"&gt;&amp;quot;lock&amp;quot;&lt;/span&gt;, &lt;span 
+class="hljs-number"&gt;0&lt;/span&gt;, &lt;span 
+class="hljs-number"&gt;0&lt;/span&gt;);
+	&lt;span class="hljs-type"&gt;int&lt;/span&gt; r = fork();
+	&lt;span class="hljs-keyword"&gt;if&lt;/span&gt; (r &amp;lt; &lt;span 
+class="hljs-number"&gt;0&lt;/span&gt;) {
+		user_halt(&lt;span 
+class="hljs-string"&gt;&amp;quot;OSTEST_FORK&amp;quot;&lt;/span&gt;);
+	}
+	&lt;span class="hljs-keyword"&gt;if&lt;/span&gt; (r == &lt;span 
+class="hljs-number"&gt;0&lt;/span&gt;) {
+		sem_wait(lock_id);
+		os_assert(sem_getvalue(items_id) == &lt;span 
+class="hljs-number"&gt;4&lt;/span&gt;, &lt;span 
+class="hljs-string"&gt;&amp;quot;WRONG_RETURN_VALUE_WAIT&amp;quot;&lt;/span&gt;);
+
+		os_assert(sem_getvalue(lock_id) == &lt;span 
+class="hljs-number"&gt;0&lt;/span&gt;, &lt;span 
+class="hljs-string"&gt;&amp;quot;WRONG_RETURN_VALUE_WAIT&amp;quot;&lt;/span&gt;);
+
+		debugf(&lt;span 
+class="hljs-string"&gt;&amp;quot;OSTEST_OK\n&amp;quot;&lt;/span&gt;);
+		&lt;span class="hljs-keyword"&gt;return&lt;/span&gt; &lt;span 
+class="hljs-number"&gt;0&lt;/span&gt;;
+	} &lt;span class="hljs-keyword"&gt;else&lt;/span&gt; {
+		os_assert(sem_getvalue(items_id) == &lt;span 
+class="hljs-number"&gt;5&lt;/span&gt;, &lt;span 
+class="hljs-string"&gt;&amp;quot;WRONG_RETURN_VALUE&amp;quot;&lt;/span&gt;);
+
+		os_assert(sem_getvalue(lock_id) == &lt;span 
+class="hljs-number"&gt;0&lt;/span&gt;, &lt;span 
+class="hljs-string"&gt;&amp;quot;WRONG_RETURN_VALUE&amp;quot;&lt;/span&gt;);
+
+
+		sem_wait(items_id);
+
+		os_assert(sem_getvalue(items_id) == &lt;span 
+class="hljs-number"&gt;4&lt;/span&gt;, &lt;span 
+class="hljs-string"&gt;&amp;quot;WRONG_RETURN_VALUE_WAIT&amp;quot;&lt;/span&gt;);
+
+		os_assert(sem_getvalue(lock_id) == &lt;span 
+class="hljs-number"&gt;0&lt;/span&gt;, &lt;span 
+class="hljs-string"&gt;&amp;quot;WRONG_RETURN_VALUE_WAIT&amp;quot;&lt;/span&gt;);
+
+
+		sem_post(lock_id);
+		debugf(&lt;span 
+class="hljs-string"&gt;&amp;quot;OSTEST_OK\n&amp;quot;&lt;/span&gt;);
+		&lt;span class="hljs-keyword"&gt;return&lt;/span&gt; &lt;span 
+class="hljs-number"&gt;0&lt;/span&gt;;
+	}
+}
+
+&lt;/code&gt;&lt;/div&gt;&lt;/pre&gt;
+&lt;p&gt;其应当输出：&lt;/p&gt;
+&lt;pre&gt;&lt;code class="lang-"&gt;init.c:	mips_init() is called
+Memory size: 65536 KiB, number of pages: 16384
+to memory 80430000 for struct Pages.
+pmap.c:	 mips vm init success
+OSTEST_OK
+[00000800] destroying 00000800
+[00000800] free env 00000800
+i am killed ...
+OSTEST_OK
+[00001001] destroying 00001001
+[00001001] free env 00001001
+i am killed ...
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;你可以使用：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;make test lab4_sem &amp;amp;&amp;amp; make 
+run&lt;/code&gt; 在本地测试上述样例（调试模式）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;MOS_PROFILE=release make test lab=4_sem 
+&amp;amp;&amp;amp; make run&lt;/code&gt; 在本地测试上述样例（开启优化）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;或者在 &lt;code&gt;tests/lab4_sem/test.c&lt;/code&gt; 的 
+&lt;code&gt;main()&lt;/code&gt; 函数中编写测试代码自行测试。&lt;/p&gt;
+&lt;h2&gt;&lt;a id="___180"&gt;&lt;/a&gt;提交评测 &amp;amp; 评测标准&lt;/h2&gt;
+&lt;p&gt;请在开发机中执行下列命令后，&lt;strong&gt;在课程网站上提交评测&lt;/strong&gt;。&lt;
+/p&gt;
+&lt;pre&gt;&lt;div class="hljs"&gt;&lt;code 
+class="lang-console"&gt;&lt;span class="hljs-meta"&gt;$ 
+&lt;/span&gt;&lt;span class="language-bash"&gt;&lt;span 
+class="hljs-built_in"&gt;cd&lt;/span&gt; ~/学号&lt;/span&gt;
+&lt;span class="hljs-meta"&gt;$ &lt;/span&gt;&lt;span 
+class="language-bash"&gt;git add -A&lt;/span&gt;
+&lt;span class="hljs-meta"&gt;$ &lt;/span&gt;&lt;span 
+class="language-bash"&gt;git commit -m &lt;span 
+class="hljs-string"&gt;&amp;quot;message&amp;quot;&lt;/span&gt;  
+&lt;span class="hljs-comment"&gt;# 请将 message 
+改为有意义的信息&lt;/span&gt;&lt;/span&gt;
+&lt;span class="hljs-meta"&gt;$ &lt;/span&gt;&lt;span 
+class="language-bash"&gt;git push&lt;/span&gt;
+&lt;/code&gt;&lt;/div&gt;&lt;/pre&gt;
+&lt;p&gt;在线评测时，所有的 &lt;code&gt;.mk&lt;/code&gt; 文件、所有的 
+&lt;code&gt;Makefile&lt;/code&gt; 
+文件、&lt;code&gt;init/init.c&lt;/code&gt; 以及 
+&lt;code&gt;tests/&lt;/code&gt; 和 &lt;code&gt;tools/&lt;/code&gt; 
+目录下的所有文件都可能被替换为标准版本，因此请同学们在本地开发时，&lt;strong&gt;不要&lt;/strong&gt;在这些文件中编写
+实际功能所依赖的代码。&lt;/p&gt;
+&lt;p&gt;测试点和分数说明如下：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;测试点序号&lt;/th&gt;
+&lt;th&gt;评测内容&lt;/th&gt;
+&lt;th&gt;分数&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;样例&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;单进程异常相关测试&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;只包含 &lt;code&gt;checkperm&lt;/code&gt; 为真的信号量&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;无异常综合测试&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;综合测试&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+            </div></div> <div data-v-7a63e4b3="" class="v-note-navigation-wrapper transition" style="display: none;"><div data-v-7a63e4b3="" class="v-note-navigation-title">
+                    导航目录<i data-v-7a63e4b3="" aria-hidden="true" class="fa fa-mavon-times v-note-navigation-close"></i></div> <div data-v-7a63e4b3="" class="v-note-navigation-content scroll-style"></div></div></div>  <!----> <div data-v-7a63e4b3="" class="v-note-read-model scroll-style"><div data-v-7a63e4b3="" class="v-note-read-content"><h1><a id="Lab42Extra_Semaphore_0"></a>Lab4-2-Extra Semaphore</h1>
+<h2><a id="_lab42extra__3"></a>准备工作：创建并切换到 <code>lab4-2-extra</code> 分支</h2>
+<ol>
+<li>
+<p><strong>基于已完成的 lab4 提交自动初始化 lab4-2-extra 分支</strong></p>
+</li>
+<li>
+<p>在开发机依次执行以下命令：</p>
+<pre><div class="hljs"><code class="lang-console"><span class="hljs-meta">$ </span><span class="language-bash"><span class="hljs-built_in">cd</span> ~/学号</span>
+<span class="hljs-meta">$ </span><span class="language-bash">git fetch</span>
+<span class="hljs-meta">$ </span><span class="language-bash">git checkout lab4-2-extra</span>
+</code></div></pre>
+<p>初始化的 <code>lab4-2-extra</code> 分支基于课下完成的 <code>lab4</code> 分支，并且在 <code>tests</code> 目录下添加了 <code>lab4_sem</code> 样例测试目录。</p>
+</li>
+</ol>
+<h2><a id="___17"></a>题目背景 &amp; 题目描述</h2>
+<p>在理论课中，我们学习到了信号量的相关知识。信号量机制是实现进程间同步互斥的有效手段。在本 extra 中，我们希望在 lab4 的基础上新增简单的信号量相关功能。你需要实现以下五个用户态函数，实现进程间的同步互斥。</p>
+<h3><a id="_21"></a>定义错误码</h3>
+<p>在 <code>include/error.h</code> 中添加新异常码。</p>
+<pre><div class="hljs"><code class="lang-c"><span class="hljs-meta">#<span class="hljs-keyword">define</span> E_NO_SEM 14</span>
+</code></div></pre>
+<h3><a id="_29"></a>初始化信号量</h3>
+<pre><div class="hljs"><code class="lang-c"><span class="hljs-type">int</span> <span class="hljs-title function_">sem_init</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> * name, <span class="hljs-type">int</span> init_value, <span class="hljs-type">int</span> checkperm)</span>
+</code></div></pre>
+<p>注册一个名为 <code>name</code> 的信号量，为其分配 id，设置权限与初始值。</p>
+<p><code>name</code> 为信号量的名字，其初始值为 <code>init_value</code> ，<code>checkperm</code> 表示使用该信号量时是否需要检查进程的权限，<br>
+非 0 时，表示该信号量仅该进程与该进程的<strong>后代</strong>（包括该进程及其所有后代的子进程）可见；为 0 时，表示该信号量对系统中的所有进程可见。</p>
+<p>成功初始化信号量返回值为被注册信号量的 id，若没有多余的 id 可以分配，则返回 <code>-E_NO_SEM</code> 。</p>
+<h3><a id="_P__42"></a>对信号量进行 P 操作</h3>
+<pre><div class="hljs"><code class="lang-c"><span class="hljs-type">int</span> <span class="hljs-title function_">sem_wait</span><span class="hljs-params">(<span class="hljs-type">int</span> sem_id)</span>
+</code></div></pre>
+<p>对 id 为 <code>sem_id</code> 的信号量进行 P 操作。</p>
+<p>当信号量的值大于 0 时，将信号量的值减 1。<br>
+当信号量的值等于 0 时，申请该信号量的进程阻塞，当信号量的值重新大于 0 时，将信号量的值减 1, 进程继续执行。</p>
+<p>成功进行 P 操作后返回值为 0，若未找到符合权限的可操作信号量，则返回 <code>-E_NO_SEM</code>。</p>
+<h3><a id="_V__55"></a>对信号量进程 V 操作</h3>
+<pre><div class="hljs"><code class="lang-c"><span class="hljs-type">int</span> <span class="hljs-title function_">sem_post</span><span class="hljs-params">(<span class="hljs-type">int</span> sem_id)</span>
+</code></div></pre>
+<p>对 id 为 <code>sem_id</code> 的信号量进行 V 操作。</p>
+<p>将信号量的值加 1，若存在阻塞在此信号量上的进程，<br>
+则唤醒一个阻塞在此信号量上的进程（不要求唤醒顺序）。</p>
+<p>成功进行 V 操作后返回值为 0，若未找到符合权限的可操作信号量，则返回 <code>-E_NO_SEM</code>。</p>
+<h3><a id="_68"></a>查询信号量的值</h3>
+<pre><div class="hljs"><code class="lang-c"><span class="hljs-type">int</span> <span class="hljs-title function_">sem_getvalue</span><span class="hljs-params">(<span class="hljs-type">int</span> sem_id)</span>
+</code></div></pre>
+<p>查询 id 为 <code>sem_id</code> 的信号量的值。</p>
+<p>成功查找返回值为 <code>sem_id</code> 对应的信号量的值，若未找到符合权限的可操作信号量，则返回 <code>-E_NO_SEM</code>。</p>
+<h3><a id="_id_78"></a>查询信号量的 id</h3>
+<pre><div class="hljs"><code class="lang-c"><span class="hljs-type">int</span> <span class="hljs-title function_">sem_getid</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *name)</span>
+</code></div></pre>
+<p>查询名为 <code>name</code> 的信号量的 id。</p>
+<p>成功查找返回值为查找到的信号量的 id，若未找到符合权限的可操作信号量，则返回 <code>-E_NO_SEM</code>。</p>
+<h2><a id="_88"></a>题目要求</h2>
+<p>在 <code>user/include/lib.h</code> 中声明以下函数：</p>
+<pre><div class="hljs"><code class="lang-c"><span class="hljs-type">int</span> <span class="hljs-title function_">sem_init</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *name, <span class="hljs-type">int</span> init_value, <span class="hljs-type">int</span> checkperm)</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">sem_wait</span><span class="hljs-params">(<span class="hljs-type">int</span> sem_id)</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">sem_post</span><span class="hljs-params">(<span class="hljs-type">int</span> sem_id)</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">sem_getvalue</span><span class="hljs-params">(<span class="hljs-type">int</span> sem_id)</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">sem_getid</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *name)</span>;
+</code></div></pre>
+<p>在 <code>user/lib/ipc.c</code> 中实现以上函数。</p>
+<h2><a id="_101"></a>题目说明</h2>
+<p>创建的信号量数量不超过 10 个，对 id 的分配方式不做要求。</p>
+<p>信号量名称不超过 32 个字节（包括 <code>\0</code> ），测试中保证不会出现信号量重名。</p>
+<p>保证子进程访问父进程注册的信号量时，父进程未被销毁。</p>
+<h2><a id="_109"></a>提示</h2>
+<p>为了完成以上五个函数，你可以通过添加对应的系统调用实现。</p>
+<h2><a id="___113"></a>样例输出 &amp;&amp; 本地测试</h2>
+<p>对于如下用户程序样例：</p>
+<pre><div class="hljs"><code class="lang-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;lib.h&gt;</span></span>
+
+<span class="hljs-type">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">os_assert</span><span class="hljs-params">(<span class="hljs-type">int</span> cond, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *err)</span> {
+	<span class="hljs-keyword">if</span> (!cond) {
+		user_halt(<span class="hljs-string">"%s\n"</span>, err);
+	}
+}
+
+<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> {
+	<span class="hljs-type">int</span> items_id = sem_init(<span class="hljs-string">"items"</span>, <span class="hljs-number">5</span>, <span class="hljs-number">0</span>);
+	<span class="hljs-type">int</span> lock_id = sem_init(<span class="hljs-string">"lock"</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+	<span class="hljs-type">int</span> r = fork();
+	<span class="hljs-keyword">if</span> (r &lt; <span class="hljs-number">0</span>) {
+		user_halt(<span class="hljs-string">"OSTEST_FORK"</span>);
+	}
+	<span class="hljs-keyword">if</span> (r == <span class="hljs-number">0</span>) {
+		sem_wait(lock_id);
+		os_assert(sem_getvalue(items_id) == <span class="hljs-number">4</span>, <span class="hljs-string">"WRONG_RETURN_VALUE_WAIT"</span>);
+		os_assert(sem_getvalue(lock_id) == <span class="hljs-number">0</span>, <span class="hljs-string">"WRONG_RETURN_VALUE_WAIT"</span>);
+		debugf(<span class="hljs-string">"OSTEST_OK\n"</span>);
+		<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+	} <span class="hljs-keyword">else</span> {
+		os_assert(sem_getvalue(items_id) == <span class="hljs-number">5</span>, <span class="hljs-string">"WRONG_RETURN_VALUE"</span>);
+		os_assert(sem_getvalue(lock_id) == <span class="hljs-number">0</span>, <span class="hljs-string">"WRONG_RETURN_VALUE"</span>);
+
+		sem_wait(items_id);
+
+		os_assert(sem_getvalue(items_id) == <span class="hljs-number">4</span>, <span class="hljs-string">"WRONG_RETURN_VALUE_WAIT"</span>);
+		os_assert(sem_getvalue(lock_id) == <span class="hljs-number">0</span>, <span class="hljs-string">"WRONG_RETURN_VALUE_WAIT"</span>);
+
+		sem_post(lock_id);
+		debugf(<span class="hljs-string">"OSTEST_OK\n"</span>);
+		<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+	}
+}
+
+</code></div></pre>
+<p>其应当输出：</p>
+<pre><code class="lang-">init.c:	mips_init() is called
+Memory size: 65536 KiB, number of pages: 16384
+to memory 80430000 for struct Pages.
+pmap.c:	 mips vm init success
+OSTEST_OK
+[00000800] destroying 00000800
+[00000800] free env 00000800
+i am killed ...
+OSTEST_OK
+[00001001] destroying 00001001
+[00001001] free env 00001001
+i am killed ...
+
+</code></pre>
+<p>你可以使用：</p>
+<ul>
+<li><code>make test lab4_sem &amp;&amp; make run</code> 在本地测试上述样例（调试模式）</li>
+<li><code>MOS_PROFILE=release make test lab=4_sem &amp;&amp; make run</code> 在本地测试上述样例（开启优化）</li>
+</ul>
+<p>或者在 <code>tests/lab4_sem/test.c</code> 的 <code>main()</code> 函数中编写测试代码自行测试。</p>
+<h2><a id="___180"></a>提交评测 &amp; 评测标准</h2>
+<p>请在开发机中执行下列命令后，<strong>在课程网站上提交评测</strong>。</p>
+<pre><div class="hljs"><code class="lang-console"><span class="hljs-meta">$ </span><span class="language-bash"><span class="hljs-built_in">cd</span> ~/学号</span>
+<span class="hljs-meta">$ </span><span class="language-bash">git add -A</span>
+<span class="hljs-meta">$ </span><span class="language-bash">git commit -m <span class="hljs-string">"message"</span>  <span class="hljs-comment"># 请将 message 改为有意义的信息</span></span>
+<span class="hljs-meta">$ </span><span class="language-bash">git push</span>
+</code></div></pre>
+<p>在线评测时，所有的 <code>.mk</code> 文件、所有的 <code>Makefile</code> 文件、<code>init/init.c</code> 以及 <code>tests/</code> 和 <code>tools/</code> 目录下的所有文件都可能被替换为标准版本，因此请同学们在本地开发时，<strong>不要</strong>在这些文件中编写实际功能所依赖的代码。</p>
+<p>测试点和分数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th>测试点序号</th>
+<th>评测内容</th>
+<th>分数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>样例</td>
+<td>20</td>
+</tr>
+<tr>
+<td>2</td>
+<td>单进程异常相关测试</td>
+<td>20</td>
+</tr>
+<tr>
+<td>3</td>
+<td>只包含 <code>checkperm</code> 为真的信号量</td>
+<td>20</td>
+</tr>
+<tr>
+<td>4</td>
+<td>无异常综合测试</td>
+<td>20</td>
+</tr>
+<tr>
+<td>5</td>
+<td>综合测试</td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+</div></div></div></div></div><div data-v-166d71d2="" class="v-window-item" style="display: none;"><div data-v-166d71d2="" class="elevation-0 mx-2 my-2 v-card v-sheet theme--light" style="background-color: transparent;"><div data-v-166d71d2="" class="v-timeline mx-auto v-timeline--dense theme--light"><div data-v-166d71d2="" class="v-timeline-item mx-0 px-0 v-timeline-item--after theme--light"><div class="v-timeline-item__body"><header data-v-166d71d2="" class="ml-n6 pa-0 v-sheet theme--light v-toolbar v-toolbar--flat" style="height: 64px;"><div class="v-toolbar__content" style="height: 64px;"><button data-v-166d71d2="" type="button" class="font-weight-bold v-btn v-btn--is-elevated v-btn--has-bg theme--dark elevation-1 v-size--default red" style="width: 1cm;"><span class="v-btn__content"> 20 </span></button><span data-v-166d71d2="" class="monospace mx-8"><span data-v-166d71d2=""> [2023-05-08 21:14:37] </span> ?
+ </span><div data-v-166d71d2="" class="spacer"></div><span data-v-166d71d2="" class="monospace text--secondary"> c1082c1b </span></div></header></div><div class="v-timeline-item__divider"><div class="v-timeline-item__dot v-timeline-item__dot--small"><div class="v-timeline-item__inner-dot green lighten-4"></div></div></div></div><div data-v-166d71d2="" class="v-timeline-item mx-0 px-0 v-timeline-item--after theme--light"><div class="v-timeline-item__body"><header data-v-166d71d2="" class="ml-n6 pa-0 v-sheet theme--light v-toolbar v-toolbar--flat" style="height: 64px;"><div class="v-toolbar__content" style="height: 64px;"><button data-v-166d71d2="" type="button" class="font-weight-bold v-btn v-btn--is-elevated v-btn--has-bg theme--dark elevation-1 v-size--default black" style="width: 1cm;"><span class="v-btn__content"> 提交 </span></button><span data-v-166d71d2="" class="monospace mx-8"><span data-v-166d71d2=""> [2023-05-08 20:21:25] </span> init lab4-sem </span><div data-v-166d71d2="" class="spacer"></div><span data-v-166d71d2="" class="monospace text--secondary"> 82ec03e2 </span></div></header></div><div class="v-timeline-item__divider"><div class="v-timeline-item__dot v-timeline-item__dot--small"><div class="v-timeline-item__inner-dot green lighten-4"></div></div></div></div><div data-v-166d71d2="" class="v-timeline-item mx-0 px-0 v-timeline-item--after theme--light"><div class="v-timeline-item__body"><header data-v-166d71d2="" class="ml-n6 pa-0 v-sheet theme--light v-toolbar v-toolbar--flat" style="height: 64px;"><div class="v-toolbar__content" style="height: 64px;"><button data-v-166d71d2="" type="button" class="font-weight-bold v-btn v-btn--is-elevated v-btn--has-bg theme--dark elevation-1 v-size--default black" style="width: 1cm;"><span class="v-btn__content"> 提交 </span></button><span data-v-166d71d2="" class="monospace mx-8"><span data-v-166d71d2=""> [2023-04-24 16:51:52] </span> stored
+ </span><div data-v-166d71d2="" class="spacer"></div><span data-v-166d71d2="" class="monospace text--secondary"> e03b15cd </span></div></header></div><div class="v-timeline-item__divider"><div class="v-timeline-item__dot v-timeline-item__dot--small"><div class="v-timeline-item__inner-dot green lighten-4"></div></div></div></div><div data-v-166d71d2="" class="v-timeline-item mx-0 px-0 v-timeline-item--after theme--light"><div class="v-timeline-item__body"><header data-v-166d71d2="" class="ml-n6 pa-0 v-sheet theme--light v-toolbar v-toolbar--flat" style="height: 64px;"><div class="v-toolbar__content" style="height: 64px;"><button data-v-166d71d2="" type="button" class="font-weight-bold v-btn v-btn--is-elevated v-btn--has-bg theme--dark elevation-1 v-size--default black" style="width: 1cm;"><span class="v-btn__content"> 提交 </span></button><span data-v-166d71d2="" class="monospace mx-8"><span data-v-166d71d2=""> [2023-04-12 11:40:10] </span> trial
+ </span><div data-v-166d71d2="" class="spacer"></div><span data-v-166d71d2="" class="monospace text--secondary"> 77fbe700 </span></div></header></div><div class="v-timeline-item__divider"><div class="v-timeline-item__dot v-timeline-item__dot--small"><div class="v-timeline-item__inner-dot green lighten-4"></div></div></div></div><div data-v-166d71d2="" class="v-timeline-item mx-0 px-0 v-timeline-item--after theme--light"><div class="v-timeline-item__body"><header data-v-166d71d2="" class="ml-n6 pa-0 v-sheet theme--light v-toolbar v-toolbar--flat" style="height: 64px;"><div class="v-toolbar__content" style="height: 64px;"><button data-v-166d71d2="" type="button" class="font-weight-bold v-btn v-btn--is-elevated v-btn--has-bg theme--dark elevation-1 v-size--default black" style="width: 1cm;"><span class="v-btn__content"> 提交 </span></button><span data-v-166d71d2="" class="monospace mx-8"><span data-v-166d71d2=""> [2023-04-10 16:29:12] </span> init lab4 </span><div data-v-166d71d2="" class="spacer"></div><span data-v-166d71d2="" class="monospace text--secondary"> 29dba4d0 </span></div></header></div><div class="v-timeline-item__divider"><div class="v-timeline-item__dot v-timeline-item__dot--small"><div class="v-timeline-item__inner-dot green lighten-4"></div></div></div></div><div data-v-166d71d2="" class="v-timeline-item mx-0 px-0 v-timeline-item--after theme--light"><div class="v-timeline-item__body"><header data-v-166d71d2="" class="ml-n6 pa-0 v-sheet theme--light v-toolbar v-toolbar--flat" style="height: 64px;"><div class="v-toolbar__content" style="height: 64px;"><button data-v-166d71d2="" type="button" class="font-weight-bold v-btn v-btn--is-elevated v-btn--has-bg theme--dark elevation-1 v-size--default black" style="width: 1cm;"><span class="v-btn__content"> 提交 </span></button><span data-v-166d71d2="" class="monospace mx-8"><span data-v-166d71d2=""> [2023-04-10 16:28:22] </span> stored Ver
+ </span><div data-v-166d71d2="" class="spacer"></div><span data-v-166d71d2="" class="monospace text--secondary"> a666a026 </span></div></header></div><div class="v-timeline-item__divider"><div class="v-timeline-item__dot v-timeline-item__dot--small"><div class="v-timeline-item__inner-dot green lighten-4"></div></div></div></div><div data-v-166d71d2="" class="v-timeline-item mx-0 px-0 v-timeline-item--after theme--light"><div class="v-timeline-item__body"><header data-v-166d71d2="" class="ml-n6 pa-0 v-sheet theme--light v-toolbar v-toolbar--flat" style="height: 64px;"><div class="v-toolbar__content" style="height: 64px;"><button data-v-166d71d2="" type="button" class="font-weight-bold v-btn v-btn--is-elevated v-btn--has-bg theme--dark elevation-1 v-size--default black" style="width: 1cm;"><span class="v-btn__content"> 提交 </span></button><span data-v-166d71d2="" class="monospace mx-8"><span data-v-166d71d2=""> [2023-04-10 15:15:23] </span> first trial
+ </span><div data-v-166d71d2="" class="spacer"></div><span data-v-166d71d2="" class="monospace text--secondary"> 8eb8f539 </span></div></header></div><div class="v-timeline-item__divider"><div class="v-timeline-item__dot v-timeline-item__dot--small"><div class="v-timeline-item__inner-dot green lighten-4"></div></div></div></div><div data-v-166d71d2="" class="v-timeline-item mx-0 px-0 v-timeline-item--after theme--light"><div class="v-timeline-item__body"><header data-v-166d71d2="" class="ml-n6 pa-0 v-sheet theme--light v-toolbar v-toolbar--flat" style="height: 64px;"><div class="v-toolbar__content" style="height: 64px;"><button data-v-166d71d2="" type="button" class="font-weight-bold v-btn v-btn--is-elevated v-btn--has-bg theme--dark elevation-1 v-size--default black" style="width: 1cm;"><span class="v-btn__content"> 提交 </span></button><span data-v-166d71d2="" class="monospace mx-8"><span data-v-166d71d2=""> [2023-04-04 16:25:54] </span> init lab3 </span><div data-v-166d71d2="" class="spacer"></div><span data-v-166d71d2="" class="monospace text--secondary"> 391726e0 </span></div></header></div><div class="v-timeline-item__divider"><div class="v-timeline-item__dot v-timeline-item__dot--small"><div class="v-timeline-item__inner-dot green lighten-4"></div></div></div></div><div data-v-166d71d2="" class="v-timeline-item mx-0 px-0 v-timeline-item--after theme--light"><div class="v-timeline-item__body"><header data-v-166d71d2="" class="ml-n6 pa-0 v-sheet theme--light v-toolbar v-toolbar--flat" style="height: 64px;"><div class="v-toolbar__content" style="height: 64px;"><button data-v-166d71d2="" type="button" class="font-weight-bold v-btn v-btn--is-elevated v-btn--has-bg theme--dark elevation-1 v-size--default black" style="width: 1cm;"><span class="v-btn__content"> 提交 </span></button><span data-v-166d71d2="" class="monospace mx-8"><span data-v-166d71d2=""> [2023-04-03 18:52:53] </span> pre
+ </span><div data-v-166d71d2="" class="spacer"></div><span data-v-166d71d2="" class="monospace text--secondary"> 2a838cf3 </span></div></header></div><div class="v-timeline-item__divider"><div class="v-timeline-item__dot v-timeline-item__dot--small"><div class="v-timeline-item__inner-dot green lighten-4"></div></div></div></div><div data-v-166d71d2="" class="v-timeline-item mx-0 px-0 v-timeline-item--after theme--light"><div class="v-timeline-item__body"><header data-v-166d71d2="" class="ml-n6 pa-0 v-sheet theme--light v-toolbar v-toolbar--flat" style="height: 64px;"><div class="v-toolbar__content" style="height: 64px;"><button data-v-166d71d2="" type="button" class="font-weight-bold v-btn v-btn--is-elevated v-btn--has-bg theme--dark elevation-1 v-size--default black" style="width: 1cm;"><span class="v-btn__content"> 提交 </span></button><span data-v-166d71d2="" class="monospace mx-8"><span data-v-166d71d2=""> [2023-04-03 16:13:56] </span> fix queue.h
+ </span><div data-v-166d71d2="" class="spacer"></div><span data-v-166d71d2="" class="monospace text--secondary"> 05132c8e </span></div></header></div><div class="v-timeline-item__divider"><div class="v-timeline-item__dot v-timeline-item__dot--small"><div class="v-timeline-item__inner-dot green lighten-4"></div></div></div></div><div data-v-166d71d2="" class="v-timeline-item mx-0 px-0 v-timeline-item--after theme--light"><div class="v-timeline-item__body"><header data-v-166d71d2="" class="ml-n6 pa-0 v-sheet theme--light v-toolbar v-toolbar--flat" style="height: 64px;"><div class="v-toolbar__content" style="height: 64px;"><button data-v-166d71d2="" type="button" class="font-weight-bold v-btn v-btn--is-elevated v-btn--has-bg theme--dark elevation-1 v-size--default black" style="width: 1cm;"><span class="v-btn__content"> 提交 </span></button><span data-v-166d71d2="" class="monospace mx-8"><span data-v-166d71d2=""> [2023-04-03 16:04:29] </span> 上传新文件 </span><div data-v-166d71d2="" class="spacer"></div><span data-v-166d71d2="" class="monospace text--secondary"> a7a5dd75 </span></div></header></div><div class="v-timeline-item__divider"><div class="v-timeline-item__dot v-timeline-item__dot--small"><div class="v-timeline-item__inner-dot green lighten-4"></div></div></div></div><div data-v-166d71d2="" class="v-timeline-item mx-0 px-0 v-timeline-item--after theme--light"><div class="v-timeline-item__body"><header data-v-166d71d2="" class="ml-n6 pa-0 v-sheet theme--light v-toolbar v-toolbar--flat" style="height: 64px;"><div class="v-toolbar__content" style="height: 64px;"><button data-v-166d71d2="" type="button" class="font-weight-bold v-btn v-btn--is-elevated v-btn--has-bg theme--dark elevation-1 v-size--default black" style="width: 1cm;"><span class="v-btn__content"> 提交 </span></button><span data-v-166d71d2="" class="monospace mx-8"><span data-v-166d71d2=""> [2023-04-01 01:49:27] </span> 更新 lib/print.c, include/queue.h </span><div data-v-166d71d2="" class="spacer"></div><span data-v-166d71d2="" class="monospace text--secondary"> 3dcccc66 </span></div></header></div><div class="v-timeline-item__divider"><div class="v-timeline-item__dot v-timeline-item__dot--small"><div class="v-timeline-item__inner-dot green lighten-4"></div></div></div></div><div data-v-166d71d2="" class="v-timeline-item mx-0 px-0 v-timeline-item--after theme--light"><div class="v-timeline-item__body"><header data-v-166d71d2="" class="ml-n6 pa-0 v-sheet theme--light v-toolbar v-toolbar--flat" style="height: 64px;"><div class="v-toolbar__content" style="height: 64px;"><button data-v-166d71d2="" type="button" class="font-weight-bold v-btn v-btn--is-elevated v-btn--has-bg theme--dark elevation-1 v-size--default black" style="width: 1cm;"><span class="v-btn__content"> 提交 </span></button><span data-v-166d71d2="" class="monospace mx-8"><span data-v-166d71d2=""> [2023-03-16 22:37:14] </span> test 2.2-2.3 finished
+ </span><div data-v-166d71d2="" class="spacer"></div><span data-v-166d71d2="" class="monospace text--secondary"> 2dfa713b </span></div></header></div><div class="v-timeline-item__divider"><div class="v-timeline-item__dot v-timeline-item__dot--small"><div class="v-timeline-item__inner-dot green lighten-4"></div></div></div></div><div data-v-166d71d2="" class="v-timeline-item mx-0 px-0 v-timeline-item--after theme--light"><div class="v-timeline-item__body"><header data-v-166d71d2="" class="ml-n6 pa-0 v-sheet theme--light v-toolbar v-toolbar--flat" style="height: 64px;"><div class="v-toolbar__content" style="height: 64px;"><button data-v-166d71d2="" type="button" class="font-weight-bold v-btn v-btn--is-elevated v-btn--has-bg theme--dark elevation-1 v-size--default black" style="width: 1cm;"><span class="v-btn__content"> 提交 </span></button><span data-v-166d71d2="" class="monospace mx-8"><span data-v-166d71d2=""> [2023-03-15 20:38:49] </span> exercise 2.1-2.5
+ </span><div data-v-166d71d2="" class="spacer"></div><span data-v-166d71d2="" class="monospace text--secondary"> 3c6b3ce0 </span></div></header></div><div class="v-timeline-item__divider"><div class="v-timeline-item__dot v-timeline-item__dot--small"><div class="v-timeline-item__inner-dot green lighten-4"></div></div></div></div><div data-v-166d71d2="" class="v-timeline-item mx-0 px-0 v-timeline-item--after theme--light"><div class="v-timeline-item__body"><header data-v-166d71d2="" class="ml-n6 pa-0 v-sheet theme--light v-toolbar v-toolbar--flat" style="height: 64px;"><div class="v-toolbar__content" style="height: 64px;"><button data-v-166d71d2="" type="button" class="font-weight-bold v-btn v-btn--is-elevated v-btn--has-bg theme--dark elevation-1 v-size--default black" style="width: 1cm;"><span class="v-btn__content"> 提交 </span></button><span data-v-166d71d2="" class="monospace mx-8"><span data-v-166d71d2=""> [2023-03-13 18:05:20] </span> halfway
+ </span><div data-v-166d71d2="" class="spacer"></div><span data-v-166d71d2="" class="monospace text--secondary"> 08fa296b </span></div></header></div><div class="v-timeline-item__divider"><div class="v-timeline-item__dot v-timeline-item__dot--small"><div class="v-timeline-item__inner-dot green lighten-4"></div></div></div></div><div data-v-166d71d2="" class="v-timeline-item mx-0 px-0 v-timeline-item--after theme--light"><div class="v-timeline-item__body"><header data-v-166d71d2="" class="ml-n6 pa-0 v-sheet theme--light v-toolbar v-toolbar--flat" style="height: 64px;"><div class="v-toolbar__content" style="height: 64px;"><button data-v-166d71d2="" type="button" class="font-weight-bold v-btn v-btn--is-elevated v-btn--has-bg theme--dark elevation-1 v-size--default black" style="width: 1cm;"><span class="v-btn__content"> 提交 </span></button><span data-v-166d71d2="" class="monospace mx-8"><span data-v-166d71d2=""> [2023-03-13 15:22:36] </span> init lab2 </span><div data-v-166d71d2="" class="spacer"></div><span data-v-166d71d2="" class="monospace text--secondary"> fde87452 </span></div></header></div><div class="v-timeline-item__divider"><div class="v-timeline-item__dot v-timeline-item__dot--small"><div class="v-timeline-item__inner-dot green lighten-4"></div></div></div></div><div data-v-166d71d2="" class="v-timeline-item mx-0 px-0 v-timeline-item--after theme--light"><div class="v-timeline-item__body"><header data-v-166d71d2="" class="ml-n6 pa-0 v-sheet theme--light v-toolbar v-toolbar--flat" style="height: 64px;"><div class="v-toolbar__content" style="height: 64px;"><button data-v-166d71d2="" type="button" class="font-weight-bold v-btn v-btn--is-elevated v-btn--has-bg theme--dark elevation-1 v-size--default black" style="width: 1cm;"><span class="v-btn__content"> 提交 </span></button><span data-v-166d71d2="" class="monospace mx-8"><span data-v-166d71d2=""> [2023-03-07 22:19:11] </span> First Trial
+ </span><div data-v-166d71d2="" class="spacer"></div><span data-v-166d71d2="" class="monospace text--secondary"> 225edc36 </span></div></header></div><div class="v-timeline-item__divider"><div class="v-timeline-item__dot v-timeline-item__dot--small"><div class="v-timeline-item__inner-dot green lighten-4"></div></div></div></div><div data-v-166d71d2="" class="v-timeline-item mx-0 px-0 v-timeline-item--after theme--light"><div class="v-timeline-item__body"><header data-v-166d71d2="" class="ml-n6 pa-0 v-sheet theme--light v-toolbar v-toolbar--flat" style="height: 64px;"><div class="v-toolbar__content" style="height: 64px;"><button data-v-166d71d2="" type="button" class="font-weight-bold v-btn v-btn--is-elevated v-btn--has-bg theme--dark elevation-1 v-size--default black" style="width: 1cm;"><span class="v-btn__content"> 提交 </span></button><span data-v-166d71d2="" class="monospace mx-8"><span data-v-166d71d2=""> [2023-03-07 22:00:30] </span> Wrong Now
+ </span><div data-v-166d71d2="" class="spacer"></div><span data-v-166d71d2="" class="monospace text--secondary"> 4645a188 </span></div></header></div><div class="v-timeline-item__divider"><div class="v-timeline-item__dot v-timeline-item__dot--small"><div class="v-timeline-item__inner-dot green lighten-4"></div></div></div></div><div data-v-166d71d2="" class="v-timeline-item mx-0 px-0 v-timeline-item--after theme--light"><div class="v-timeline-item__body"><header data-v-166d71d2="" class="ml-n6 pa-0 v-sheet theme--light v-toolbar v-toolbar--flat" style="height: 64px;"><div class="v-toolbar__content" style="height: 64px;"><button data-v-166d71d2="" type="button" class="font-weight-bold v-btn v-btn--is-elevated v-btn--has-bg theme--dark elevation-1 v-size--default black" style="width: 1cm;"><span class="v-btn__content"> 提交 </span></button><span data-v-166d71d2="" class="monospace mx-8"><span data-v-166d71d2=""> [2023-03-07 21:14:53] </span> 更新 lib/print.c </span><div data-v-166d71d2="" class="spacer"></div><span data-v-166d71d2="" class="monospace text--secondary"> 76289100 </span></div></header></div><div class="v-timeline-item__divider"><div class="v-timeline-item__dot v-timeline-item__dot--small"><div class="v-timeline-item__inner-dot green lighten-4"></div></div></div></div><div data-v-166d71d2="" class="v-timeline-item mx-0 px-0 v-timeline-item--after theme--light"><div class="v-timeline-item__body"><header data-v-166d71d2="" class="ml-n6 pa-0 v-sheet theme--light v-toolbar v-toolbar--flat" style="height: 64px;"><div class="v-toolbar__content" style="height: 64px;"><button data-v-166d71d2="" type="button" class="font-weight-bold v-btn v-btn--is-elevated v-btn--has-bg theme--dark elevation-1 v-size--default black" style="width: 1cm;"><span class="v-btn__content"> 提交 </span></button><span data-v-166d71d2="" class="monospace mx-8"><span data-v-166d71d2=""> [2023-03-07 17:08:56] </span> readelf.c Init
+ </span><div data-v-166d71d2="" class="spacer"></div><span data-v-166d71d2="" class="monospace text--secondary"> cc066aad </span></div></header></div><div class="v-timeline-item__divider"><div class="v-timeline-item__dot v-timeline-item__dot--small"><div class="v-timeline-item__inner-dot green lighten-4"></div></div></div></div></div></div><div data-v-644ea9c9="" data-v-166d71d2="" class="infinite-loading-container"><div data-v-644ea9c9="" class="infinite-status-prompt" style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px; display: none;"><i data-v-46b20d22="" data-v-644ea9c9="" class="loading-spiral" spinner="spiral"></i></div> <div data-v-644ea9c9="" class="infinite-status-prompt" style="display: none;"><div data-v-166d71d2="" data-v-644ea9c9="" class="mt-6 mb-3 grey--text"> 无更多 Commit 记录<br data-v-166d71d2="" data-v-644ea9c9=""><!----></div></div> <div data-v-644ea9c9="" class="infinite-status-prompt" style="display: none;"><div data-v-166d71d2="" data-v-644ea9c9="" class="mt-6 mb-3 grey--text">无更多 Commit 记录</div></div> <div data-v-644ea9c9="" class="infinite-status-prompt" style="display: none;"><div data-v-166d71d2="" data-v-644ea9c9="" class="mt-6 mb-3 grey--text">加载出错</div></div></div></div></div></div></div></div><div data-v-166d71d2="" class="v-dialog__container"></div><div data-v-166d71d2="" class="v-dialog__container mx-auto pa-0"><!----></div><div data-v-166d71d2="" class="v-dialog__container mx-auto pa-0"><!----></div><div data-v-166d71d2="" class="v-dialog__container mx-auto pa-0"></div><button data-v-bf53ced0="" data-v-166d71d2="" type="button" class="goTop v-btn v-btn--is-elevated v-btn--fab v-btn--has-bg v-btn--round theme--dark v-size--small success" style="display: none;"><span class="v-btn__content"><i data-v-bf53ced0="" aria-hidden="true" class="v-icon notranslate mdi mdi-chevron-up theme--dark"></i></span></button></div></div></div></main></div></div></div><div data-v-14a4bac8="" role="menu" class="v-menu__content theme--light v-menu__content--fixed " style="max-height: 86%; min-width: 700px; max-width: 700px; top: 55.6px; left: 803px; transform-origin: left top 0px; z-index: 8; display: none;"><div data-v-14a4bac8="" class="v-card v-sheet theme--light elevation-3"><div data-v-14a4bac8="" class="v-card__title">课程通知</div><hr data-v-14a4bac8="" role="separator" aria-orientation="horizontal" class="v-divider theme--light"><div data-v-14a4bac8="" class="v-card__text"><div data-v-14a4bac8="" class="v-tabs v-tabs--centered v-tabs--grow theme--light"><div role="tablist" class="v-item-group theme--light v-slide-group v-tabs-bar green--text" data-booted="true"><div class="v-slide-group__prev v-slide-group__prev--disabled"><!----></div><div class="v-slide-group__wrapper"><div class="v-slide-group__content v-tabs-bar__content"><div class="v-tabs-slider-wrapper" style="height: 2px; left: 0px; width: 0px;"><div class="v-tabs-slider"></div></div><div data-v-14a4bac8="" tabindex="0" aria-selected="true" role="tab" class="v-tab v-tab--active">任务通知</div><div data-v-14a4bac8="" tabindex="0" aria-selected="false" role="tab" class="v-tab">讨论区通知</div></div></div><div class="v-slide-group__next v-slide-group__next--disabled"><!----></div></div></div><div data-v-14a4bac8="" class="v-window v-item-group theme--light v-tabs-items"><div class="v-window__container"><div data-v-14a4bac8="" class="v-window-item v-window-item--active"><div data-v-14a4bac8="" class="v-list v-sheet theme--light rounded v-list--flat v-list--rounded"></div><div data-v-14a4bac8="" class="v-card__text">当前任务通知列表为空</div><div data-v-14a4bac8="" class="v-input mb-n7 theme--light v-input--selection-controls v-input--radio-group v-input--radio-group--row"><div class="v-input__control"><div class="v-input__slot" style="height: auto;"><div role="radiogroup" aria-labelledby="input-757" class="v-input--radio-group__input"><div data-v-14a4bac8="" class="v-input mt-2 ml-2 v-input--dense theme--light v-input--selection-controls v-input--checkbox"><div class="v-input__control"><div class="v-input__slot"><div class="v-input--selection-controls__input"><span aria-hidden="true" class="v-icon notranslate v-icon--dense theme--light"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-hidden="true" class="v-icon__svg"><path d="M19,3H5C3.89,3 3,3.89 3,5V19C3,20.1 3.9,21 5,21H19C20.1,21 21,20.1 21,19V5C21,3.89 20.1,3 19,3M19,5V19H5V5H19Z"></path></svg></span><input aria-checked="false" id="input-758" role="checkbox" type="checkbox" value=""><div class="v-input--selection-controls__ripple"></div></div><label for="input-758" class="v-label theme--light" style="left: 0px; right: auto; position: relative;">显示已读通知</label></div><div class="v-messages theme--light"><div class="v-messages__wrapper"></div></div></div></div><div data-v-14a4bac8="" class="spacer"></div><nav data-v-14a4bac8="" role="navigation" aria-label="Pagination Navigation" class="mb-2"><ul class="v-pagination theme--light"><li><button disabled="disabled" type="button" aria-label="Previous page" class="v-pagination__navigation v-pagination__navigation--disabled"><span aria-hidden="true" class="v-icon notranslate theme--light"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-hidden="true" class="v-icon__svg"><path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"></path></svg></span></button></li><li><button disabled="disabled" type="button" aria-label="Next page" class="v-pagination__navigation v-pagination__navigation--disabled"><span aria-hidden="true" class="v-icon notranslate theme--light"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-hidden="true" class="v-icon__svg"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path></svg></span></button></li></ul></nav></div></div><div class="v-messages theme--light"><div class="v-messages__wrapper"></div></div></div></div></div><!----></div></div></div></div></div><div role="dialog" aria-modal="true" data-v-166d71d2="" class="v-dialog__content" style="z-index: 202;"><div class="v-dialog elevation-0" style="transform-origin: center center 0px; display: none;"><div data-v-166d71d2="" class="container elevation-0"><div data-v-166d71d2="" class="row align-center justify-center"><div data-v-166d71d2="" xs="6" class="col-sm-5 col-md-3 col-lg-3 col-xl-3 col"><div data-v-166d71d2="" class="pb-2 pt-0 px-0 mx-0 v-card v-sheet theme--light" style="width: 100%;"><div data-v-166d71d2="" class="v-card__title text-h5"> 确认提交 </div><div data-v-166d71d2="" class="v-card__actions"><div data-v-166d71d2="" class="spacer"></div><button data-v-166d71d2="" type="button" class="v-btn v-btn--text theme--light v-size--default green--text text--darken-1"><span class="v-btn__content"> 取消 </span></button><button data-v-166d71d2="" type="button" class="v-btn v-btn--text theme--light v-size--default green--text text--darken-1"><span class="v-btn__content">确认 </span></button><div data-v-166d71d2="" class="mx-1"></div></div></div></div></div></div></div></div><div role="dialog" aria-modal="true" data-v-166d71d2="" class="v-dialog__content" style="z-index: 202;"><div class="v-dialog elevation-0" style="transform-origin: center center 0px; display: none;"><div data-v-166d71d2="" class="container"><div data-v-166d71d2="" class="row align-center justify-center"><div data-v-166d71d2="" xs="12" class="col-sm-12 col-md-12 col-lg-9 col-xl-6 col"><div data-v-166d71d2="" class="text-left v-card v-sheet theme--light" style="width: 100%;"><header data-v-166d71d2="" class="text-h6 v-sheet theme--light v-toolbar green lighten-3" style="height: 64px;"><div class="v-toolbar__content" style="height: 64px;"> 评测记录 <div data-v-166d71d2="" class="spacer"></div><button data-v-166d71d2="" type="button" class="v-btn v-btn--icon v-btn--round theme--light v-size--default white--text"><span class="v-btn__content"><i data-v-166d71d2="" aria-hidden="true" class="v-icon notranslate mdi mdi-close theme--light"></i></span></button></div></header><div data-v-166d71d2="" class="container ma-0 px-4 py-2"><div data-v-166d71d2="" class="row ma-0 pa-0"><div data-v-166d71d2="" class="ma-0 pa-0 col"><div data-v-166d71d2="" class="v-card__text text-h6 ma-0 pa-0">题目 ID</div></div><div data-v-166d71d2="" class="ma-0 pa-0 col"><div data-v-166d71d2="" class="v-card__text text-h6 ma-0 pa-0">提交 ID</div></div><div data-v-166d71d2="" class="ma-0 pa-0 col"><div data-v-166d71d2="" class="v-card__text text-h6 ma-0 pa-0">分数</div></div><div data-v-166d71d2="" class="ma-0 pa-0 col"><div data-v-166d71d2="" class="v-card__text text-h6 ma-0 pa-0">状态</div></div></div><div data-v-166d71d2="" class="row ma-0 pa-0"><div data-v-166d71d2="" class="ma-0 pa-0 col"><div data-v-166d71d2="" class="v-card__text ma-0 pa-0 text--secondary monospace"> 49</div></div><div data-v-166d71d2="" class="ma-0 pa-0 col"><div data-v-166d71d2="" class="v-card__text ma-0 pa-0 text--secondary monospace"> c1082c1b </div></div><div data-v-166d71d2="" class="ma-0 pa-0 col"><div data-v-166d71d2="" class="v-card__text ma-0 pa-0 text--secondary monospace"> 20 </div></div><div data-v-166d71d2="" class="ma-0 pa-0 col"><div data-v-166d71d2="" class="v-card__text ma-0 pa-0 text--secondary monospace"> 评测完成 </div></div></div></div><hr data-v-166d71d2="" role="separator" aria-orientation="horizontal" class="my-0 py-1 v-divider theme--light"><div data-v-166d71d2=""><div data-v-166d71d2="" class="v-card__text"><div data-v-166d71d2="" class="v-data-table v-data-table--fixed-header theme--light"><div class="v-data-table__wrapper" style="height: 40vh;"><table><thead data-v-166d71d2=""><tr data-v-166d71d2=""><th data-v-166d71d2="" class="text-left">评测点 ID</th><th data-v-166d71d2="" class="text-left">评测结果</th></tr></thead><tbody data-v-166d71d2=""><tr data-v-166d71d2=""><td data-v-166d71d2="">1</td><td data-v-166d71d2=""><div data-v-166d71d2="" class="comment-info"><span data-v-166d71d2="" style="display: inline-block;"> [MOS-INFO] Congratulations!
+[MOS-INFO] Passed MOS test (2 cases) </span><button data-v-166d71d2="" type="button" class="v-icon notranslate comment-icon v-icon--link mdi mdi-chevron-up theme--light"></button></div></td></tr><tr data-v-166d71d2=""><td data-v-166d71d2="">2</td><td data-v-166d71d2=""><div data-v-166d71d2="" class="comment-info unfolded"><span data-v-166d71d2="" style="display: inline-block;"> [MOS-ERROR] Something unexpected occurred
+[MOS-ERROR] Wrong Answer (0/1 passed) </span><button data-v-166d71d2="" type="button" class="v-icon notranslate comment-icon v-icon--link mdi mdi-chevron-up theme--light"></button></div></td></tr><tr data-v-166d71d2=""><td data-v-166d71d2="">3</td><td data-v-166d71d2=""><div data-v-166d71d2="" class="comment-info unfolded"><span data-v-166d71d2="" style="display: inline-block;"> [MOS-ERROR] Something unexpected occurred
+[MOS-ERROR] Wrong Answer (1/3 passed) </span><button data-v-166d71d2="" type="button" class="v-icon notranslate comment-icon v-icon--link mdi mdi-chevron-up theme--light"></button></div></td></tr><tr data-v-166d71d2=""><td data-v-166d71d2="">4</td><td data-v-166d71d2=""><div data-v-166d71d2="" class="comment-info unfolded"><span data-v-166d71d2="" style="display: inline-block;"> [MOS-ERROR] The return value of sem_getvalue is wrong after sem_wait
+[MOS-ERROR] Wrong Answer (0/2 passed) </span><button data-v-166d71d2="" type="button" class="v-icon notranslate comment-icon v-icon--link mdi mdi-chevron-up theme--light"></button></div></td></tr><tr data-v-166d71d2=""><td data-v-166d71d2="">5</td><td data-v-166d71d2=""><div data-v-166d71d2="" class="comment-info unfolded"><span data-v-166d71d2="" style="display: inline-block;"> [MOS-ERROR] Something unexpected occurred
+[MOS-ERROR] Wrong Answer (1/3 passed) </span><button data-v-166d71d2="" type="button" class="v-icon notranslate comment-icon v-icon--link mdi mdi-chevron-up theme--light"></button></div></td></tr></tbody></table></div></div></div></div></div></div></div></div></div></div></div><div data-v-7a63e4b3=""><!----></div></body></html>
