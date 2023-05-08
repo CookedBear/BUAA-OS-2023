@@ -265,6 +265,8 @@ int sys_getid(const char *name) {
       }
       if (f == 0) {
         continue;
+      } else {
+        break;
       }
     }
     return i;
