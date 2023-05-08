@@ -130,6 +130,7 @@ int sys_barrier_wait(int type) {
   } else if (barrier == 0) {
     return 0;
   } else {
+    barrier--;
     return barrier;
   }
 }
