@@ -25,7 +25,7 @@ include include.mk
 
 .PHONY: all clean
 
-all: $(INITAPPS) $(USERAPPS) $(USERLIB)
+all: $(INITAPPS) $(USERAPPS) $(USERLIB) shmtest.x shmtest.b
 
 clean:
 	rm -rf *~ *.o *.b.c *.x *.b lib/*.o

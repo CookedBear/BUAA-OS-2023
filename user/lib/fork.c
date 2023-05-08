@@ -189,3 +189,32 @@ int fork(void) {
 	
 	return child;
 }
+
+int make_shared(void *va) {
+	int r;
+	extern volatile struct Env *env;
+
+	if ((u_long) va > UTOP) {
+		return -1;
+	}
+
+	Pte pte = (Pte) vpt[VPN(va)];
+	u_int perm = (pte) & 0xfff;
+	
+	if (!(perm & PTE_V)) {
+		if ((r = syscall_mem_alloc(syscall_getenvid(), va, PTE_LIBRARY | PTE_D | PTE_V)) != 0) {
+			return -1;
+		}
+	}
+
+	if (!(perm & PTE_D)) {
+		return -1;
+	}
+
+	if (perm & PTE_LIBRARY) {
+		return PTE_ADDR(pte);
+	}
+	syscall_mem_map(0, va, 0, va, perm | PTE_LIBRARY);
+
+	return PTE_ADDR(pte);
+}
