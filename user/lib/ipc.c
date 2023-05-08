@@ -9,8 +9,9 @@ void barrier_alloc(int n) { syscall_barrier_alloc(n); }
 void barrier_wait(void) {
   int r;
   r = syscall_barrier_wait(1);
-  while ((r = syscall_barrier_wait(0)) > 0) {
+  while (r > 0) {
     syscall_yield();
+    r = syscall_barrier_wait(0);
   }
   user_assert(r <= 0);
 }
