@@ -167,8 +167,8 @@ u_int alloc_physics() {
   }
 
   ssd_cleanmap[exchange_no]++;
-  ide_read(0, target_no, buf, 1);
-  ide_write(0, exchange_no, buf, 1);
+  ide_read(0, exchange_no, buf, 1);
+  ide_write(0, target_no, buf, 1);
 
   ssd_bitmap[target_no] = 0;
   for (int ssdno = 0; ssdno < 32; ssdno++) {
