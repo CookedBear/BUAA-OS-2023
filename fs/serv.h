@@ -7,7 +7,7 @@
 /* IDE disk number to look on for our file system */
 #define DISKNO 1
 
-#define BY2SECT 512		    /* Bytes per disk sector */
+#define BY2SECT 512                 /* Bytes per disk sector */
 #define SECT2BLK (BY2BLK / BY2SECT) /* sectors to a block */
 
 /* Disk block n, when in memory, is mapped into the file system
@@ -35,3 +35,8 @@ void fs_sync(void);
 extern uint32_t *bitmap;
 int map_block(u_int);
 int alloc_block(void);
+
+void ssd_init();
+int ssd_read(u_int logic_no, void *dst);
+void ssd_write(u_int logic_no, void *src);
+void ssd_erase(u_int logic_no);
