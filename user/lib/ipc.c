@@ -44,7 +44,7 @@ u_int get_time(u_int *us) { return syscall_get_time(us); }
 void usleep(u_int us) {
   u_int uus = 0;
   u_int nowus = 0;
-  u_int inTime = (get_time(&uus) % 100000) << 6;
+  u_int inTime = get_time(&uus);
 
   while (1) {
     u_int nowt = get_time(&nowus);
