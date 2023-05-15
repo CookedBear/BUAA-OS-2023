@@ -166,7 +166,7 @@ u_int alloc_physics() {
     buf[i] = 0;
   }
 
-  ssd_cleanmap[target_no]++;
+  ssd_cleanmap[exchange_no]++;
   ide_read(0, target_no, buf, 1);
   ide_write(0, exchange_no, buf, 1);
 
