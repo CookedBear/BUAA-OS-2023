@@ -49,9 +49,9 @@ void usleep(u_int us) {
   while (1) {
     u_int nowt = get_time(&nowus);
 
-    if (((int)nowt - (int)inTime > (us / 1000000)) ||
-        ((int)nowt - (int)inTime == (us / 1000000) &&
-         (int)nowus - (int)uus > (us % 1000000))) {
+    int del = (int)nowt - (int)inTime;
+
+    if (del * 1000000 + ((int)nowus - (int)uus) > us) {
       return;
     } else {
       syscall_yield();
