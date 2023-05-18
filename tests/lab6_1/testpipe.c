@@ -1,6 +1,6 @@
 #include <lib.h>
 
-char *msg = "Now is the time for all g";
+char *msg = "Now is the time for all good men to come to the aid of their party.";
 
 int main() {
 	char buf[100];
@@ -15,9 +15,9 @@ int main() {
 	}
 
 	if (pid == 0) {
-		debugf("[%08x] pipe_readeof close %d\n", env->env_id, p[1]);
+		debugf("[%08x] pipe_readeoff close %d\n", env->env_id, p[1]);
 		close(p[1]);
-		debugf("[%08x] pipe_readeof readn %d\n", env->env_id, p[0]);
+		debugf("[%08x] pipe_readeoff readn %d\n", env->env_id, p[0]);
 		i = readn(p[0], buf, sizeof buf - 1);
 		if (i < 0) {
 			user_panic("read: %d", i);
@@ -34,7 +34,7 @@ int main() {
 		close(p[0]);
 		debugf("[%08x] pipe_readeof write %d\n", env->env_id, p[1]);
 		if ((i = write(p[1], msg, strlen(msg))) != strlen(msg)) {
-			user_panic("write: %d and %d", i, strlen(msg));
+			user_panic("write: %d", i);
 		}
 		close(p[1]);
 	}

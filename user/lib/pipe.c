@@ -148,16 +148,16 @@ static int pipe_read(struct Fd *fd, void *vbuf, u_int n, u_int offset) {
 	for (i = 0; i < n; i++) {
 		
 		if (p->p_rpos >= p->p_wpos) {
-			if (i != 0 || _pipe_is_closed(fd, p)) {
-				return i;
-			}
+			if (i != 0 || _pipe_is_closed(fd, p)) { return i; }
 			while (p->p_rpos >= p->p_wpos && !_pipe_is_closed(fd, p)) {
 				syscall_yield();
 			}
+			if (_pipe_is_closed(fd, p)) { return i; }
 		}
 		rbuf[i] = p->p_buf[(p->p_rpos++) % BY2PIPE];
 	}
-	if (i == n) { return n; }
+	return n;
+
 	user_panic("pipe_read not implemented");
 }
 
@@ -191,16 +191,15 @@ static int pipe_write(struct Fd *fd, const void *vbuf, u_int n, u_int offset) {
 	for (i = 0; i < n; i++) {
 		
 		if (p->p_wpos - p->p_rpos >= BY2PIPE) {
-			if (i != 0 || _pipe_is_closed(fd, p)) {
-				return i;
-			}
+			if (i != 0 || _pipe_is_closed(fd, p)) { return i; }
 			while (p->p_wpos - p->p_rpos >= BY2PIPE && !_pipe_is_closed(fd, p)) {
 				syscall_yield();
-			}
+			} // out: not empty or closed
+			if (_pipe_is_closed(fd, p)) { return i; }
 		}
 		p->p_buf[(p->p_wpos++) % BY2PIPE] = wbuf[i];
 	}
-	if (i == n) { return n; }
+	return n;
 
 	user_panic("pipe_write not implemented");
 
@@ -244,8 +243,8 @@ int pipe_is_closed(int fdnum) {
  */
 static int pipe_close(struct Fd *fd) {
 	// Unmap 'fd' and the referred Pipe.
-	syscall_mem_unmap(0, (void *)fd2data(fd));
 	syscall_mem_unmap(0, fd);
+	syscall_mem_unmap(0, (void *)fd2data(fd));
 	return 0;
 }
 
