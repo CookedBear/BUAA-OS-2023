@@ -101,6 +101,18 @@ static int spawn_mapper(void *data, u_long va, size_t offset, u_int perm, const 
 	return 0;
 }
 
+const Elf32_Ehdr *elf_f(const void *binary, size_t size) {
+	const Elf32_Ehdr *ehdr = (const Elf32_Ehdr *)binary;
+	debugf("%x %x %x %x\n", ehdr->e_ident[EI_MAG0], ehdr->e_ident[EI_MAG1], ehdr->e_ident[EI_MAG2], ehdr->e_ident[EI_MAG3]);
+	if (size >= sizeof(Elf32_Ehdr) && ehdr->e_ident[EI_MAG0] == ELFMAG0 &&
+	    ehdr->e_ident[EI_MAG1] == ELFMAG1 && ehdr->e_ident[EI_MAG2] == ELFMAG2 &&
+	    ehdr->e_ident[EI_MAG3] == ELFMAG3 && ehdr->e_type == 2) {
+		return ehdr;
+	}
+	return NULL;
+}
+
+
 int spawn(char *prog, char **argv) {
 	// Step 1: Open the file 'prog' (the path of the program).
 	// Return the error if 'open' fails.
@@ -129,7 +141,7 @@ int spawn(char *prog, char **argv) {
 	const Elf32_Ehdr *ehdr = elf_from(elfbuf, sizeof(Elf32_Ehdr));
 	if (!ehdr) {
 		r = -E_NOT_EXEC;
-		debugf("wrong2\n");
+		// debugf("wrong2\n");
 		goto err;
 	}
 	u_long entrypoint = ehdr->e_entry;

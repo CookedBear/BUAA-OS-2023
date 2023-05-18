@@ -144,13 +144,11 @@ int map_block(u_int blockno) {
 	// Step 1: If the block is already mapped in cache, return 0.
 	// Hint: Use 'block_is_mapped'.
 	/* Exercise 5.7: Your code here. (1/5) */
-	if (block_is_mapped(blockno) != 0) {
-		return 0;
-	}
+	if (block_is_mapped(blockno) != 0) { return 0; }
 	// Step 2: Alloc a page in permission 'PTE_D' via syscall.
 	// Hint: Use 'diskaddr' for the virtual address. 
 	/* Exercise 5.7: Your code here. (2/5) */
-	return syscall_mem_alloc(syscall_getenvid(), diskaddr(blockno), PTE_D |PTE_V);
+	return syscall_mem_alloc(syscall_getenvid(), diskaddr(blockno), PTE_D);
 }
 
 // Overview:
@@ -160,9 +158,7 @@ void unmap_block(u_int blockno) {
 	void *va;
 	/* Exercise 5.7: Your code here. (3/5) */
 	va = block_is_mapped(blockno);
-	if (va == 0) {
-		return;
-	}
+	if (va == NULL) { return; }
 	// Step 2: If this block is used (not free) and dirty in cache, write it back to the disk
 	// first.
 	// Hint: Use 'block_is_free', 'block_is_dirty' to check, and 'write_block' to sync.
@@ -172,7 +168,7 @@ void unmap_block(u_int blockno) {
 	}
 	// Step 3: Unmap the virtual address via syscall.
 	/* Exercise 5.7: Your code here. (5/5) */
-	syscall_mem_unmap(syscall_getenvid(), va);
+	syscall_mem_unmap(syscall_getenvid(), diskaddr(blockno));
 
 	user_assert(!block_is_mapped(blockno));
 }
@@ -517,7 +513,7 @@ int dir_lookup(struct File *dir, char *name, struct File **file) {
 		// Read the i'th block of 'dir' and get its address in 'blk' using 'file_get_block'.
 		void *blk;
 		/* Exercise 5.8: Your code here. (2/3) */
-		file_get_block(dir, i, &blk);
+		if ((r = file_get_block(dir, i, &blk)) < 0) { return r; }
 		struct File *files = (struct File *)blk;
 
 		// Find the target among all 'File's in this block.

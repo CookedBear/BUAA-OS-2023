@@ -143,20 +143,45 @@ static int pipe_read(struct Fd *fd, void *vbuf, u_int n, u_int offset) {
 	//    of bytes read so far.
 	//  - Otherwise, keep yielding until the buffer isn't empty or the pipe is closed.
 	/* Exercise 6.1: Your code here. (2/3) */
-	p = (struct Pipe *) fd2data(fd);
-	rbuf = (char *) vbuf;
-	for (i = 0; i < n; i++) {
-		
-		if (p->p_rpos >= p->p_wpos) {
-			if (i != 0 || _pipe_is_closed(fd, p)) { return i; }
-			while (p->p_rpos >= p->p_wpos && !_pipe_is_closed(fd, p)) {
-				syscall_yield();
-			}
-			if (_pipe_is_closed(fd, p)) { return i; }
+
+	// p = (struct Pipe *) fd2data(fd);
+	// rbuf = (char *) vbuf;
+	// for (i = 0; i < n; i++) {
+	// 	if (p->p_rpos >= p->p_wpos) {
+	// 		if (i != 0 || _pipe_is_closed(fd, p)) { return i; }
+	// 		while (p->p_rpos >= p->p_wpos && !_pipe_is_closed(fd, p)) {
+	// 			syscall_yield();
+	// 		}
+	// 		if (_pipe_is_closed(fd, p)) { return i; }
+	// 	}
+	// 	rbuf[i] = p->p_buf[(p->p_rpos++) % BY2PIPE];
+	// }
+	// return n;
+
+
+	p = (struct Pipe *)fd2data(fd);
+	rbuf = vbuf;
+	i = 0;
+	while (1) {
+		if (_pipe_is_closed(fd, p)) {
+			return i;
 		}
-		rbuf[i] = p->p_buf[(p->p_rpos++) % BY2PIPE];
+		if (p->p_rpos == p->p_wpos) {
+			if (i == 0) {
+				syscall_yield();
+			} else {
+				return i;
+			}
+		}
+		while (p->p_rpos < p->p_wpos) {
+			if (i >= n) {
+				return i;
+			}
+			rbuf[i] = p->p_buf[p->p_rpos % BY2PIPE];
+			i++;
+			p->p_rpos++;
+		}
 	}
-	return n;
 
 	user_panic("pipe_read not implemented");
 }
@@ -186,18 +211,33 @@ static int pipe_write(struct Fd *fd, const void *vbuf, u_int n, u_int offset) {
 	//  - If the pipe isn't closed, keep yielding until the buffer isn't full or the
 	//    pipe is closed.
 	/* Exercise 6.1: Your code here. (3/3) */
-	p = (struct Pipe *) fd2data(fd);
-	wbuf = (char *) vbuf;
+
+	// p = (struct Pipe *) fd2data(fd);
+	// wbuf = (char *) vbuf;
+	// for (i = 0; i < n; i++) {
+	// 	if (p->p_wpos - p->p_rpos >= BY2PIPE) {
+	// 		if (i != 0 || _pipe_is_closed(fd, p)) { return i; }
+	// 		while (p->p_wpos - p->p_rpos >= BY2PIPE && !_pipe_is_closed(fd, p)) {
+	// 			syscall_yield();
+	// 		} // out: not empty or closed
+	// 		if (_pipe_is_closed(fd, p)) { return i; }
+	// 	}
+	// 	p->p_buf[(p->p_wpos++) % BY2PIPE] = wbuf[i];
+	// }
+	// return n;
+
+	wbuf = vbuf;
+	p = (struct Pipe *)fd2data(fd);
 	for (i = 0; i < n; i++) {
-		
-		if (p->p_wpos - p->p_rpos >= BY2PIPE) {
-			if (i != 0 || _pipe_is_closed(fd, p)) { return i; }
-			while (p->p_wpos - p->p_rpos >= BY2PIPE && !_pipe_is_closed(fd, p)) {
-				syscall_yield();
-			} // out: not empty or closed
-			if (_pipe_is_closed(fd, p)) { return i; }
+		while (p->p_wpos == p->p_rpos + BY2PIPE) {
+			if (_pipe_is_closed(fd, p)) {
+				// writef("writing on a closed pipe\n");
+				return 0;
+			}
+			syscall_yield();
 		}
-		p->p_buf[(p->p_wpos++) % BY2PIPE] = wbuf[i];
+		p->p_buf[p->p_wpos % BY2PIPE] = wbuf[i];
+		p->p_wpos++;
 	}
 	return n;
 
