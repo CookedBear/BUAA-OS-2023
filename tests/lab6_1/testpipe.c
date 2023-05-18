@@ -1,6 +1,6 @@
 #include <lib.h>
 
-char *msg = "Now is the time for all good men to come to the aid of their party.";
+char *msg = "Now is the time for all g";
 
 int main() {
 	char buf[100];
@@ -34,7 +34,7 @@ int main() {
 		close(p[0]);
 		debugf("[%08x] pipe_readeof write %d\n", env->env_id, p[1]);
 		if ((i = write(p[1], msg, strlen(msg))) != strlen(msg)) {
-			user_panic("write: %d", i);
+			user_panic("write: %d and %d", i, strlen(msg));
 		}
 		close(p[1]);
 	}
