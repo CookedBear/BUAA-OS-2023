@@ -511,7 +511,7 @@ int dir_lookup(struct File *dir, char *name, struct File **file) {
 	u_int nblock;
 	/* Exercise 5.8: Your code here. (1/3) */
 	// nblock = dir->f_size / BY2BLK;
-	nblock = dir->f_size / BY2BLK + (dir->f_size % BY2BLK == 0) ? 0 : 1;
+	nblock = dir->f_size / BY2BLK;
 	// Step 2: Iterate through all blocks in the directory.
 	for (int i = 0; i < nblock; i++) {
 		// Read the i'th block of 'dir' and get its address in 'blk' using 'file_get_block'.

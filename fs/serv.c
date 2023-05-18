@@ -36,7 +36,7 @@ void serve_init(void) {
 	va = FILEVA;
 
 	// Initial array opentab.
-	debugf("opentab: 0x%x\n", opentab);
+	// debugf("opentab: 0x%x\n", opentab);
 	// opentab: 0x406000
 	for (i = 0; i < MAXOPEN; i++) {
 		opentab[i].o_fileid = i;
