@@ -1,6 +1,6 @@
 #include <lib.h>
 
-char *msg = "Now is the time for all good men to come to the aid of their party.";
+char *msg = "Now is the time for ";
 
 int main() {
 	char buf[100];
