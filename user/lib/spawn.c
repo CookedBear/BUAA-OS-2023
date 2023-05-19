@@ -117,6 +117,7 @@ int spawn(char *prog, char **argv) {
 	// Step 1: Open the file 'prog' (the path of the program).
 	// Return the error if 'open' fails.
 	int fd;
+	debugf("opening %s\n", prog);
 	if ((fd = open(prog, O_RDONLY)) < 0) {
 		return fd;
 	}
