@@ -101,23 +101,10 @@ static int spawn_mapper(void *data, u_long va, size_t offset, u_int perm, const 
 	return 0;
 }
 
-const Elf32_Ehdr *elf_f(const void *binary, size_t size) {
-	const Elf32_Ehdr *ehdr = (const Elf32_Ehdr *)binary;
-	debugf("%x %x %x %x\n", ehdr->e_ident[EI_MAG0], ehdr->e_ident[EI_MAG1], ehdr->e_ident[EI_MAG2], ehdr->e_ident[EI_MAG3]);
-	if (size >= sizeof(Elf32_Ehdr) && ehdr->e_ident[EI_MAG0] == ELFMAG0 &&
-	    ehdr->e_ident[EI_MAG1] == ELFMAG1 && ehdr->e_ident[EI_MAG2] == ELFMAG2 &&
-	    ehdr->e_ident[EI_MAG3] == ELFMAG3 && ehdr->e_type == 2) {
-		return ehdr;
-	}
-	return NULL;
-}
-
-
 int spawn(char *prog, char **argv) {
 	// Step 1: Open the file 'prog' (the path of the program).
 	// Return the error if 'open' fails.
 	int fd;
-	debugf("opening %s\n", prog);
 	if ((fd = open(prog, O_RDONLY)) < 0) {
 		return fd;
 	}
@@ -181,7 +168,7 @@ int spawn(char *prog, char **argv) {
 			// using 'read_map()'.
 			// 'goto err1' if that fails.
 			/* Exercise 6.4: Your code here. (5/6) */
-			if ((r = read_map(fd, ph_off, &bin)) < 0) { goto err1; }
+			if ((r = read_map(fd, ph->p_offset, &bin)) < 0) { goto err1; }
 			// Load the segment 'ph' into the child's memory using 'elf_load_seg()'.
 			// Use 'spawn_mapper' as the callback, and '&child' as its data.
 			// 'goto err1' if that fails.

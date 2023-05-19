@@ -95,7 +95,7 @@ int parsecmd(char **argv, int *rightpipe) {
 			dup(fd, 0);
 			close(fd);
 
-			user_panic("< redirection not implemented");
+			// user_panic("< redirection not implemented");
 
 			break;
 		case '>':
@@ -111,7 +111,8 @@ int parsecmd(char **argv, int *rightpipe) {
 			fd = r;
 			dup(fd, 1);
 			close(fd);
-			user_panic("> redirection not implemented");
+			
+			// user_panic("> redirection not implemented");
 
 			break;
 		case '|':;
