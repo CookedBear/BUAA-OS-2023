@@ -322,7 +322,7 @@ void write_symlink(struct File *dirf, const char *path) {
   // 函数读取链接文件指向的路径，将其写入到下一个可用的磁盘块
   char target_name[1025];
   int name_length = readlink(path, target_name, 1024);
-  target_name[1023] = '\0';
+  target_name[name_length] = '\0';
   int bno = next_block(BLOCK_FILE);
   strcpy((void *)disk[nextbno].data, (const void *)target_name);
   const char *fname = strrchr(path, '/');

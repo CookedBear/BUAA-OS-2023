@@ -66,7 +66,7 @@ int open(const char *path, int mode) {
     }
     // debugf("type = %d\n", ((struct Filefd *)fd)->f_file.f_type);
     // debugf("name = %s\n", ((struct Filefd *)fd)->f_file.f_name);
-    // debugf("content = %s\n", (char *)va);
+    //  debugf("content = %s\n", (char *)va);
     fd_alloc(&nfd);
     fd = nfd;
 
