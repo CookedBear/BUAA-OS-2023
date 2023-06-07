@@ -33,6 +33,20 @@ int _gettoken(char *s, char **p1, char **p2) {
 		return 0;
 	}
 
+	if (*s == '\"') {
+		debugf("parsed '\"': begin\n");
+		s++;
+		*p1 = s;
+		debugf("parsed: ");
+		while (*s && *(s++) != '\"') {
+			debugf("%c", *(s - 1));
+		}
+		*(s - 1) = 0;
+		*p2 = s;
+		debugf("\nparsed '\"': end\n");
+		return 'w';
+	}
+
 	if (strchr(SYMBOLS, *s)) {
 		int t = *s;
 		*p1 = s;
@@ -73,7 +87,7 @@ int parsecmd(char **argv, int *rightpipe) {
 		int c = gettoken(0, &t);
 		switch (c) {
 		case 0:
-			return argc;
+			return argc; // parse end
 		case 'w':
 			if (argc >= MAXARGS) {
 				debugf("too many arguments\n");
@@ -135,19 +149,34 @@ int parsecmd(char **argv, int *rightpipe) {
 			/* Exercise 6.5: Your code here. (3/3) */
 			pipe(p);
 			if ((*rightpipe = fork()) == 0) { // right side
-			dup(p[0], 0);
-			close(p[0]);
-			close(p[1]);
-			return parsecmd(argv, rightpipe);
+				dup(p[0], 0);
+				close(p[0]);
+				close(p[1]);
+				return parsecmd(argv, rightpipe);
 			} else {						  // lest side
-			dup(p[1], 1);
-			close(p[0]);
-			close(p[1]);
-			return argc;
+				dup(p[1], 1);
+				close(p[0]);
+				close(p[1]);
+				return argc;
 			}
 			user_panic("| not implemented");
 
 			break;
+		case ';':
+			if ((*rightpipe = fork()) == 0) {
+				return argc; // parse end
+			} else {
+				debugf("parsed ';', created %x\n", *rightpipe);
+				wait(*rightpipe);
+				return parsecmd(argv, rightpipe);
+			}
+		case '&':
+			if ((r = fork()) == 0) {
+				return argc; // parse end
+			} else {
+				debugf("parsed '&', created %x\n", r);
+				return parsecmd(argv, rightpipe);
+			}
 		}
 	}
 
@@ -165,7 +194,16 @@ void runcmd(char *s) {
 	}
 	argv[argc] = 0;
 
-	int child = spawn(argv[0], argv);
+	int child;
+	if ((child = spawn(argv[0], argv)) < 0) {
+		char name[1024] = {0};
+		int len = strlen(argv[0]);
+		strcpy(name, (const char *) argv[0]);
+		name[len] = '.';
+		name[len + 1] = 'b';
+		name[len + 2] = '\0';
+		child = spawn(name, argv);
+	}
 	close_all();
 	if (child >= 0) {
 		wait(child);
@@ -178,28 +216,67 @@ void runcmd(char *s) {
 	exit();
 }
 
+void dealBackSpace(char *buf[], int cur, int len) {
+	for (int i = cur + 1; i <= len - 2; i++) {
+		(*buf)[i] = (*buf)[i + 2];
+	}
+
+}
+
 void readline(char *buf, u_int n) {
-	int r;
-	for (int i = 0; i < n; i++) {
-		if ((r = read(0, buf + i, 1)) != 1) {
+	int r, len = 0;
+	char temp = 0;
+	for (int i = 0; len < n;) {
+		if ((r = read(0, &temp, 1)) != 1) {
 			if (r < 0) {
 				debugf("read error: %d\n", r);
 			}
 			exit();
 		}
-		if (buf[i] == '\b' || buf[i] == 0x7f) {
-			if (i > 0) {
-				i -= 2;
-			} else {
-				i = -1;
-			}
-			if (buf[i] != '\b') {
-				printf("\b");
-			}
-		}
-		if (buf[i] == '\r' || buf[i] == '\n') {
-			buf[i] = 0;
-			return;
+		switch (temp) {
+			case 0x7f:
+				if (i <= 0) { break; } // cursor at left bottom, ignore backspace
+
+				for (int j = (i--); j <= len - 1; j++) {
+					buf[j] = buf[j + 1];
+				}
+				buf[--len] = 0;
+				printf("\033[%dD%s \033[%dD", (i + 1), buf, (len - i + 1));
+				break;
+			case '\033':
+				read(0, &temp, 1);
+				if (temp == '[') {
+					read(0, &temp, 1);
+					if (temp == 'D') { // have space for left
+						if (i > 0) {
+							i -= 1;
+						} else {
+							printf("\033[C");
+						}
+					} else if (temp == 'C') {
+						if (i < len) {
+							i += 1;
+						} else {
+							printf("\033[D");
+						}
+					}
+				}
+				break;
+			case '\r':
+			case '\n':
+				buf[len] = 0;
+				return;
+			default:
+				buf[len + 1] = 0;
+				for (int j = len; j >= i + 1; j--) {
+					buf[j] = buf[j - 1];
+				}
+				buf[i++] = temp;
+				printf("\033[%dD%s", i, buf);
+				if ((r = len++ + 1 - i) != 0) {
+					printf("\033[%dD", r);
+				}
+			break;
 		}
 	}
 	debugf("line too long\n");
