@@ -203,6 +203,17 @@ void serve_sync(u_int envid) {
 	ipc_send(envid, 0, 0, 0);
 }
 
+void serve_create(u_int envid, struct Fsreq_create *rq) {
+	struct File *f;
+	int r;
+		if ((r = file_create(rq->req_path, &f)) < 0) {
+			ipc_send(envid, r, 0, 0);
+			return;
+		}
+	f->f_type = rq->f_type;
+	ipc_send(envid, 0, 0, 0);
+}
+
 void serve(void) {
 	u_int req, whom, perm;
 
@@ -244,6 +255,10 @@ void serve(void) {
 
 		case FSREQ_SYNC:
 			serve_sync(whom);
+			break;
+
+		case FSREQ_CREATE:
+			serve_create(whom, (struct Fsreq_create *)REQVA);
 			break;
 
 		default:

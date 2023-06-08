@@ -18,7 +18,7 @@ int fileCount = 0;
 
 void printFile(char *name, int depth, int pos) {
     for (int i = 0 ; i < depth; i++) {
-        printf("   ");
+        printf("    ");
     }
 
     if (pos == 0) { printf("├── "); } else { printf("└── "); }
@@ -51,6 +51,8 @@ void dfsFile(char *path, int depth) {
 
         char fullPath[MAXPATHLEN] = {0};
         strcpy(fullPath, path);
+        fullPath[strlen(fullPath) + 1] = '\0';
+        fullPath[strlen(fullPath)] = '/';
         len = strlen(fullPath);
         for (j = 0; j < strlen(file->f_name); j++) {
             fullPath[len + j] = file->f_name[j];
