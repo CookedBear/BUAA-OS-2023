@@ -16,14 +16,18 @@ int fileCount = 0;
 //     (*fullPath)[len + j] = '\0';
 // }
 
-void printFile(char *name, int depth, int pos) {
+void printFile(char *name, int depth, int pos, int isDir) {
     for (int i = 0 ; i < depth; i++) {
         printf("    ");
     }
 
     if (pos == 0) { printf("├── "); } else { printf("└── "); }
 
-    printf("%s\n", name);
+    if (isDir == 1) {
+        printf("\033[0;34m%s\033[0m\n", name);
+    } else {
+        printf("%s\n", name);
+    }
 }
 
 // pos = 0: normal
@@ -61,7 +65,7 @@ void dfsFile(char *path, int depth) {
         // getFullName(&path, &(file->f_name), &fullPath);
         int pos = (i == size || (file + 1)->f_name[0] == 0) ? 1 : 0;
         if (directory != 1 || file->f_type == FTYPE_DIR) {
-            printFile(file->f_name, depth, pos);
+            printFile(file->f_name, depth, pos, (file->f_type == FTYPE_DIR));
         }
         dfsFile(fullPath, depth + 1);
         // printf("%s\n", fullPath);
