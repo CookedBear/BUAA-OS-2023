@@ -259,6 +259,8 @@ void readline(char *buf, u_int n) {
 						} else {
 							printf("\033[D");
 						}
+					} else if (temp == 'A') {
+						printf("\033[B");
 					}
 				}
 				break;
