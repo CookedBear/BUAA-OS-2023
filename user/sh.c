@@ -120,7 +120,13 @@ int parsecmd(char **argv, int *rightpipe) {
 			// Open 't' for writing, dup it onto fd 1, and then close the original fd.
 			/* Exercise 6.5: Your code here. (2/3) */
 			if ((r = open(t, O_WRONLY)) < 0) {
-				user_panic("redirction_2: open file in shell failed!");
+				if ((r = touch(t)) < 0) {
+					user_panic("redirction_2: create file in shell failed!");
+				} else {
+					if ((r = open(t, O_WRONLY)) < 0) {
+						user_panic("redirction_2: open file in shell failed!");
+					}
+				}
 			}
 			fd = r;
 			dup(fd, 1);
