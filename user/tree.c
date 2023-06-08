@@ -5,17 +5,6 @@ int directory = 0;
 int dircCount = 0;
 int fileCount = 0;
 
-// void getFullName(char **path, char **file, char **fullPath) {
-//     strcpy(*fullPath, *path);
-//     int len = strlen(*fullPath);
-//     int j;
-//     printf("here");
-//     for (j = 0; j < strlen(*file); j++) {
-//         (*fullPath)[len + j] = (*file)[j];
-//     }
-//     (*fullPath)[len + j] = '\0';
-// }
-
 void printFile(char *name, int depth, int pos, int isDir) {
     for (int i = 0 ; i < depth; i++) {
         printf("    ");
@@ -62,6 +51,7 @@ void dfsFile(char *path, int depth) {
             fullPath[len + j] = file->f_name[j];
         }
         fullPath[len + j] = '\0';
+
         // getFullName(&path, &(file->f_name), &fullPath);
         int pos = (i == size || (file + 1)->f_name[0] == 0) ? 1 : 0;
         if (directory != 1 || file->f_type == FTYPE_DIR) {
