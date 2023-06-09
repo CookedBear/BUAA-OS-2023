@@ -139,5 +139,6 @@ int touch(const char *path);
 #define O_TRUNC 0x0200 /* truncate to zero length */
 #define O_EXCL 0x0400  /* error if already exists */
 #define O_MKDIR 0x0800 /* create directory, not regular file */
+#define O_APPEND 0X00002000 /* open file and redirect cursor to the last char */
 
 #endif

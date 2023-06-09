@@ -4,6 +4,9 @@
 #define WHITESPACE " \t\r\n"
 #define SYMBOLS "<|>&;()"
 
+static int hisCount, curLine;
+static int hisBuf[1024];
+
 /* Overview:
  *   Parse the next token from the string at s.
  *
@@ -229,7 +232,23 @@ void dealBackSpace(char *buf[], int cur, int len) {
 
 }
 
+int readPast(int target, char *code) {
+	int r, fd, spot = 0;
+	char buff[10240];
+	if ((fd = open("/.history", O_RDONLY)) < 0) { printf("G1");return fd; }
+	for (int i = 0; i < target; i++) {
+		spot += (hisBuf[i] + 1); // + '\n'
+	}
+	if ((r = readn(fd, buff, spot)) != spot) { printf("G2");return r; }
+	if ((r = readn(fd, code, hisBuf[target])) != hisBuf[target]) { printf("G3");return r; }
+	if ((r = close(fd)) < 0) { printf("G4");return r; }
+
+	code[hisBuf[target]] = '\0';
+	return 0;
+}
+
 void readline(char *buf, u_int n) {
+	char curIn[1024];
 	int r, len = 0;
 	char temp = 0;
 	for (int i = 0; len < n;) {
@@ -265,14 +284,57 @@ void readline(char *buf, u_int n) {
 						} else {
 							printf("\033[D");
 						}
-					} else if (temp == 'A') {
+					} else if (temp == 'A') { // up
 						printf("\033[B");
+						if (curLine != 0) {
+							buf[len] = '\0';
+							if (curLine == hisCount) {
+								strcpy(curIn, buf);
+							}
+							if (i != 0) { printf("\033[%dD", i); }
+							for (int j = 0; j < len; j++) { printf(" "); }
+							if (len != 0) { printf("\033[%dD", len); }
+
+							if ((r = readPast(--curLine, buf)) < 0) { printf("G");exit(); }
+							printf("%s", buf);
+							i = strlen(buf);
+							len = i;
+							// redirect cursor
+						}
+					} else if (temp == 'B') {
+						buf[len] = '\0';
+						if (i != 0) { printf("\033[%dD", i); }
+						for (int j = 0; j < len; j++) { printf(" "); }
+						if (len != 0) { printf("\033[%dD", len); }
+						if (1 + curLine < hisCount) {
+							if ((r = readPast(++curLine, buf)) < 0) { printf("G");exit(); }
+						} else {
+							strcpy(buf, curIn);
+							curLine = hisCount;
+						}
+							printf("%s", buf);
+							i = strlen(buf);
+							len = i;
+							// redirect cursor
+						
 					}
 				}
 				break;
 			case '\r':
 			case '\n':
-				buf[len] = 0;
+				buf[len] = '\0';
+				// printf("hisCount: %d\n", hisCount);
+				if (hisCount == 0) {
+					if ((r = touch("/.history")) != 0) { exit(); } 
+				}
+				int hisFd;
+				if ((hisFd = open("/.history", O_APPEND | O_WRONLY)) < 0) { exit(); }
+				if ((r = write(hisFd, buf, len)) != len) { exit(); }
+				if ((r = write(hisFd, "\n", 1)) != 1) { exit(); }
+				if ((r = close(hisFd)) < 0) { exit(); }
+				hisBuf[hisCount++] = len;
+				curLine = hisCount; // cannot 'curLine++', otherwise usable instrctions will be [0, curLine + 1]
+				memset(curIn, '\0', sizeof(curIn));
 				return;
 			default:
 				buf[len + 1] = 0;
