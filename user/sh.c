@@ -207,45 +207,27 @@ void runcmd(char *s) {
 	if (strcmp("cd", argv[0]) == 0) {
 		int r;
 		char cur[1024] = {0};
-		if ((r = getcwd(cur)) < 0) { printf("1");exit(); }
-		if (argc == 1 || strcmp(argv[1], "/") == 0) { // open root
-			if ((r = stat(cur, &st)) < 0) { printf("4");exit(); }
-			if (!st.st_isdir) {
-				printf("%s is not a directory\n", cur);
-				printf("5");exit();
-			}
-			if ((r = chdir("/")) < 0) { printf("2");exit(); } 
-			return;
-		}
-		if (strcmp("/", cur) == 0) { // at root
-			if (argv[1][0] == '.') { // slice './'
-				argv[1] = argv[1] + 2;
-			}
-			int len = strlen(argv[1]);
-			for (int i = 0; i < len; i++) {
-				cur[i + 1] = argv[1][i];
-			}
-			cur[len + 1] = '\0';
-			if ((r = stat(cur, &st)) < 0) { printf("4");exit(); }
-			if (!st.st_isdir) {
-				printf("%s is not a directory\n", cur);
-				printf("5");exit();
-			}
-			if ((r = chdir(cur)) < 0) { printf("3");exit(); } 
-			return;
-		}
-		int len = strlen(cur);
+		char *p = argv[1];
 
-		if (argv[1][0] == '.') { // slice './'
-			argv[1] = argv[1] + 2;
+		if (argv[1][0] != '/') {
+			if (argv[1][0] == '.') { p += 2; }
+
+			syscall_get_rpath(cur);
+			int len1 = strlen(cur);
+			int len2 = strlen(p);
+			if (len1 == 1) { // cur: '/'
+				strcpy(cur + 1, p);
+			} else {         // cur: '/a'
+				cur[len1] = '/';
+				strcpy(cur + len1 + 1, p);
+				cur[len1 + 1 + len2] = '\0';
+			}
+			
+		} else {
+			strcpy(cur, argv[1]);
 		}
-		
-		cur[len++] = '/';
-		for (int i = 0; i < strlen(argv[1]); i++) {
-			cur[len++] = argv[1][i];
-		}
-		cur[len] = '\0';
 		printf("cur:%s\n", cur);
+
 		if ((r = stat(cur, &st)) < 0) { printf("4");exit(); }
 		if (!st.st_isdir) {
 			printf("%s is not a directory\n", cur);

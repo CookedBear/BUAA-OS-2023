@@ -112,7 +112,7 @@ int spawn(char *prog, char **argv) {
 	} else {
 		strcpy(path, prog);
 	}
-	if ((fd = open(prog, O_RDONLY)) < 0) {
+	if ((fd = open(path, O_RDONLY)) < 0) {
 		return fd;
 	}
 

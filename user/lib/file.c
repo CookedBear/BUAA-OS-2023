@@ -57,11 +57,11 @@ int open(const char *path, int mode) {
 	// Step 2: Prepare the 'fd' using 'fsipc_open' in fsipc.c.
 	/* Exercise 5.9: Your code here. (2/5) */
 	if ((mode & O_CREAT) == 0) {
-		if ((r = fsipc_open(path, mode, fd)) != 0) { return r; }
+		if ((r = fsipc_open(ppath, mode, fd)) != 0) { return r; }
 	} else { // mkdir
 		mode &= ~O_CREAT;
-		if ((r = fsipc_open(path, mode, fd)) != 0) {
-			return fsipc_create(path, mode, fd); // mode = f_type
+		if ((r = fsipc_open(ppath, mode, fd)) != 0) {
+			return fsipc_create(ppath, mode, fd); // mode = f_type
 		} else {
 			return 1; // already exist.
 		}
