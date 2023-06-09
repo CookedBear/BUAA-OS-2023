@@ -16,7 +16,13 @@ int main(int argc, char **argv) {
         if ((r = mkdir(argv[1])) < 0) {
             printf("create path fail!\n");
         } else {
-            printf("created path: %s\n", argv[1]);
+            char cwd[1024] = {0};
+            getcwd(cwd);
+            printf("created path: %s", cwd);
+            if (strlen(cwd) != 1) {
+                printf("/");
+            }
+            printf("%s\n", argv[1]);
         }
     }
 

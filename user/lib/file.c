@@ -27,6 +27,7 @@ struct Dev devfile = {
 //  the underlying error on failure.
 int open(const char *path, int mode) {
 	int r;
+	char ppath[1024] = {0};
 
 	// Step 1: Alloc a new 'Fd' using 'fd_alloc' in fd.c.
 	// Hint: return the error code if failed.
@@ -35,6 +36,24 @@ int open(const char *path, int mode) {
 	if ((r = fd_alloc(&fd)) != 0) {
 		return r;
 	}
+	if (path[0] != '/') {
+		if (path[0] == '.') { path += 2; }
+
+		syscall_get_rpath(ppath);
+		int len1 = strlen(ppath);
+		int len2 = strlen(path);
+		if (len1 == 1) { // ppath: '/'
+			strcpy(ppath + 1, path);
+		} else {         // ppath: '/a'
+			ppath[len1] = '/';
+			strcpy(ppath + len1 + 1, path);
+			ppath[len1 + 1 + len2] = '\0';
+		}
+		
+	} else {
+		strcpy(ppath, path);
+	}
+
 	// Step 2: Prepare the 'fd' using 'fsipc_open' in fsipc.c.
 	/* Exercise 5.9: Your code here. (2/5) */
 	if ((mode & O_CREAT) == 0) {
@@ -289,4 +308,12 @@ int touch(const char *path) {
 		user_panic("touch %s: %d\n", path, r);
 	}
 	return r;
+}
+
+int chdir(char *newPath) {
+	return syscall_set_rpath(newPath);
+}
+
+int getcwd(char *path) {
+	return syscall_get_rpath(path);
 }

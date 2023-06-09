@@ -68,7 +68,8 @@ int syscall_ipc_recv(void *dstva);
 int syscall_cgetc();
 int syscall_write_dev(void *, u_int, u_int);
 int syscall_read_dev(void *, u_int, u_int);
-
+int syscall_set_rpath(char *newPath);
+int syscall_get_rpath(char *dst);
 // ipc.c
 void ipc_send(u_int whom, u_int val, const void *srcva, u_int perm);
 u_int ipc_recv(u_int *whom, void *dstva, u_int *perm);
@@ -121,6 +122,8 @@ int ftruncate(int fd, u_int size);
 int sync(void);
 int mkdir(const char *path);
 int touch(const char *path);
+int chdir(char *newPath);
+int getcwd(char *path);
 
 #define user_assert(x)                                                                             \
 	do {                                                                                       \

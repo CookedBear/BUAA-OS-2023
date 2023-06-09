@@ -37,6 +37,7 @@ struct Env {
 
 	// Lab 6 scheduler counts
 	u_int env_runs; // number of times been env_run'ed
+	char r_path[256];
 };
 
 LIST_HEAD(Env_list, Env);

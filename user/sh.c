@@ -202,6 +202,58 @@ void runcmd(char *s) {
 		return;
 	}
 	argv[argc] = 0;
+	struct Stat st = {0};
+
+	if (strcmp("cd", argv[0]) == 0) {
+		int r;
+		char cur[1024] = {0};
+		if ((r = getcwd(cur)) < 0) { printf("1");exit(); }
+		if (argc == 1 || strcmp(argv[1], "/") == 0) { // open root
+			if ((r = stat(cur, &st)) < 0) { printf("4");exit(); }
+			if (!st.st_isdir) {
+				printf("%s is not a directory\n", cur);
+				printf("5");exit();
+			}
+			if ((r = chdir("/")) < 0) { printf("2");exit(); } 
+			return;
+		}
+		if (strcmp("/", cur) == 0) { // at root
+			if (argv[1][0] == '.') { // slice './'
+				argv[1] = argv[1] + 2;
+			}
+			int len = strlen(argv[1]);
+			for (int i = 0; i < len; i++) {
+				cur[i + 1] = argv[1][i];
+			}
+			cur[len + 1] = '\0';
+			if ((r = stat(cur, &st)) < 0) { printf("4");exit(); }
+			if (!st.st_isdir) {
+				printf("%s is not a directory\n", cur);
+				printf("5");exit();
+			}
+			if ((r = chdir(cur)) < 0) { printf("3");exit(); } 
+			return;
+		}
+		int len = strlen(cur);
+
+		if (argv[1][0] == '.') { // slice './'
+			argv[1] = argv[1] + 2;
+		}
+		
+		cur[len++] = '/';
+		for (int i = 0; i < strlen(argv[1]); i++) {
+			cur[len++] = argv[1][i];
+		}
+		cur[len] = '\0';
+		printf("cur:%s\n", cur);
+		if ((r = stat(cur, &st)) < 0) { printf("4");exit(); }
+		if (!st.st_isdir) {
+			printf("%s is not a directory\n", cur);
+			printf("5");exit();
+		}
+		if ((r = chdir(cur)) < 0) { printf("6");exit(); }
+		return;
+	}
 
 	int child;
 	if ((child = spawn(argv[0], argv)) < 0) {
@@ -367,6 +419,7 @@ int main(int argc, char **argv) {
 	int r;
 	int interactive = iscons(0);
 	int echocmds = 0;
+	char curPath[256] = {0};
 	debugf("\n:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
 	debugf("::                                                         ::\n");
 	debugf("::                     MOS Shell 2023                      ::\n");
@@ -396,7 +449,8 @@ int main(int argc, char **argv) {
 	}
 	for (;;) {
 		if (interactive) {
-			printf("\n$ ");
+			if ((r = getcwd(curPath)) < 0) { printf("G");exit(); }
+			printf("\n[%04x] %s $ ", syscall_getenvid(), curPath);
 		}
 		readline(buf, sizeof buf);
 
@@ -406,8 +460,13 @@ int main(int argc, char **argv) {
 		if (echocmds) {
 			printf("# %s\n", buf);
 		}
-		if ((r = fork()) < 0) {
-			user_panic("fork: %d", r);
+		if (!(buf[0] == 'c' && buf[1] == 'd' && (buf[2] == ' ' || strlen(buf) == 2))) {
+			if ((r = fork()) < 0) {
+				user_panic("fork: %d", r);
+			}
+		} else {
+			runcmd(buf);
+			continue;
 		}
 		if (r == 0) {
 			runcmd(buf);

@@ -96,7 +96,7 @@ int main(int argc, char **argv) {
             break;
     } ARGEND
     if (argc == 0) {
-        tree("/");
+        tree("./");
     } else {
         tree(argv[0]);
     }
