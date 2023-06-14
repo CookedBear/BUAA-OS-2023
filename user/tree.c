@@ -4,10 +4,11 @@
 int directory = 0;
 int dircCount = 0;
 int fileCount = 0;
+int poss[50] = {0};
 
 void printFile(char *name, int depth, int pos, int isDir) {
     for (int i = 0 ; i < depth; i++) {
-        printf("    ");
+        if (poss[i] == 0) { printf("│   "); } else { printf("    "); }
     }
 
     if (pos == 0) { printf("├── "); } else { printf("└── "); }
@@ -55,6 +56,7 @@ void dfsFile(char *path, int depth) {
         // getFullName(&path, &(file->f_name), &fullPath);
         int pos = (i == size || (file + 1)->f_name[0] == 0) ? 1 : 0;
         if (directory != 1 || file->f_type == FTYPE_DIR) {
+            poss[depth] = pos;
             printFile(file->f_name, depth, pos, (file->f_type == FTYPE_DIR));
         }
         dfsFile(fullPath, depth + 1);
