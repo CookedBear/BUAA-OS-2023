@@ -207,9 +207,11 @@ void runcmd(char *s) {
 	if (strcmp("cd", argv[0]) == 0) {
 		int r;
 		char cur[1024] = {0};
-		char *p = argv[1];
 
-		if (argv[1][0] != '/') {
+		if (argc == 1) {
+			cur[0] = '/';
+		} else if (argv[1][0] != '/') {
+			char *p = argv[1];
 			if (argv[1][0] == '.') { p += 2; }
 
 			syscall_get_rpath(cur);
@@ -296,7 +298,7 @@ void readline(char *buf, u_int n) {
 			case 0x7f:
 				if (i <= 0) { break; } // cursor at left bottom, ignore backspace
 
-				for (int j = (i--); j <= len - 1; j++) {
+				for (int j = (--i); j <= len - 1; j++) {
 					buf[j] = buf[j + 1];
 				}
 				buf[--len] = 0;
@@ -390,6 +392,26 @@ void readline(char *buf, u_int n) {
 	buf[0] = 0;
 }
 
+int parseCD(char *buf) {
+	char *p = buf;
+	if (*p == 'c' && *(p + 1) == 'd') {
+		return 1;
+	} else {
+		for (int i = 0; i < strlen(buf) - 2; i++) {
+			if (*(p + i) == ';' || *(p + i) == '&') {
+				i++;
+				while (*(p + i) == ' ') {
+					i++;
+				}
+				if (i <= strlen(buf) - 2 && *(p + i) == 'c' && *(p + i + 1) == 'd') {
+					return 1;
+				}
+			}
+		}
+	}
+	return 0;
+}
+
 char buf[1024];
 
 void usage(void) {
@@ -442,7 +464,7 @@ int main(int argc, char **argv) {
 		if (echocmds) {
 			printf("# %s\n", buf);
 		}
-		if (!(buf[0] == 'c' && buf[1] == 'd' && (buf[2] == ' ' || strlen(buf) == 2))) {
+		if (parseCD(buf) == 0) {
 			if ((r = fork()) < 0) {
 				user_panic("fork: %d", r);
 			}
