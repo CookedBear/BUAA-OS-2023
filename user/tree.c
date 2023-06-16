@@ -8,10 +8,10 @@ int poss[50] = {0};
 
 void printFile(char *name, int depth, int pos, int isDir) {
     for (int i = 0 ; i < depth; i++) {
-        if (poss[i] == 0) { printf("│   "); } else { printf("    "); }
+        if (poss[i] == 0) { printf("|   "); } else { printf("    "); }
     }
 
-    if (pos == 0) { printf("├── "); } else { printf("└── "); }
+    if (pos == 0) { printf("|-- "); } else { printf("`-- "); }
 
     if (isDir == 1) {
         printf("\033[0;34m%s\033[0m\n", name);
@@ -45,8 +45,12 @@ void dfsFile(char *path, int depth) {
 
         char fullPath[MAXPATHLEN] = {0};
         strcpy(fullPath, path);
-        fullPath[strlen(fullPath) + 1] = '\0';
-        fullPath[strlen(fullPath)] = '/';
+        if (path[strlen(path) - 1] != '/') {
+            fullPath[strlen(path)] = '/';
+            fullPath[strlen(path) + 1] = '\0';
+        } else {
+            fullPath[strlen(path)] = '\0';
+        }
         len = strlen(fullPath);
         for (j = 0; j < strlen(file->f_name); j++) {
             fullPath[len + j] = file->f_name[j];
@@ -62,6 +66,7 @@ void dfsFile(char *path, int depth) {
         dfsFile(fullPath, depth + 1);
         // printf("%s\n", fullPath);
     }
+    close(fdnum);
 }
 
 void tree(char *path) {
