@@ -276,7 +276,7 @@ void dealBackSpace(char *buf[], int cur, int len) {
 int readPast(int target, char *code) {
 	int r, fd, spot = 0;
 	char buff[10240];
-	if ((fd = open("/.history", O_RDONLY)) < 0) { printf("G1");return fd; }
+	if ((fd = open("/.history", O_RDONLY)) < 0 && (fd != 0)) { printf("%d", fd);return fd; }
 	for (int i = 0; i < target; i++) {
 		spot += (hisBuf[i] + 1); // + '\n'
 	}
@@ -464,6 +464,7 @@ int main(int argc, char **argv) {
 		usage();
 	}
 	if (argc == 1) {
+			
 		close(0);
 		if ((r = open(argv[1], O_RDONLY)) < 0) {
 			user_panic("open %s: %d", argv[1], r);
@@ -476,6 +477,8 @@ int main(int argc, char **argv) {
 			printf("\n[%04x] %s $ ", syscall_getenvid(), curPath);
 		}
 		readline(buf, sizeof buf);
+			printf("??>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>%d???????????????????????????????", interactive);
+
 
 		if (buf[0] == '#') {
 			continue;
