@@ -177,12 +177,17 @@ int parsecmd(char **argv, int *rightpipe) {
 			} else {
 				debugf("parsed ';', created %x\n", *rightpipe);
 				wait(*rightpipe);
+
+				close(0);close(1);
+				dup(opencons(), 1);dup(1,0);
+				
 				return parsecmd(argv, rightpipe);
 			}
 		case '&':
 			if ((r = fork()) == 0) {
 				return argc; // parse end
 			} else {
+				dup(opencons(), 1);dup(1,0);
 				debugf("parsed '&', created %x\n", r);
 				return parsecmd(argv, rightpipe);
 			}
