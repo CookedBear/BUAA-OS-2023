@@ -301,7 +301,7 @@ int mkdir(const char *path) {
 
 int touch(const char *path) {
 	int r;
-	if ((r = open(path, O_CREAT | FTYPE_REG)) > 0) {
+	if ((r = open(path, O_CREAT | FTYPE_REG)) > 0 && strcmp(path, "/.history") != 0) {
 		user_panic("touch: file %s already exist!\n", path);
 	}
 	if (r < 0) {
