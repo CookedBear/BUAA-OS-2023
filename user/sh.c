@@ -295,6 +295,19 @@ void readline(char *buf, u_int n) {
 			exit();
 		}
 		switch (temp) {
+			case '~':
+				if (i == len) { break; }
+
+				for (int j = i; j <= len - 1; j++) {
+					buf[j] = buf[j + 1];
+				}
+				buf[--len] = 0;
+				if (i != 0) {
+					printf("\033[%dD%s \033[%dD", i, buf, (len - i + 1));
+				} else {
+					printf("%s \033[%dD", buf, (len - i + 1));
+				}
+				break;
 			case 0x7f:
 				if (i <= 0) { break; } // cursor at left bottom, ignore backspace
 
@@ -394,6 +407,7 @@ void readline(char *buf, u_int n) {
 
 int parseCD(char *buf) {
 	char *p = buf;
+	if (strlen(buf) < 2) { return 0; }
 	if (*p == 'c' && *(p + 1) == 'd') {
 		return 1;
 	} else {
