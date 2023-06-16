@@ -16,6 +16,7 @@ int main(int argc, char **argv) {
         if ((r = touch(argv[1])) < 0) {
             printf("create file fail!\n");
         } else {
+            close(r);
             printf("created file: %s\n", argv[1]);
         }
     }

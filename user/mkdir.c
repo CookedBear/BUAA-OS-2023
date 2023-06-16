@@ -16,6 +16,7 @@ int main(int argc, char **argv) {
         if ((r = mkdir(argv[1])) < 0) {
             printf("create path fail!\n");
         } else {
+            close(r);
             printf("created path: ");
             printf("%s\n", argv[1]);
         }
