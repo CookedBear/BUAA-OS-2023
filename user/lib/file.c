@@ -304,6 +304,9 @@ int touch(const char *path) {
 	if ((r = open(path, O_CREAT | FTYPE_REG)) > 0 && strcmp(path, "/.history") != 0) {
 		user_panic("touch: file %s already exist!\n", path);
 	}
+	if (strcmp(path, "/.history") == 0) {
+		r = 0;
+	}
 	if (r < 0) {
 		user_panic("touch %s: %d\n", path, r);
 	}

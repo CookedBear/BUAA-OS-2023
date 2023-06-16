@@ -6,7 +6,7 @@
 
 static int hisCount, curLine;
 static int hisBuf[1024];
-
+int interactive;
 /* Overview:
  *   Parse the next token from the string at s.
  *
@@ -377,15 +377,14 @@ void readline(char *buf, u_int n) {
 			case '\r':
 			case '\n':
 				buf[len] = '\0';
-				// printf("hisCount: %d\n", hisCount);
 				if (hisCount == 0) {
-					if ((r = touch("/.history")) != 0) { exit(); } 
+					if ((r = touch("/.history")) != 0) { printf("err1\n"); exit(); } 
 				}
 				int hisFd;
-				if ((hisFd = open("/.history", O_APPEND | O_WRONLY)) < 0) { exit(); }
-				if ((r = write(hisFd, buf, len)) != len) { exit(); }
-				if ((r = write(hisFd, "\n", 1)) != 1) { exit(); }
-				if ((r = close(hisFd)) < 0) { exit(); }
+				if ((hisFd = open("/.history", O_APPEND | O_WRONLY)) < 0) { printf("err2\n"); exit(); }
+				if ((r = write(hisFd, buf, len)) != len) { printf("err3\n"); exit(); }
+				if ((r = write(hisFd, "\n", 1)) != 1) { printf("err4\n"); exit(); }
+				if ((r = close(hisFd)) < 0) { printf("err5\n"); exit(); }
 				hisBuf[hisCount++] = len;
 				curLine = hisCount; // cannot 'curLine++', otherwise usable instrctions will be [0, curLine + 1]
 				memset(curIn, '\0', sizeof(curIn));
@@ -396,9 +395,13 @@ void readline(char *buf, u_int n) {
 					buf[j] = buf[j - 1];
 				}
 				buf[i++] = temp;
-				printf("\033[%dD%s", i, buf);
-				if ((r = len++ + 1 - i) != 0) {
-					printf("\033[%dD", r);
+				if (interactive != 0) {
+					printf("\033[%dD%s", i, buf);
+					if ((r = len++ + 1 - i) != 0) {
+						printf("\033[%dD", r);
+					}
+				} else {
+					len++;
 				}
 			break;
 		}
@@ -440,7 +443,7 @@ void usage(void) {
 
 int main(int argc, char **argv) {
 	int r;
-	int interactive = iscons(0);
+	interactive = iscons(0);
 	int echocmds = 0;
 	char curPath[256] = {0};
 	debugf("\n:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
@@ -477,7 +480,7 @@ int main(int argc, char **argv) {
 			printf("\n[%04x] %s $ ", syscall_getenvid(), curPath);
 		}
 		readline(buf, sizeof buf);
-			printf("??>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>%d???????????????????????????????", interactive);
+
 
 
 		if (buf[0] == '#') {
