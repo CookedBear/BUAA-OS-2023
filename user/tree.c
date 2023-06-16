@@ -32,6 +32,7 @@ void dfsFile(char *path, int depth) {
     if (((struct Filefd *) fd)->f_file.f_type != FTYPE_DIR) {
         // printFile(((struct Filefd *) fd)->f_file.f_name, depth);
         fileCount++;
+        close(fdnum);
         return;
     } else {
         dircCount++;
