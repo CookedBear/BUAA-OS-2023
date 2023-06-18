@@ -7,6 +7,43 @@
 static int hisCount, curLine;
 static int hisBuf[1024];
 int interactive;
+
+void useCD(int argc, char* argv) {
+	int r;
+	char cur[1024] = {0};
+	struct Stat st = {0};
+
+	if (argc == 1) {
+		cur[0] = '/';
+	} else if (argv[0] != '/') {
+		char *p = argv;
+		if (argv[0] == '.') { p += 2; }
+
+		syscall_get_rpath(cur);
+		int len1 = strlen(cur);
+		int len2 = strlen(p);
+		if (len1 == 1) { // cur: '/'
+			strcpy(cur + 1, p);
+		} else {         // cur: '/a'
+			cur[len1] = '/';
+			strcpy(cur + len1 + 1, p);
+			cur[len1 + 1 + len2] = '\0';
+		}
+		
+	} else {
+		strcpy(cur, argv);
+	}
+	printf("cur:%s\n", cur);
+
+	if ((r = stat(cur, &st)) < 0) { printf("4");exit(); }
+	if (!st.st_isdir) {
+		printf("%s is not a directory\n", cur);
+		printf("5");exit();
+	}
+	if ((r = chdir(cur)) < 0) { printf("6");exit(); }
+	return;
+}
+
 /* Overview:
  *   Parse the next token from the string at s.
  *
@@ -37,7 +74,7 @@ int _gettoken(char *s, char **p1, char **p2) {
 	}
 
 	if (*s == '\"') {
-		debugf("parsed '\"': begin\n");
+		// debugf("parsed '\"': begin\n");
 		s++;
 		*p1 = s;
 		debugf("parsed: ");
@@ -46,7 +83,7 @@ int _gettoken(char *s, char **p1, char **p2) {
 		}
 		*(s - 1) = 0;
 		*p2 = s;
-		debugf("\nparsed '\"': end\n");
+		// debugf("\nparsed '\"': end\n");
 		return 'w';
 	}
 
@@ -172,6 +209,10 @@ int parsecmd(char **argv, int *rightpipe) {
 
 			break;
 		case ';':
+			if (strcmp(argv[0], "cd") == 0) {
+				useCD(argc, argv[1]);
+				return parsecmd(argv, rightpipe);
+			}
 			if ((*rightpipe = fork()) == 0) {
 				return argc; // parse end
 			} else {
@@ -184,6 +225,10 @@ int parsecmd(char **argv, int *rightpipe) {
 				return parsecmd(argv, rightpipe);
 			}
 		case '&':
+			if (strcmp(argv[0], "cd") == 0) {
+				useCD(argc, argv[1]);
+				return parsecmd(argv, rightpipe);
+			}
 			if ((r = fork()) == 0) {
 				return argc; // parse end
 			} else {
@@ -196,7 +241,7 @@ int parsecmd(char **argv, int *rightpipe) {
 
 	return argc;
 }
-
+// mkdir 123; mkdir 321; cd 123; mkdir 321; cd
 void runcmd(char *s) {
 	gettoken(s, 0);
 
@@ -207,40 +252,9 @@ void runcmd(char *s) {
 		return;
 	}
 	argv[argc] = 0;
-	struct Stat st = {0};
 
 	if (strcmp("cd", argv[0]) == 0) {
-		int r;
-		char cur[1024] = {0};
-
-		if (argc == 1) {
-			cur[0] = '/';
-		} else if (argv[1][0] != '/') {
-			char *p = argv[1];
-			if (argv[1][0] == '.') { p += 2; }
-
-			syscall_get_rpath(cur);
-			int len1 = strlen(cur);
-			int len2 = strlen(p);
-			if (len1 == 1) { // cur: '/'
-				strcpy(cur + 1, p);
-			} else {         // cur: '/a'
-				cur[len1] = '/';
-				strcpy(cur + len1 + 1, p);
-				cur[len1 + 1 + len2] = '\0';
-			}
-			
-		} else {
-			strcpy(cur, argv[1]);
-		}
-		printf("cur:%s\n", cur);
-
-		if ((r = stat(cur, &st)) < 0) { printf("4");exit(); }
-		if (!st.st_isdir) {
-			printf("%s is not a directory\n", cur);
-			printf("5");exit();
-		}
-		if ((r = chdir(cur)) < 0) { printf("6");exit(); }
+		useCD(argc, argv[1]);
 		return;
 	}
 
