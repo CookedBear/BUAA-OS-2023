@@ -6,7 +6,7 @@
 
 挑战性任务选做 `lab6-Challenge`，代码同样在对应分支中
 
-如需学习经验/实验总结/上机实况（？）/理论知识点汇总，请点[这里](https://cookedbear.top/2023/06/os/buaa-os-top/)
+如需学习经验/实验总结/上机实况（？）/理论知识点汇总，请点[这里](https://cookedbear.top/p/1727.html)
 
 
 
